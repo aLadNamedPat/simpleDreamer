@@ -1,0 +1,54 @@
+/home/patrick/.local/lib/python3.10/site-packages/pygame/pkgdata.py:25: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  from pkg_resources import resource_stream, resource_exists
+/home/patrick/.local/lib/python3.10/site-packages/pkg_resources/__init__.py:3149: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('mpl_toolkits')`.
+Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
+  declare_namespace(pkg)
+(tensor([[[0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+          0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+          0., 0., 0., 0.]]], device='cuda:0'), tensor([[[0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+          0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+          0., 0., 0., 0.]]], device='cuda:0'))
+Traceback (most recent call last):
+  File "/home/patrick/Documents/simpleDreamer/main.py", line 9, in <module>
+    training.rollout(random_action=True, save_images=True, max_steps = 1500)
+  File "/home/patrick/Documents/simpleDreamer/train.py", line 96, in rollout
+    obs, reward, done, _, _ = self.env.step(a)
+  File "/home/patrick/.local/lib/python3.10/site-packages/gymnasium/wrappers/time_limit.py", line 57, in step
+    observation, reward, terminated, truncated, info = self.env.step(action)
+  File "/home/patrick/.local/lib/python3.10/site-packages/gymnasium/wrappers/order_enforcing.py", line 56, in step
+    return self.env.step(action)
+  File "/home/patrick/.local/lib/python3.10/site-packages/gymnasium/wrappers/env_checker.py", line 49, in step
+    return self.env.step(action)
+  File "/home/patrick/.local/lib/python3.10/site-packages/gymnasium/envs/box2d/car_racing.py", line 576, in step
+    self.render()
+  File "/home/patrick/.local/lib/python3.10/site-packages/gymnasium/envs/box2d/car_racing.py", line 589, in render
+    return self._render(self.render_mode)
+  File "/home/patrick/.local/lib/python3.10/site-packages/gymnasium/envs/box2d/car_racing.py", line 617, in _render
+    self._render_road(zoom, trans, angle)
+  File "/home/patrick/.local/lib/python3.10/site-packages/gymnasium/envs/box2d/car_racing.py", line 661, in _render_road
+    self._draw_colored_polygon(
+  File "/home/patrick/.local/lib/python3.10/site-packages/gymnasium/envs/box2d/car_racing.py", line 775, in _draw_colored_polygon
+    gfxdraw.filled_polygon(self.surf, poly, color)
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/home/patrick/Documents/simpleDreamer/main.py", line 9, in <module>
+    training.rollout(random_action=True, save_images=True, max_steps = 1500)
+  File "/home/patrick/Documents/simpleDreamer/train.py", line 96, in rollout
+    obs, reward, done, _, _ = self.env.step(a)
+  File "/home/patrick/.local/lib/python3.10/site-packages/gymnasium/wrappers/time_limit.py", line 57, in step
+    observation, reward, terminated, truncated, info = self.env.step(action)
+  File "/home/patrick/.local/lib/python3.10/site-packages/gymnasium/wrappers/order_enforcing.py", line 56, in step
+    return self.env.step(action)
+  File "/home/patrick/.local/lib/python3.10/site-packages/gymnasium/wrappers/env_checker.py", line 49, in step
+    return self.env.step(action)
+  File "/home/patrick/.local/lib/python3.10/site-packages/gymnasium/envs/box2d/car_racing.py", line 576, in step
+    self.render()
+  File "/home/patrick/.local/lib/python3.10/site-packages/gymnasium/envs/box2d/car_racing.py", line 589, in render
+    return self._render(self.render_mode)
+  File "/home/patrick/.local/lib/python3.10/site-packages/gymnasium/envs/box2d/car_racing.py", line 617, in _render
+    self._render_road(zoom, trans, angle)
+  File "/home/patrick/.local/lib/python3.10/site-packages/gymnasium/envs/box2d/car_racing.py", line 661, in _render_road
+    self._draw_colored_polygon(
+  File "/home/patrick/.local/lib/python3.10/site-packages/gymnasium/envs/box2d/car_racing.py", line 775, in _draw_colored_polygon
+    gfxdraw.filled_polygon(self.surf, poly, color)
+KeyboardInterrupt

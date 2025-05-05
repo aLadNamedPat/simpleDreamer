@@ -1,0 +1,22 @@
+/home/patrick/.local/lib/python3.10/site-packages/gymnasium/envs/registration.py:523: DeprecationWarning: [33mWARN: The environment CarRacing-v0 is out of date. You should consider upgrading to version `v2`.
+  logger.deprecation(
+Traceback (most recent call last):
+  File "/home/patrick/Documents/simpleDreamer/main.py", line 4, in <module>
+    Env = gym.make("CarRacing-v0", render_mode="human")
+  File "/home/patrick/.local/lib/python3.10/site-packages/gymnasium/envs/registration.py", line 740, in make
+    env_spec = _find_spec(id)
+  File "/home/patrick/.local/lib/python3.10/site-packages/gymnasium/envs/registration.py", line 537, in _find_spec
+    _check_version_exists(ns, name, version)
+  File "/home/patrick/.local/lib/python3.10/site-packages/gymnasium/envs/registration.py", line 437, in _check_version_exists
+    raise error.DeprecatedEnv(
+gymnasium.error.DeprecatedEnv: Environment version v0 for `CarRacing` is deprecated. Please use `CarRacing-v2` instead.
+Traceback (most recent call last):
+  File "/home/patrick/Documents/simpleDreamer/main.py", line 4, in <module>
+    Env = gym.make("CarRacing-v0", render_mode="human")
+  File "/home/patrick/.local/lib/python3.10/site-packages/gymnasium/envs/registration.py", line 740, in make
+    env_spec = _find_spec(id)
+  File "/home/patrick/.local/lib/python3.10/site-packages/gymnasium/envs/registration.py", line 537, in _find_spec
+    _check_version_exists(ns, name, version)
+  File "/home/patrick/.local/lib/python3.10/site-packages/gymnasium/envs/registration.py", line 437, in _check_version_exists
+    raise error.DeprecatedEnv(
+gymnasium.error.DeprecatedEnv: Environment version v0 for `CarRacing` is deprecated. Please use `CarRacing-v2` instead.

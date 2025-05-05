@@ -1,0 +1,57 @@
+/home/patrick/.local/lib/python3.10/site-packages/pygame/pkgdata.py:25: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  from pkg_resources import resource_stream, resource_exists
+/home/patrick/.local/lib/python3.10/site-packages/pkg_resources/__init__.py:3149: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('mpl_toolkits')`.
+Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
+  declare_namespace(pkg)
+Traceback (most recent call last):
+  File "/home/patrick/Documents/simpleDreamer/main.py", line 11, in <module>
+    training.VAE_Train(10)
+  File "/home/patrick/Documents/simpleDreamer/train.py", line 131, in VAE_Train
+    recon, mu, var = self.vae(imgs)
+  File "/home/patrick/.local/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/patrick/.local/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/patrick/Documents/simpleDreamer/VAE.py", line 153, in forward
+    a = self.decode(z, 128)
+  File "/home/patrick/Documents/simpleDreamer/VAE.py", line 144, in decode
+    a =  self.fl(a)
+  File "/home/patrick/.local/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/patrick/.local/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/patrick/.local/lib/python3.10/site-packages/torch/nn/modules/container.py", line 250, in forward
+    input = module(input)
+  File "/home/patrick/.local/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/patrick/.local/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/patrick/.local/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 1162, in forward
+    return F.conv_transpose2d(
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 576.00 MiB. GPU 0 has a total capacity of 3.71 GiB of which 355.88 MiB is free. Including non-PyTorch memory, this process has 3.34 GiB memory in use. Of the allocated memory 2.97 GiB is allocated by PyTorch, and 268.11 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+Traceback (most recent call last):
+  File "/home/patrick/Documents/simpleDreamer/main.py", line 11, in <module>
+    training.VAE_Train(10)
+  File "/home/patrick/Documents/simpleDreamer/train.py", line 131, in VAE_Train
+    recon, mu, var = self.vae(imgs)
+  File "/home/patrick/.local/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/patrick/.local/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/patrick/Documents/simpleDreamer/VAE.py", line 153, in forward
+    a = self.decode(z, 128)
+  File "/home/patrick/Documents/simpleDreamer/VAE.py", line 144, in decode
+    a =  self.fl(a)
+  File "/home/patrick/.local/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/patrick/.local/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/patrick/.local/lib/python3.10/site-packages/torch/nn/modules/container.py", line 250, in forward
+    input = module(input)
+  File "/home/patrick/.local/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/patrick/.local/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/patrick/.local/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 1162, in forward
+    return F.conv_transpose2d(
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 576.00 MiB. GPU 0 has a total capacity of 3.71 GiB of which 355.88 MiB is free. Including non-PyTorch memory, this process has 3.34 GiB memory in use. Of the allocated memory 2.97 GiB is allocated by PyTorch, and 268.11 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)

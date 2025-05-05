@@ -30,13 +30,13 @@ class VAE(nn.Module):
             *encoder_store
         )
 
-        self.fc_mu = nn.Linear(hidden_dims[-1]*16, latent_dim) #VAE mean calculated
-        self.fc_var = nn.Linear(hidden_dims[-1]*16, latent_dim) #VAE variance calculated
+        self.fc_mu = nn.Linear(self._get_flattened_size(input_channels), latent_dim) #VAE mean calculated
+        self.fc_var = nn.Linear(self._get_flattened_size(input_channels), latent_dim) #VAE variance calculated
 
         decoder_store = []
 
         #Need to reverse the encoder process to build the decoder
-        self.decoder_input = nn.Linear(latent_dim, hidden_dims[-1]*16)
+        self.decoder_input = nn.Linear(latent_dim, hidden_dims[-1]*144)
 
         hidden_dims.reverse() #Reverse the hidden state list
 
@@ -55,9 +55,9 @@ class VAE(nn.Module):
                 hidden_dims[-1],
                 hidden_dims[-1],
                 kernel_size = 3,
-                stride = 2,
+                stride = 1,
                 padding = 1,
-                output_padding= 1
+                output_padding= 0
             ),
             nn.BatchNorm2d(
                 hidden_dims[-1]
@@ -74,7 +74,7 @@ class VAE(nn.Module):
 
     def _get_flattened_size(self, input_channels):
         with torch.no_grad():
-            dummy_input = torch.zeros(1, input_channels, 4, 4)  # Example size, adjust if needed
+            dummy_input = torch.zeros(1, input_channels, 96, 96)  # Example size, adjust if needed
             dummy_output = self.encoder(dummy_input)
             return torch.flatten(dummy_output, start_dim=1).size(1)
         
@@ -122,7 +122,7 @@ class VAE(nn.Module):
         r = torch.flatten(r, start_dim = 1) #Flatten all dimensions of the encoded data besides the batch size
         u = self.fc_mu(r)
         var = self.fc_var(r)
-        return u, var  
+        return u, var
     
     def reparamterize(
         self,
@@ -139,7 +139,7 @@ class VAE(nn.Module):
         l_hidden_dim : int,
     ):
         a = self.decoder_input(input)
-        a = a.view(-1, l_hidden_dim, 4, 4)
+        a = a.view(-1, l_hidden_dim, 12, 12)
         a = self.decoder(a)
         a =  self.fl(a)
         return a
@@ -150,8 +150,8 @@ class VAE(nn.Module):
     ):
         u, var = self.encode(input)
         z = self.reparamterize(u, var)
-        a = self.decode(z, 512)
-        return a, input, u, var
+        a = self.decode(z, 128)
+        return a, u, var
     
     def get_latent(
         self,

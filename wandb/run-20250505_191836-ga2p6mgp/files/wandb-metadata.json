@@ -1,0 +1,128 @@
+{
+    "os": "Linux-6.8.0-57-generic-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "heartbeatAt": "2025-05-05T23:18:36.726622",
+    "startedAt": "2025-05-05T23:18:36.316979",
+    "docker": null,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "/home/patrick/Documents/simpleDreamer/main.py",
+    "codePathLocal": "main.py",
+    "codePath": "main.py",
+    "git": {
+        "remote": "git@github.com:aLadNamedPat/simpleDreamer.git",
+        "commit": "a4c1bcf59d9a0ed75b915cfbcabcfe460cda351d"
+    },
+    "email": "Pattheboy135@gmail.com",
+    "root": "/home/patrick/Documents/simpleDreamer",
+    "host": "patrick-Swift-SFX14-41G",
+    "username": "patrick",
+    "executable": "/usr/bin/python3",
+    "cpu_count": 8,
+    "cpu_count_logical": 16,
+    "cpu_freq": {
+        "current": 3.5224999999999995,
+        "min": 400.0,
+        "max": 4507.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 3.529,
+            "min": 400.0,
+            "max": 4507.0
+        },
+        {
+            "current": 3.533,
+            "min": 400.0,
+            "max": 4507.0
+        },
+        {
+            "current": 3.529,
+            "min": 400.0,
+            "max": 4507.0
+        },
+        {
+            "current": 4.416,
+            "min": 400.0,
+            "max": 4507.0
+        },
+        {
+            "current": 3.954,
+            "min": 400.0,
+            "max": 4507.0
+        },
+        {
+            "current": 3.718,
+            "min": 400.0,
+            "max": 4507.0
+        },
+        {
+            "current": 3.527,
+            "min": 400.0,
+            "max": 4507.0
+        },
+        {
+            "current": 4.094,
+            "min": 400.0,
+            "max": 4507.0
+        },
+        {
+            "current": 3.528,
+            "min": 400.0,
+            "max": 4507.0
+        },
+        {
+            "current": 0.4,
+            "min": 400.0,
+            "max": 4507.0
+        },
+        {
+            "current": 4.416,
+            "min": 400.0,
+            "max": 4507.0
+        },
+        {
+            "current": 3.529,
+            "min": 400.0,
+            "max": 4507.0
+        },
+        {
+            "current": 4.416,
+            "min": 400.0,
+            "max": 4507.0
+        },
+        {
+            "current": 0.4,
+            "min": 400.0,
+            "max": 4507.0
+        },
+        {
+            "current": 3.946,
+            "min": 400.0,
+            "max": 4507.0
+        },
+        {
+            "current": 0.4,
+            "min": 400.0,
+            "max": 4507.0
+        }
+    ],
+    "disk": {
+        "/": {
+            "total": 319.5916442871094,
+            "used": 254.1376190185547
+        }
+    },
+    "gpu": "NVIDIA GeForce RTX 3050 Ti Laptop GPU",
+    "gpu_count": 1,
+    "gpu_devices": [
+        {
+            "name": "NVIDIA GeForce RTX 3050 Ti Laptop GPU",
+            "memory_total": 4294967296
+        }
+    ],
+    "memory": {
+        "total": 14.97756576538086
+    }
+}

@@ -7,31 +7,36 @@ class RNN_MDN(nn.Module):
     def __init__(
         self, 
         input_size : int,
+        action_dim : int,
         hidden_size : int,
         num_gaussians : int,
+        hidden_layer : int = 40,
         num_layers : int = 1,
     ):
-        """
+        r"""
         Implementation of MDN-RNN using LSTMs
         """
         super(RNN_MDN, self).__init__()
         self.input_size = input_size
+        self.action_dim = action_dim
+        self.total_input_size = input_size + action_dim
         self.num_gaussians = num_gaussians
         self.hidden_size = hidden_size
+        self.num_layers = num_layers
 
-        self.rnn = nn.LSTM(input_size, hidden_size, num_layers=num_layers, batch_first=True)
+        self.rnn = nn.LSTM(self.total_input_size, hidden_size, num_layers=num_layers, batch_first=True)
 
-        self.firstLayer = nn.Linear(input_size, 40)
-        self.mu = nn.Linear(input_size,  input_size * num_gaussians)
-        self.var = nn.Linear(input_size, input_size * num_gaussians)
-        self.pi = nn.Linear(input_size,  input_size * num_gaussians)
+        self.firstLayer = nn.Linear(hidden_size, hidden_layer)
+        self.mu = nn.Linear(hidden_layer,  self.total_input_size * num_gaussians)
+        self.var = nn.Linear(hidden_layer, self.total_input_size * num_gaussians)
+        self.pi = nn.Linear(hidden_layer,  self.total_input_size * num_gaussians)
         self.leakyReLU = nn.LeakyReLU()
 
     def MDN(
         self,
         x
     ):
-        """
+        r"""
         MASSIVE HELP FROM: https://www.katnoria.com/mdn/
         ALSO HELP FROM: https://github.com/sksq96/pytorch-mdn/blob/master/mdn-rnn.ipynb
 
@@ -52,22 +57,22 @@ class RNN_MDN(nn.Module):
         
         Chose not to use isotropic gaussians in this implementation. Felt kind of limiting.
         """
-
+        b = x.size(0)
         x = self.firstLayer(x)
         x = self.leakyReLU(x)
-        # Output for all of these are 1 dimensional L * K tensors. We want to convert this into a vector of dimensionality [x.shape[1], L, K]
+        # Output for all of these are 1 dimensional L * K tensors. We want to convert this into a vector of dimensionality [B, K, L]
         mu = self.mu(x)
-        mu = mu.view(-1, x.shape[-1], self.num_gaussians, self.input_size)
+        mu = mu.view(-1, b, self.num_gaussians, self.total_input_size)
 
         var = torch.exp(self.var(x)) # Need to have a positive variance here
-        var = var.view(-1, x.shape[-1], self.num_gaussians, self.input_size)
+        var = var.view(-1, b, self.num_gaussians, self.total_input_size)
 
         pi = self.pi(x)
-        pi = pi.view(-1, x.shape[-1], self.num_gaussians, self.input_size)
+        pi = pi.view(-1, b, self.num_gaussians, self.total_input_size)
         pi = F.softmax(pi, 2) 
 
         return mu, var, pi
-    
+       
     def find_pdf_normal(
         self,
         y, 
@@ -89,7 +94,7 @@ class RNN_MDN(nn.Module):
         x,
         y_real,
     ):
-        """
+        r"""
         Our loss method is defined by the following equation:
         L(w) = \frac{-1}{N} \sum_{n = 1}^_{N} { \log{\sum_{k}{\pi_k(x_n, w)\N(y_n|\mu_k(x_n, w), \var(x_n, w))}}}
         """
@@ -100,20 +105,25 @@ class RNN_MDN(nn.Module):
         return val / -x.shape[-1]
     
     def get_initial_hidden(
-        self
+        self,
+        device,
+        batch_size: int = 1,
     ):
-        return torch.zeros(self.hidden_size)
+        h0 = torch.zeros(self.num_layers, batch_size, self.hidden_size, device=device)
+        c0 = torch.zeros(self.num_layers, batch_size, self.hidden_size, device=device)
+        return (h0, c0)
     
     def forward(
         self,
         x,
-        h
+        h,
+        a
     ):
-        """
+        r"""
         Method for prediction. Only need the hidden layer and the mu and var prediction for the output prediction.
 
         """
-        y, hidden = self.lstm(x, h)
+        inp = torch.cat((x, a), dim=1).unsqueeze(1)
+        y, new_hidden = self.rnn(inp, h)
         mu, var, pi = self.MDN(y)
-
-        return (mu, var), hidden
+        return (mu, var), new_hidden

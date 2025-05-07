@@ -175,3 +175,1011 @@
 2025-05-05 19:45:50,819 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
 2025-05-05 19:45:52,373 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
 2025-05-05 19:45:56,821 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:45:57,559 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:45:58,822 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:46:00,137 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:46:00,137 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:46:00,137 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:46:02,854 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:46:04,823 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:46:08,340 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:46:08,825 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:46:12,826 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:46:13,410 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:46:14,889 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 19:46:15,135 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:46:15,138 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:46:15,138 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:46:18,616 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:46:18,827 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:46:24,579 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:46:24,829 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:46:28,831 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:46:30,044 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:46:30,135 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:46:30,139 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:46:30,139 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:46:34,832 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:46:35,740 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:46:38,834 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:46:40,834 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:46:41,497 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:46:44,835 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:46:44,890 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 19:46:45,136 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:46:45,140 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:46:45,140 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:46:47,238 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:46:48,837 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:46:52,838 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:46:53,217 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:46:56,839 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:46:58,383 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:47:00,137 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:47:00,139 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:47:00,140 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:47:00,840 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:47:02,841 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:47:04,092 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:47:04,842 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:47:08,843 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:47:09,103 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:47:12,844 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:47:14,215 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:47:14,900 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 19:47:15,137 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:47:15,140 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:47:15,140 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:47:16,845 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:47:19,355 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:47:20,846 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:47:24,847 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:47:24,970 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:47:28,849 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:47:30,139 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:47:30,140 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:47:30,140 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:47:30,140 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:47:32,850 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:47:35,274 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:47:36,851 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:47:40,473 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:47:42,853 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:47:44,853 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:47:44,891 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 19:47:45,140 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:47:45,140 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:47:45,140 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:47:46,224 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:47:48,855 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:47:52,132 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:47:52,856 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:47:56,857 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:47:57,606 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:47:58,858 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:48:00,142 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:48:00,142 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:48:00,142 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:48:02,765 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:48:02,859 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:48:06,860 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:48:07,971 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:48:10,861 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:48:13,062 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:48:14,863 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:48:14,891 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 19:48:15,140 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:48:15,142 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:48:15,142 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:48:18,550 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:48:18,864 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:48:22,865 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:48:23,686 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:48:26,866 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:48:28,985 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:48:30,140 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:48:30,142 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:48:30,142 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:48:30,867 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:48:34,510 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:48:36,869 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:48:39,858 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:48:40,870 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:48:44,871 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:48:44,892 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 19:48:44,892 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:48:45,140 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:48:45,141 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:48:45,142 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:48:48,873 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:48:50,206 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:48:52,874 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:48:55,520 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:48:56,875 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:48:58,876 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:49:00,141 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:49:00,145 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:49:00,145 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:49:01,120 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:49:02,877 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:49:06,878 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:49:06,888 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:49:12,687 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:49:12,880 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:49:14,893 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 19:49:15,141 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:49:15,142 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:49:15,142 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:49:16,881 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:49:18,240 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:49:20,882 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:49:23,707 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:49:26,884 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:49:28,890 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:49:30,141 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:49:30,142 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:49:30,143 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:49:30,885 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:49:34,039 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:49:34,886 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:49:38,887 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:49:39,149 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:49:42,888 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:49:44,321 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:49:44,893 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 19:49:45,143 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:49:45,144 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:49:45,144 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:49:46,890 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:49:49,637 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:49:50,891 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:49:55,325 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:49:56,893 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:49:58,893 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:50:00,143 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:50:00,143 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:50:00,144 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:50:01,271 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:50:02,895 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:50:06,338 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:50:08,896 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:50:11,617 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:50:12,898 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:50:14,894 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 19:50:15,143 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:50:15,143 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:50:15,144 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:50:16,899 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:50:17,257 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:50:20,900 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:50:22,589 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:50:24,901 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:50:28,028 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:50:30,143 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:50:30,146 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:50:30,146 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:50:30,903 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:50:33,297 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:50:34,904 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:50:38,905 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:50:38,932 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:50:42,906 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:50:44,541 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:50:44,894 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 19:50:45,143 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:50:45,144 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:50:45,144 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:50:46,908 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:50:50,294 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:50:52,910 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:50:55,406 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:50:56,911 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:51:00,144 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:51:00,144 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:51:00,144 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:51:00,912 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:51:01,250 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:51:04,913 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:51:06,335 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:51:10,915 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:51:11,831 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:51:14,895 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 19:51:14,916 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:51:15,145 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:51:15,146 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:51:15,146 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:51:17,260 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:51:18,918 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:51:22,435 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:51:24,919 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:51:27,820 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:51:28,920 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:51:30,145 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:51:30,147 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:51:30,148 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:51:32,927 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:51:33,450 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:51:36,928 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:51:39,073 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:51:42,929 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:51:44,712 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:51:44,896 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 19:51:45,146 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:51:45,146 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:51:45,146 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:51:46,931 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:51:49,982 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:51:50,932 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:51:54,933 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:51:55,394 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:52:00,146 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:52:00,146 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:52:00,146 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:52:00,935 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:52:01,298 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:52:04,936 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:52:06,472 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:52:08,937 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:52:11,779 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:52:12,939 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:52:14,896 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 19:52:15,147 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:52:15,147 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:52:15,147 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:52:16,787 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:52:18,941 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:52:22,580 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:52:22,942 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:52:26,943 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:52:27,969 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:52:30,147 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:52:30,147 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:52:30,147 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:52:30,944 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:52:33,448 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:52:36,946 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:52:38,809 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:52:40,947 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:52:43,830 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:52:44,897 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 19:52:44,948 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:52:45,147 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:52:45,147 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:52:45,148 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:52:48,950 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:52:49,492 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:52:54,937 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:52:55,951 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:52:59,953 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:53:00,147 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:53:00,148 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:53:00,148 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:53:00,243 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:53:03,954 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:53:06,014 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:53:07,955 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:53:11,601 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:53:13,957 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:53:14,897 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 19:53:15,147 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:53:15,147 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:53:15,148 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:53:17,222 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:53:17,958 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:53:21,959 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:53:23,217 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:53:25,960 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:53:28,306 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:53:29,962 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:53:30,148 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:53:30,149 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:53:30,149 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:53:33,660 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:53:35,963 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:53:39,065 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:53:39,965 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:53:43,966 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:53:44,658 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:53:44,898 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 19:53:45,148 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:53:45,149 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:53:45,149 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:53:47,967 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:53:50,145 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:53:53,969 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:53:55,156 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:53:57,970 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:54:00,148 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:54:00,149 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:54:00,149 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:54:00,219 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:54:01,971 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:54:05,227 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:54:05,973 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:54:09,974 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:54:10,585 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:54:13,975 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:54:14,899 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 19:54:15,148 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:54:15,149 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:54:15,149 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:54:16,291 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:54:17,976 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:54:21,998 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:54:23,978 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:54:25,978 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:54:27,265 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:54:30,148 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:54:30,149 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:54:30,150 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:54:31,980 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:54:32,271 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:54:35,982 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:54:37,591 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:54:39,983 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:54:43,219 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:54:43,984 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:54:44,899 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 19:54:45,149 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:54:45,150 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:54:45,150 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:54:48,828 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:54:49,986 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:54:53,987 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:54:54,218 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:54:57,988 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:54:59,747 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:55:00,149 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:55:00,150 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:55:00,150 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:55:01,989 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:55:05,389 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:55:05,991 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:55:10,915 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:55:11,993 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:55:14,900 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 19:55:15,151 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:55:15,152 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:55:15,152 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:55:15,994 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:55:16,261 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:55:19,995 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:55:22,003 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:55:23,996 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:55:27,726 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:55:27,997 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:55:29,998 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:55:30,150 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:55:30,152 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:55:30,152 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:55:33,066 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:55:33,999 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:55:38,000 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:55:38,620 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:55:42,002 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:55:44,153 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:55:44,900 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 19:55:45,150 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:55:45,152 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:55:45,152 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:55:48,004 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:55:49,277 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:55:52,005 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:55:55,078 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:55:56,006 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:56:00,007 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:56:00,150 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:56:00,152 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:56:00,152 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:56:00,264 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:56:06,009 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:56:06,231 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:56:10,010 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:56:11,673 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:56:14,011 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:56:14,901 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 19:56:15,153 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:56:15,153 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:56:15,153 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:56:16,689 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:56:18,012 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:56:22,133 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:56:24,014 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:56:27,398 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:56:28,015 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:56:30,150 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:56:30,153 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:56:30,154 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:56:32,016 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:56:33,292 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:56:36,018 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:56:38,480 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:56:40,019 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:56:44,044 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:56:44,920 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 19:56:45,151 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:56:45,154 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:56:45,154 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:56:46,021 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:56:49,828 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:56:50,022 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:56:54,023 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:56:55,469 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:57:00,025 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:57:00,152 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:57:00,155 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:57:00,155 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:57:01,295 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:57:04,027 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:57:06,512 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:57:10,028 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:57:11,583 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:57:14,029 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:57:14,902 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 19:57:15,151 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:57:15,154 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:57:15,155 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:57:17,285 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:57:20,031 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:57:22,964 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:57:24,032 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:57:28,026 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:57:30,034 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:57:30,151 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:57:30,155 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:57:30,155 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:57:33,351 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:57:34,035 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:57:38,352 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:57:40,037 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:57:43,379 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:57:44,903 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 19:57:45,151 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:57:45,156 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:57:45,156 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:57:46,039 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:57:48,730 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:57:50,040 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:57:54,127 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:57:56,042 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:57:59,462 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:58:00,043 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:58:00,153 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:58:00,156 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:58:00,157 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:58:04,044 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:58:04,772 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:58:08,046 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:58:10,101 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:58:12,047 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:58:14,903 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 19:58:15,153 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:58:15,156 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:58:15,157 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:58:15,317 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:58:16,048 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:58:20,049 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:58:20,897 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:58:26,051 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:58:26,128 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:58:30,052 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:58:30,154 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:58:30,157 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:58:30,157 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:58:31,240 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:58:34,053 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:58:37,134 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:58:38,055 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:58:42,056 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:58:42,481 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:58:44,904 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 19:58:45,154 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:58:45,157 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:58:45,158 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:58:46,057 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:58:48,221 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:58:52,059 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:58:53,581 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:58:56,060 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:58:59,296 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:59:00,061 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:59:00,154 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:59:00,157 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:59:00,158 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:59:04,063 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:59:04,646 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:59:08,064 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:59:09,990 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:59:14,066 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:59:14,915 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 19:59:15,154 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:59:15,157 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:59:15,158 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:59:15,268 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:59:18,067 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:59:21,049 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:59:22,068 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:59:26,070 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:59:26,236 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:59:30,071 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:59:30,154 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:59:30,158 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:59:30,158 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:59:31,287 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:59:34,072 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:59:36,628 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:59:38,073 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:59:41,933 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:59:42,074 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:59:44,905 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 19:59:45,154 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 19:59:45,158 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 19:59:45,158 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 19:59:46,075 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:59:47,295 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:59:52,077 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:59:53,253 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 19:59:56,078 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 19:59:58,424 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:00:00,079 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:00:00,155 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 20:00:00,158 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 20:00:00,158 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 20:00:03,547 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:00:04,080 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:00:08,081 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:00:09,040 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:00:12,082 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:00:14,905 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 20:00:14,906 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:00:15,156 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 20:00:15,160 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 20:00:15,160 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 20:00:18,084 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:00:20,170 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:00:22,085 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:00:25,761 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:00:28,087 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:00:30,156 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 20:00:30,160 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 20:00:30,160 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 20:00:31,302 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:00:32,088 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:00:36,089 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:00:36,840 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:00:42,091 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:00:42,347 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:00:44,906 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 20:00:45,156 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 20:00:45,160 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 20:00:45,161 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 20:00:46,092 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:00:48,199 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:00:50,093 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:00:53,620 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:00:54,094 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:00:58,096 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:00:58,950 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:01:00,156 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 20:01:00,162 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 20:01:00,163 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 20:01:04,097 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:01:04,282 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:01:08,098 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:01:09,519 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:01:12,099 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:01:14,907 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 20:01:14,907 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:01:15,157 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 20:01:15,163 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 20:01:15,163 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 20:01:16,101 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:01:20,102 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:01:20,417 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:01:24,103 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:01:25,968 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:01:30,105 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:01:30,157 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 20:01:30,163 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 20:01:30,163 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 20:01:31,232 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:01:34,106 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:01:37,015 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:01:38,107 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:01:42,108 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:01:42,471 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:01:44,907 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 20:01:45,157 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 20:01:45,163 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 20:01:45,164 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 20:01:46,109 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:01:48,321 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:01:52,111 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:01:53,544 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:01:56,112 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:01:58,823 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:02:00,114 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:02:00,159 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 20:02:00,164 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 20:02:00,164 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 20:02:04,115 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:02:04,134 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:02:08,116 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:02:09,322 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:02:12,117 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:02:14,367 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:02:14,908 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 20:02:15,159 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 20:02:15,164 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 20:02:15,165 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 20:02:16,118 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:02:20,081 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:02:20,119 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:02:24,121 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:02:25,290 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:02:26,121 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:02:30,122 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:02:30,159 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 20:02:30,165 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 20:02:30,165 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 20:02:31,264 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:02:34,124 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:02:36,947 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:02:38,125 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:02:42,126 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:02:42,350 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:02:44,908 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 20:02:45,159 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 20:02:45,165 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 20:02:45,165 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 20:02:46,127 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:02:48,311 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:02:52,129 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:02:53,482 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:02:56,130 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:02:58,708 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:03:00,132 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:03:00,160 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 20:03:00,165 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 20:03:00,166 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 20:03:03,824 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:03:04,133 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:03:08,134 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:03:09,032 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:03:12,135 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:03:14,123 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:03:14,909 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 20:03:15,162 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 20:03:15,166 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 20:03:15,166 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 20:03:16,136 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:03:19,488 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:03:20,137 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:03:24,139 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:03:24,702 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:03:28,140 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:03:29,929 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:03:30,162 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 20:03:30,166 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 20:03:30,167 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 20:03:32,141 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:03:35,254 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:03:38,143 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:03:40,717 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:03:42,144 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:03:44,909 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 20:03:45,162 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 20:03:45,166 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 20:03:45,171 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 20:03:46,146 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:03:46,275 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:03:50,147 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:03:51,567 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:03:54,148 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:03:57,009 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:03:58,149 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:04:00,164 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 20:04:00,167 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 20:04:00,167 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 20:04:02,151 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:04:02,400 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:04:07,835 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:04:08,153 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:04:12,154 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:04:12,988 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:04:14,910 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 20:04:15,163 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 20:04:15,169 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 20:04:15,169 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 20:04:16,155 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:04:18,267 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:04:20,156 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:04:23,788 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:04:24,158 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:04:28,159 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:04:29,199 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:04:30,164 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 20:04:30,169 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 20:04:30,169 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 20:04:34,161 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:04:34,573 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:04:38,162 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:04:39,799 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:04:42,163 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:04:44,911 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 20:04:44,911 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:04:45,165 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 20:04:45,169 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 20:04:45,169 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 20:04:46,164 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:04:50,166 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:04:50,684 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:04:54,167 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:04:56,094 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:04:58,169 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:05:00,166 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 20:05:00,169 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:05:00,169 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 20:05:00,169 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 20:05:01,313 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:05:04,170 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:05:07,020 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:05:08,171 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:05:12,081 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:05:12,172 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:05:14,911 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 20:05:15,166 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 20:05:15,169 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 20:05:15,169 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 20:05:16,173 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:05:17,263 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:05:20,175 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:05:22,850 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:05:24,176 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:05:28,177 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:05:28,322 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:05:30,166 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 20:05:30,169 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 20:05:30,170 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 20:05:33,972 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:05:34,179 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:05:38,180 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:05:39,263 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:05:42,181 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:05:44,609 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:05:44,912 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 20:05:45,166 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 20:05:45,170 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 20:05:45,170 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 20:05:46,183 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:05:50,097 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:05:50,184 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:05:54,185 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:05:55,480 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:05:58,186 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:06:00,166 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 20:06:00,170 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 20:06:00,170 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 20:06:01,473 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:06:02,188 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:06:06,189 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:06:06,941 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:06:10,190 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:06:12,265 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:06:14,191 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:06:14,924 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 20:06:15,167 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 20:06:15,170 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 20:06:15,171 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 20:06:17,319 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:06:20,193 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:06:22,978 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:06:24,194 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:06:26,195 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:06:28,732 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:06:30,168 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 20:06:30,170 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 20:06:30,171 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 20:06:30,196 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:06:34,197 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:06:34,376 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:06:39,718 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:06:40,199 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:06:44,200 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:06:44,913 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 20:06:44,913 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:06:45,168 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 20:06:45,171 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 20:06:45,171 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 20:06:48,201 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:06:50,340 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:06:52,202 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:06:54,203 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:06:55,466 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:06:58,204 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:07:00,169 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 20:07:00,171 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 20:07:00,171 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 20:07:00,205 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:07:01,254 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:07:04,206 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:07:07,141 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:07:08,207 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:07:12,923 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:07:14,209 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:07:14,914 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 20:07:15,169 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 20:07:15,171 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 20:07:15,172 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 20:07:18,210 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:07:18,748 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:07:22,211 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:07:24,059 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:07:26,212 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:07:29,212 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:07:30,170 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 20:07:30,171 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 20:07:30,172 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 20:07:32,214 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:07:34,289 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:07:36,215 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:07:40,182 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:07:40,216 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:07:44,914 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 20:07:45,170 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 20:07:45,173 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 20:07:45,173 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 20:07:45,310 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:07:46,218 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:07:50,219 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:07:50,758 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:07:55,862 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:07:56,221 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:08:00,171 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 20:08:00,173 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: stop_status
+2025-05-05 20:08:00,173 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: stop_status
+2025-05-05 20:08:00,222 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:08:01,284 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:08:04,223 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:08:07,056 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:08:08,225 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:08:12,355 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:08:12,370 DEBUG   SenderThread:37495 [sender.py:send():379] send: exit
+2025-05-05 20:08:12,371 INFO    SenderThread:37495 [sender.py:send_exit():586] handling exit code: 255
+2025-05-05 20:08:12,371 INFO    SenderThread:37495 [sender.py:send_exit():588] handling runtime: 1557
+2025-05-05 20:08:12,371 INFO    SenderThread:37495 [sender.py:_save_file():1390] saving file wandb-summary.json with policy end
+2025-05-05 20:08:12,371 INFO    SenderThread:37495 [sender.py:send_exit():594] send defer
+2025-05-05 20:08:12,371 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: defer
+2025-05-05 20:08:12,371 INFO    HandlerThread:37495 [handler.py:handle_request_defer():172] handle defer: 0
+2025-05-05 20:08:12,371 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: defer
+2025-05-05 20:08:12,371 INFO    SenderThread:37495 [sender.py:send_request_defer():610] handle sender defer: 0
+2025-05-05 20:08:12,371 INFO    SenderThread:37495 [sender.py:transition_state():614] send defer: 1
+2025-05-05 20:08:12,372 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: defer
+2025-05-05 20:08:12,372 INFO    HandlerThread:37495 [handler.py:handle_request_defer():172] handle defer: 1
+2025-05-05 20:08:12,372 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: defer
+2025-05-05 20:08:12,372 INFO    SenderThread:37495 [sender.py:send_request_defer():610] handle sender defer: 1
+2025-05-05 20:08:12,372 INFO    SenderThread:37495 [sender.py:transition_state():614] send defer: 2
+2025-05-05 20:08:12,372 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: defer
+2025-05-05 20:08:12,372 INFO    HandlerThread:37495 [handler.py:handle_request_defer():172] handle defer: 2
+2025-05-05 20:08:12,372 INFO    HandlerThread:37495 [system_monitor.py:finish():203] Stopping system monitor
+2025-05-05 20:08:12,372 DEBUG   SystemMonitor:37495 [system_monitor.py:_start():179] Finished system metrics aggregation loop
+2025-05-05 20:08:12,372 DEBUG   SystemMonitor:37495 [system_monitor.py:_start():183] Publishing last batch of metrics
+2025-05-05 20:08:12,372 INFO    HandlerThread:37495 [interfaces.py:finish():202] Joined cpu monitor
+2025-05-05 20:08:12,373 INFO    HandlerThread:37495 [interfaces.py:finish():202] Joined disk monitor
+2025-05-05 20:08:12,425 INFO    HandlerThread:37495 [interfaces.py:finish():202] Joined gpu monitor
+2025-05-05 20:08:12,425 INFO    HandlerThread:37495 [interfaces.py:finish():202] Joined memory monitor
+2025-05-05 20:08:12,425 INFO    HandlerThread:37495 [interfaces.py:finish():202] Joined network monitor
+2025-05-05 20:08:12,425 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: defer
+2025-05-05 20:08:12,425 INFO    SenderThread:37495 [sender.py:send_request_defer():610] handle sender defer: 2
+2025-05-05 20:08:12,425 INFO    SenderThread:37495 [sender.py:transition_state():614] send defer: 3
+2025-05-05 20:08:12,425 DEBUG   SenderThread:37495 [sender.py:send():379] send: stats
+2025-05-05 20:08:12,426 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: defer
+2025-05-05 20:08:12,426 INFO    HandlerThread:37495 [handler.py:handle_request_defer():172] handle defer: 3
+2025-05-05 20:08:12,426 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: defer
+2025-05-05 20:08:12,426 INFO    SenderThread:37495 [sender.py:send_request_defer():610] handle sender defer: 3
+2025-05-05 20:08:12,426 INFO    SenderThread:37495 [sender.py:transition_state():614] send defer: 4
+2025-05-05 20:08:12,426 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: defer
+2025-05-05 20:08:12,426 INFO    HandlerThread:37495 [handler.py:handle_request_defer():172] handle defer: 4
+2025-05-05 20:08:12,426 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: defer
+2025-05-05 20:08:12,426 INFO    SenderThread:37495 [sender.py:send_request_defer():610] handle sender defer: 4
+2025-05-05 20:08:12,426 INFO    SenderThread:37495 [sender.py:transition_state():614] send defer: 5
+2025-05-05 20:08:12,426 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: defer
+2025-05-05 20:08:12,426 INFO    HandlerThread:37495 [handler.py:handle_request_defer():172] handle defer: 5
+2025-05-05 20:08:12,427 DEBUG   SenderThread:37495 [sender.py:send():379] send: summary
+2025-05-05 20:08:12,427 INFO    SenderThread:37495 [sender.py:_save_file():1390] saving file wandb-summary.json with policy end
+2025-05-05 20:08:12,427 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: defer
+2025-05-05 20:08:12,427 INFO    SenderThread:37495 [sender.py:send_request_defer():610] handle sender defer: 5
+2025-05-05 20:08:12,427 INFO    SenderThread:37495 [sender.py:transition_state():614] send defer: 6
+2025-05-05 20:08:12,427 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: defer
+2025-05-05 20:08:12,427 INFO    HandlerThread:37495 [handler.py:handle_request_defer():172] handle defer: 6
+2025-05-05 20:08:12,427 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: defer
+2025-05-05 20:08:12,427 INFO    SenderThread:37495 [sender.py:send_request_defer():610] handle sender defer: 6
+2025-05-05 20:08:12,427 INFO    SenderThread:37495 [sender.py:transition_state():614] send defer: 7
+2025-05-05 20:08:12,427 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: status_report
+2025-05-05 20:08:12,427 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: defer
+2025-05-05 20:08:12,427 INFO    HandlerThread:37495 [handler.py:handle_request_defer():172] handle defer: 7
+2025-05-05 20:08:12,428 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: defer
+2025-05-05 20:08:12,428 INFO    SenderThread:37495 [sender.py:send_request_defer():610] handle sender defer: 7
+2025-05-05 20:08:13,226 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_created():271] file/dir created: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/wandb-summary.json
+2025-05-05 20:08:13,361 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: poll_exit
+2025-05-05 20:08:14,086 INFO    SenderThread:37495 [sender.py:transition_state():614] send defer: 8
+2025-05-05 20:08:14,086 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: poll_exit
+2025-05-05 20:08:14,087 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: defer
+2025-05-05 20:08:14,087 INFO    HandlerThread:37495 [handler.py:handle_request_defer():172] handle defer: 8
+2025-05-05 20:08:14,087 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: defer
+2025-05-05 20:08:14,087 INFO    SenderThread:37495 [sender.py:send_request_defer():610] handle sender defer: 8
+2025-05-05 20:08:14,087 INFO    SenderThread:37495 [job_builder.py:build():318] Attempting to build job artifact
+2025-05-05 20:08:14,087 INFO    SenderThread:37495 [job_builder.py:_get_source_type():455] is repo sourced job
+2025-05-05 20:08:14,120 INFO    SenderThread:37495 [job_builder.py:build():431] adding wandb-job metadata file
+2025-05-05 20:08:14,135 INFO    SenderThread:37495 [sender.py:transition_state():614] send defer: 9
+2025-05-05 20:08:14,135 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: defer
+2025-05-05 20:08:14,135 INFO    HandlerThread:37495 [handler.py:handle_request_defer():172] handle defer: 9
+2025-05-05 20:08:14,136 DEBUG   SenderThread:37495 [sender.py:send():379] send: artifact
+2025-05-05 20:08:14,227 INFO    Thread-12 :37495 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:08:14,362 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: poll_exit
+2025-05-05 20:08:14,735 INFO    SenderThread:37495 [sender.py:send_artifact():1468] sent artifact job-git_github.com_aLadNamedPat_simpleDreamer.git_main.py - {'id': 'QXJ0aWZhY3Q6MTcxMTE0MDk2NQ==', 'state': 'COMMITTED', 'artifactSequence': {'id': 'QXJ0aWZhY3RDb2xsZWN0aW9uOjYzMDYyNTgyNg==', 'latestArtifact': {'id': 'QXJ0aWZhY3Q6MTcxMTE0MDk2NQ==', 'versionIndex': 2}}}
+2025-05-05 20:08:14,735 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: defer
+2025-05-05 20:08:14,735 INFO    SenderThread:37495 [sender.py:send_request_defer():610] handle sender defer: 9
+2025-05-05 20:08:14,735 INFO    SenderThread:37495 [dir_watcher.py:finish():358] shutting down directory watcher
+2025-05-05 20:08:15,228 INFO    SenderThread:37495 [dir_watcher.py:finish():388] scan: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files
+2025-05-05 20:08:15,228 INFO    SenderThread:37495 [dir_watcher.py:finish():402] scan save: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log output.log
+2025-05-05 20:08:15,229 INFO    SenderThread:37495 [dir_watcher.py:finish():402] scan save: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/config.yaml config.yaml
+2025-05-05 20:08:15,229 INFO    SenderThread:37495 [dir_watcher.py:finish():402] scan save: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/wandb-metadata.json wandb-metadata.json
+2025-05-05 20:08:15,229 INFO    SenderThread:37495 [dir_watcher.py:finish():402] scan save: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/requirements.txt requirements.txt
+2025-05-05 20:08:15,229 INFO    SenderThread:37495 [dir_watcher.py:finish():402] scan save: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/wandb-summary.json wandb-summary.json
+2025-05-05 20:08:15,229 INFO    SenderThread:37495 [sender.py:transition_state():614] send defer: 10
+2025-05-05 20:08:15,229 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: poll_exit
+2025-05-05 20:08:15,229 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: defer
+2025-05-05 20:08:15,230 INFO    HandlerThread:37495 [handler.py:handle_request_defer():172] handle defer: 10
+2025-05-05 20:08:15,232 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: defer
+2025-05-05 20:08:15,232 INFO    SenderThread:37495 [sender.py:send_request_defer():610] handle sender defer: 10
+2025-05-05 20:08:15,232 INFO    SenderThread:37495 [file_pusher.py:finish():172] shutting down file pusher
+2025-05-05 20:08:15,363 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: poll_exit
+2025-05-05 20:08:15,363 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: poll_exit
+2025-05-05 20:08:15,539 INFO    wandb-upload_0:37495 [upload_job.py:push():131] Uploaded file /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/output.log
+2025-05-05 20:08:15,633 INFO    wandb-upload_1:37495 [upload_job.py:push():131] Uploaded file /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/config.yaml
+2025-05-05 20:08:15,636 INFO    wandb-upload_3:37495 [upload_job.py:push():131] Uploaded file /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/wandb-summary.json
+2025-05-05 20:08:15,637 INFO    wandb-upload_2:37495 [upload_job.py:push():131] Uploaded file /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/files/requirements.txt
+2025-05-05 20:08:15,838 INFO    Thread-11 (_thread_body):37495 [sender.py:transition_state():614] send defer: 11
+2025-05-05 20:08:15,838 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: defer
+2025-05-05 20:08:15,838 INFO    HandlerThread:37495 [handler.py:handle_request_defer():172] handle defer: 11
+2025-05-05 20:08:15,839 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: defer
+2025-05-05 20:08:15,839 INFO    SenderThread:37495 [sender.py:send_request_defer():610] handle sender defer: 11
+2025-05-05 20:08:15,839 INFO    SenderThread:37495 [file_pusher.py:join():178] waiting for file pusher
+2025-05-05 20:08:15,840 INFO    SenderThread:37495 [sender.py:transition_state():614] send defer: 12
+2025-05-05 20:08:15,840 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: defer
+2025-05-05 20:08:15,840 INFO    HandlerThread:37495 [handler.py:handle_request_defer():172] handle defer: 12
+2025-05-05 20:08:15,840 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: defer
+2025-05-05 20:08:15,840 INFO    SenderThread:37495 [sender.py:send_request_defer():610] handle sender defer: 12
+2025-05-05 20:08:15,840 INFO    SenderThread:37495 [file_stream.py:finish():614] file stream finish called
+2025-05-05 20:08:15,949 INFO    SenderThread:37495 [file_stream.py:finish():618] file stream finish is done
+2025-05-05 20:08:15,949 INFO    SenderThread:37495 [sender.py:transition_state():614] send defer: 13
+2025-05-05 20:08:15,949 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: defer
+2025-05-05 20:08:15,949 INFO    HandlerThread:37495 [handler.py:handle_request_defer():172] handle defer: 13
+2025-05-05 20:08:15,950 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: defer
+2025-05-05 20:08:15,950 INFO    SenderThread:37495 [sender.py:send_request_defer():610] handle sender defer: 13
+2025-05-05 20:08:15,950 INFO    SenderThread:37495 [sender.py:transition_state():614] send defer: 14
+2025-05-05 20:08:15,950 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: defer
+2025-05-05 20:08:15,950 INFO    HandlerThread:37495 [handler.py:handle_request_defer():172] handle defer: 14
+2025-05-05 20:08:15,951 DEBUG   SenderThread:37495 [sender.py:send():379] send: final
+2025-05-05 20:08:15,951 DEBUG   SenderThread:37495 [sender.py:send():379] send: footer
+2025-05-05 20:08:15,951 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: defer
+2025-05-05 20:08:15,951 INFO    SenderThread:37495 [sender.py:send_request_defer():610] handle sender defer: 14
+2025-05-05 20:08:15,951 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: poll_exit
+2025-05-05 20:08:15,952 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: poll_exit
+2025-05-05 20:08:15,952 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: server_info
+2025-05-05 20:08:15,952 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: get_summary
+2025-05-05 20:08:15,952 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: sampled_history
+2025-05-05 20:08:15,953 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: poll_exit
+2025-05-05 20:08:15,953 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: poll_exit
+2025-05-05 20:08:15,953 DEBUG   SenderThread:37495 [sender.py:send_request():406] send_request: server_info
+2025-05-05 20:08:15,954 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: internal_messages
+2025-05-05 20:08:16,014 INFO    MainThread:37495 [wandb_run.py:_footer_history_summary_info():3920] rendering history
+2025-05-05 20:08:16,014 INFO    MainThread:37495 [wandb_run.py:_footer_history_summary_info():3952] rendering summary
+2025-05-05 20:08:16,014 INFO    MainThread:37495 [wandb_run.py:_footer_sync_info():3879] logging synced files
+2025-05-05 20:08:16,014 DEBUG   HandlerThread:37495 [handler.py:handle_request():146] handle_request: shutdown
+2025-05-05 20:08:16,014 INFO    HandlerThread:37495 [handler.py:finish():866] shutting down handler
+2025-05-05 20:08:16,953 INFO    WriterThread:37495 [datastore.py:close():296] close: /home/patrick/Documents/simpleDreamer/wandb/run-20250505_194214-vpxuhed4/run-vpxuhed4.wandb
+2025-05-05 20:08:17,014 INFO    SenderThread:37495 [sender.py:finish():1546] shutting down sender
+2025-05-05 20:08:17,014 INFO    SenderThread:37495 [file_pusher.py:finish():172] shutting down file pusher
+2025-05-05 20:08:17,014 INFO    SenderThread:37495 [file_pusher.py:join():178] waiting for file pusher

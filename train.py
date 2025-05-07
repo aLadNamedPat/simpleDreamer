@@ -12,7 +12,7 @@ from tqdm.auto import tqdm
 
 wandb.init(
     # set the wandb project where this run will be logged
-    project="new_project",
+    project="RNN_train",
 
     # track hyperparameters and run metadata
     config={
@@ -45,15 +45,27 @@ class Train():
         num_gaussians : int,
         hidden_layer : int = 40,
         num_layers : int = 1,
+        path_to_VAE_weights : str = None,
+        path_to_RNN_weights : str = None,
     ):
         self.vae = VAE(VAE_input_channels, VAE_out_channels, VAE_latent_dim, VAE_hidden_dims).to(device)
         self.rnn = RNN_MDN(VAE_latent_dim, action_dim, hidden_size, num_gaussians, hidden_layer, num_layers).to(device)
         self.controller = Controller(VAE_latent_dim, hidden_layer, self.env.action_space)
+        if path_to_VAE_weights is not None:
+            state_dict = torch.load(path_to_VAE_weights, map_location=device)
+            self.vae.load_state_dict(state_dict)
+            self.vae.to(device)
+
+        if path_to_RNN_weights is not None:
+            state_dict = torch.load(path_to_RNN_weights, map_location=device)
+            self.rnn.load_state_dict(state_dict)
+            self.rnn.to(device)
 
     def rollout(
         self,
         random_action = False,
         save_images : bool = False,
+        RNN_latents : bool = False,
         save_root: str = "rollouts",
         max_steps: int = 1000,
     ):
@@ -62,8 +74,12 @@ class Train():
         if save_images:
             os.makedirs(save_dir, exist_ok=True)
             frames = []
-            # actions = []
-            # latents = []
+        
+        if RNN_latents:
+            if not save_images:
+                os.makedirs(save_dir, exist_ok=True)
+            actions = []
+            latents = []
 
         obs = self.env.reset()[0]
         h = self.rnn.get_initial_hidden(device)
@@ -82,16 +98,16 @@ class Train():
                 u, var = self.vae.encode(obs_tensor)
 
                 z = self.vae.reparamterize(u, var).to(device)
-                # z_np = z.squeeze(0).cpu().numpy()
-                # latents.append(z_np.astype(np.float32))
-
                 if random_action:
                     a = self.controller.random_action()
                 else:
                     a = self.controller.step(torch.cat((z, h), dim  = 1))
 
-                # a_np = a.astype(np.float32)
-                # actions.append(a_np)
+                if RNN_latents:
+                    z_np = z.squeeze(0).cpu().numpy()
+                    latents.append(z_np.astype(np.float32))
+                    a_np = a.astype(np.float32)
+                    actions.append(a_np)
 
                 obs, reward, done, _, _ = self.env.step(a)
                 a = torch.from_numpy(a).unsqueeze(0).to(device)
@@ -101,10 +117,12 @@ class Train():
                 h = (h[0].detach(), h[1].detach())
                 step += 1
 
+        if RNN_latents:
+            latents = np.stack(latents, axis=0)
+            actions = np.stack(actions, axis=0) 
+            np.savez_compressed(os.path.join(save_dir, "rollout_data.npz"), latents=latents, actions=actions)
+
         if save_images:
-            # latents = np.stack(latents, axis=0)
-            # actions = np.stack(actions, axis=0) 
-            # np.savez_compressed(os.path.join(save_dir, "rollout_data.npz"), latents=latents, actions=actions)
             for idx, frame in enumerate(frames):
                 # if your obs is float [0,1], convert back to uint8:
                 if frame.dtype != np.uint8:
@@ -150,17 +168,41 @@ class Train():
             wandb.log({"recon_gallery": gallery, "epoch": epoch})
             mean_loss = train_loss / len(self.loader)
             wandb.log({"epoch_loss": mean_loss, "epoch": epoch})
-
-        torch.save(self.vae.state_dict(), "vae_weights.pth")
+            save_path = f"vae_weights_epoch_{epoch+1:02d}.pth"
+            torch.save(self.vae.state_dict(), save_path)
+            print(f"→ Saved VAE weights to {save_path}")
                 
     def RNN_Train(
         self,
         epochs,
+        batch_size  = 16
     ):
-        optimizer = torch.optim.Adam(self.rnn.parameters(), lr= 0.0005)
+        optimizer = torch.optim.Adam(self.rnn.parameters(), lr= 0.0001)
         self.rnn.train()
+        self.loader = RolloutLatentDataset(root_dir="rollouts_2", segment_len=128)
+
+        dataloader = DataLoader(self.loader,
+                        batch_size=batch_size,
+                        drop_last=True) 
+        os.makedirs("weights", exist_ok=True)
+
         for epoch in range(epochs):
-            train_loss = 0
-            for imgs in self.loader():
-                break
-        return
+            h = None
+            total_loss = 0
+            for x, a, y in tqdm(dataloader, desc=f"Epoch {epoch+1}/{epochs}", leave=False):
+                x, a, y = x.to(device), a.to(device), y.to(device)
+                
+                loss, h = self.rnn.MDN_loss(torch.cat((x, a), dim = -1), y.unsqueeze(2), h)  # y→[B,T,1,D]
+                h = (h[0].detach(), h[1].detach())
+
+                optimizer.zero_grad()
+                loss.backward()
+                torch.nn.utils.clip_grad_norm_(self.rnn.parameters(), 1.0)
+                optimizer.step()
+
+                total_loss += loss.item()
+                print(total_loss)
+                wandb.log({"loss": loss})
+
+            save_path = f"weights/RNN_weights_epoch_{epoch+1:02d}.pth"
+            torch.save(self.rnn.state_dict(), save_path)

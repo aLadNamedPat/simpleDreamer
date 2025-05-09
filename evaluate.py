@@ -34,13 +34,13 @@ rnn.load_state_dict(torch.load("weights/RNN_weights_epoch_40.pth", map_location=
 class Controller(nn.Module):
     def __init__(self, z_dim: int, h_dim: int):
         super().__init__()
-        self.fc1 = nn.Linear(z_dim + h_dim, 64)
-        self.fc2 = nn.Linear(64, 3)
+        self.fc1 = nn.Linear(z_dim + h_dim, 3)
+        # self.fc2 = nn.Linear(64, 3)
 
     def forward(self, z: torch.Tensor, h: torch.Tensor) -> torch.Tensor:
         x = torch.cat((z, h), dim=1)
-        x = torch.tanh(self.fc1(x))
-        out = torch.tanh(self.fc2(x))
+        out = torch.tanh(self.fc1(x))
+        # out = torch.tanh(self.fc2(x))
         steer = out[:, 0]
         gas   = torch.sigmoid(out[:, 1])
         brake = torch.sigmoid(out[:, 2])

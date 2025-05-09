@@ -29,7 +29,7 @@ class Controller(nn.Module):
         self,
     ):
         raw = self.action_space.sample()
-
+        print(raw)
         if isinstance(raw, (int, np.integer)):
             return torch.tensor([[raw]], dtype=torch.long)
         arr = np.asarray(raw, dtype=np.float32)

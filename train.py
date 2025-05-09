@@ -80,6 +80,8 @@ class Train():
                 os.makedirs(save_dir, exist_ok=True)
             actions = []
             latents = []
+            mus = []
+            variances = []
 
         obs = self.env.reset()[0]
         h = self.rnn.get_initial_hidden(device)
@@ -105,7 +107,12 @@ class Train():
 
                 if RNN_latents:
                     z_np = z.squeeze(0).cpu().numpy()
+                    u_np = u.squeeze(0).cpu().numpy()
+                    var_np = var.squeeze(0).cpu().numpy()
                     latents.append(z_np.astype(np.float32))
+                    mus.append(u_np.astype(np.float32))
+                    variances.append(var_np.astype(np.float32))
+
                     a_np = a.astype(np.float32)
                     actions.append(a_np)
 
@@ -120,7 +127,9 @@ class Train():
         if RNN_latents:
             latents = np.stack(latents, axis=0)
             actions = np.stack(actions, axis=0) 
-            np.savez_compressed(os.path.join(save_dir, "rollout_data.npz"), latents=latents, actions=actions)
+            mus = np.stack(mus, axis = 0)
+            variances = np.stack(variances, axis = 0)
+            np.savez_compressed(os.path.join(save_dir, "rollout_data.npz"), latents=latents, actions=actions, mu = mus, logvar=variances)
 
         if save_images:
             for idx, frame in enumerate(frames):
@@ -187,9 +196,14 @@ class Train():
         os.makedirs("weights", exist_ok=True)
 
         for epoch in range(epochs):
+            prev_ep = None
             h = None
             total_loss = 0
-            for x, a, y in tqdm(dataloader, desc=f"Epoch {epoch+1}/{epochs}", leave=False):
+            for x, a, y, ep_id in tqdm(dataloader, desc=f"Epoch {epoch+1}/{epochs}", leave=False):
+
+                if prev_ep is None or (ep_id != prev_ep).any():
+                    h = None
+                prev_ep = ep_id
                 x, a, y = x.to(device), a.to(device), y.to(device)
                 
                 loss, h = self.rnn.MDN_loss(torch.cat((x, a), dim = -1), y.unsqueeze(2), h)  # y→[B,T,1,D]
@@ -201,7 +215,7 @@ class Train():
                 optimizer.step()
 
                 total_loss += loss.item()
-                print(total_loss)
+                # print(total_loss)
                 wandb.log({"loss": loss})
 
             save_path = f"weights/RNN_weights_epoch_{epoch+1:02d}.pth"

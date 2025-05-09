@@ -34,28 +34,72 @@ class RolloutImageDataset(Dataset):
         return self.transform(img)
     
 
+
 class RolloutLatentDataset(Dataset):
-    def __init__(self, root_dir, segment_len = None):
-        self.files = glob.glob(os.path.join(root_dir, "run_*", "rollout_data.npz"))
-        self.segment_len = segment_len
+    """
+    Each NPZ is expected to contain
+        actions   : [T, a_dim]
+        latents   : [T, z_dim]            (optional if mu/logvar present)
+        mu        : [T, z_dim]            (optional, for re‑sampling)
+        logvar    : [T, z_dim] or
+        sigma     : [T, z_dim]            (one of logvar / sigma)
+
+    Parameters
+    ----------
+    root_dir     : directory with run_*/rollout_data.npz
+    segment_len  : length of returned sequences (set None to use full rollout)
+    sample_latent: if True and (mu,σ) present, draw z ~ N(μ,σ²) every call
+    """
+
+    def __init__(self, root_dir, segment_len=128, sample_latent=True):
+        super().__init__()
+        self.segment_len   = segment_len
+        self.sample_latent = sample_latent
+
+        self.files = sorted(glob.glob(os.path.join(root_dir,
+                                                   "run_*", "rollout_data.npz")))
+        if not self.files:
+            raise RuntimeError(f"No NPZ files found in {root_dir}")
+
+        # index = list of (file_idx, start, end) for fast __getitem__
+        self.index = []
+        for fid, path in enumerate(self.files):
+            with np.load(path) as data:
+                T = len(data["actions"])
+            if segment_len is None or T <= segment_len:
+                self.index.append((fid, 0, T))
+            else:
+                # non‑overlapping tiles: 0…L, L…2L, …
+                for s in range(0, T - segment_len + 1, segment_len):
+                    self.index.append((fid, s, s + segment_len))
 
     def __len__(self):
-        return len(self.files)
-    
+        return len(self.index)
+
     def __getitem__(self, idx):
-        data = np.load(self.files[idx])
-        z   = data["latents"]       # [T, z_dim]
-        a   = data["actions"]       # [T, a_dim]
+        fid, start, end = self.index[idx]
+        path = self.files[fid]
+        data = np.load(path)
 
-        x  = z[:-1]
-        a  = a[:-1]
-        y  = z[1:]
+        # ----- latent sampling ------------------------------------------- #
+        if self.sample_latent and "mu" in data and ("logvar" in data or "sigma" in data):
+            mu  = data["mu"][start:end]
+            if "logvar" in data:
+                std = np.exp(0.5 * data["logvar"][start:end])
+            else:
+                std = data["sigma"][start:end]
+            z = mu + np.random.randn(*std.shape) * std
+        else:
+            z = data["latents"][start:end]
 
-        if self.segment_len and len(x) > self.segment_len:
-            start = np.random.randint(0, len(x) - self.segment_len)
-            end   = start + self.segment_len
-            x, a, y = x[start:end], a[start:end], y[start:end]
+        # ----- actions & targets ----------------------------------------- #
+        a = data["actions"][start:end]
 
-        return torch.from_numpy(x).float(), \
-               torch.from_numpy(a).float(), \
-               torch.from_numpy(y).float()
+        x = z[:-1]       # input latent
+        a = a[:-1]       # action aligned with x
+        y = z[1:]        # prediction target
+
+        return (torch.from_numpy(x).float(),
+                torch.from_numpy(a).float(),
+                torch.from_numpy(y).float(),
+                torch.tensor(fid, dtype=torch.long))  # episode id

@@ -1,7 +1,7 @@
 from train import *
 import gymnasium as gym
 
-Env = gym.make("CarRacing-v2")
+Env = gym.make("CarRacing-v3")
 training = Train(Env)
 training.initialize(3, 3, 32, [64, 64, 128, 128], 3, 35, 5, hidden_layer=256)
 

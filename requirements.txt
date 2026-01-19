@@ -1,0 +1,31 @@
+# Core ML Libraries
+torch>=2.0.0
+torchvision>=0.15.0
+numpy>=1.21.0
+
+# Environment
+gymnasium[box2d]>=0.29.0
+
+# Image Processing
+Pillow>=9.0.0
+
+# Data Loading and Progress
+tqdm>=4.64.0
+
+# Optimization (for Evolution Strategies)
+cma>=3.2.0
+
+# Experiment Tracking
+wandb>=0.15.0
+
+# Visualization
+matplotlib>=3.5.0
+
+# Standard Library (included in Python)
+# os
+# glob
+# time
+# argparse
+# random
+# warnings
+# pathlib

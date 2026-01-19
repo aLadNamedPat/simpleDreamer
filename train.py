@@ -50,7 +50,7 @@ class Train():
     ):
         self.vae = VAE(VAE_input_channels, VAE_out_channels, VAE_latent_dim, VAE_hidden_dims).to(device)
         self.rnn = RNN_MDN(VAE_latent_dim, action_dim, hidden_size, num_gaussians, hidden_layer, num_layers).to(device)
-        self.controller = Controller(VAE_latent_dim, hidden_layer, self.env.action_space)
+        self.controller = Controller(VAE_latent_dim, hidden_size, self.env.action_space)
         if path_to_VAE_weights is not None:
             state_dict = torch.load(path_to_VAE_weights, map_location=device)
             self.vae.load_state_dict(state_dict)
@@ -205,8 +205,7 @@ class Train():
                     h = None
                 prev_ep = ep_id
                 x, a, y = x.to(device), a.to(device), y.to(device)
-                
-                loss, h = self.rnn.MDN_loss(torch.cat((x, a), dim = -1), y.unsqueeze(2), h)  # y→[B,T,1,D]
+                loss, h = self.rnn.MDN_loss(torch.cat((x, a), dim = -1), y, None)
                 h = (h[0].detach(), h[1].detach())
 
                 optimizer.zero_grad()

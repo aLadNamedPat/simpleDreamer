@@ -107,6 +107,9 @@ class RNN_MDN(nn.Module):
 
         x, h_last = self.rnn(x, h0) 
         mu, var, pi = self.MDN(x)
+
+        y_real = y_real.unsqueeze(2)
+        
         pdf = self.find_pdf_normal(y_real, mu, var)
         mix  = (pdf * pi).sum(dim=2)
         loss  = -torch.log(mix.clamp(min=1e-12)).mean()  
@@ -134,4 +137,4 @@ class RNN_MDN(nn.Module):
         inp = torch.cat((x, a), dim=1).unsqueeze(1)
         y, new_hidden = self.rnn(inp, h)
         mu, var, pi = self.MDN(y)
-        return (mu, var), new_hidden
+        return (mu, var, pi), new_hidden

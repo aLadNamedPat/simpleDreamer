@@ -34,8 +34,3 @@ class Controller(nn.Module):
             return torch.tensor([[raw]], dtype=torch.long)
         arr = np.asarray(raw, dtype=np.float32)
         return arr
-        # steer  = np.random.uniform(-1.0, 1.0)          # left / right
-        # gas    = np.random.uniform(0.6, 1.0)           # always accelerate a bit
-        # brake  = np.random.choice([0.0, np.random.uniform(0.2, 1.0)],
-        #                         p=[0.8, 0.2])        # brake rarely
-        # return np.array([steer, gas, brake], dtype=np.float32)

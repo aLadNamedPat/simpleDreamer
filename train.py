@@ -120,7 +120,7 @@ class Train():
                 a = torch.from_numpy(a).unsqueeze(0).to(device)
 
                 cumm_reward += reward
-                (mu, var), h = self.rnn.forward(z, h, a)
+                (mu, var, pi), h = self.rnn.forward(z, h, a)
                 h = (h[0].detach(), h[1].detach())
                 step += 1
 

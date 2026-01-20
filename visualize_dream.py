@@ -10,201 +10,178 @@ from RNN_MDN import RNN_MDN
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
+
 def sample_from_mdn(mu, sigma, pi):
-    """
-    Sample from Mixture Density Network output.
+    """Sample from Mixture Density Network output."""
+    mu = mu.squeeze(0).squeeze(0)
+    sigma = sigma.squeeze(0).squeeze(0)
+    pi = pi.squeeze(0).squeeze(0)
     
-    Args:
-        mu: [1, 1, num_gaussians, latent_dim]
-        sigma: [1, 1, num_gaussians, latent_dim] (or var, depending on your implementation)
-        pi: [1, 1, num_gaussians, latent_dim]
+    pi_transposed = pi.T
+    indices = torch.multinomial(pi_transposed, 1).squeeze(-1)
     
-    Returns:
-        z_next: [1, latent_dim]
-    """
-    # Remove batch and sequence dimensions
-    mu = mu.squeeze(0).squeeze(0)       # [num_gaussians, latent_dim]
-    sigma = sigma.squeeze(0).squeeze(0) # [num_gaussians, latent_dim]
-    pi = pi.squeeze(0).squeeze(0)       # [num_gaussians, latent_dim]
-    
-    # Sample which Gaussian to use for each latent dimension
-    # pi is [num_gaussians, latent_dim], need to sample per dimension
-    pi_transposed = pi.T  # [latent_dim, num_gaussians]
-    
-    # Sample indices for each dimension
-    indices = torch.multinomial(pi_transposed, 1).squeeze(-1)  # [latent_dim]
-    
-    # Gather selected mu and sigma
     latent_dim = mu.shape[1]
-    mu_selected = mu[indices, torch.arange(latent_dim, device=mu.device)]       # [latent_dim]
-    sigma_selected = sigma[indices, torch.arange(latent_dim, device=sigma.device)]  # [latent_dim]
+    mu_selected = mu[indices, torch.arange(latent_dim, device=mu.device)]
+    sigma_selected = sigma[indices, torch.arange(latent_dim, device=sigma.device)]
     
-    # Sample from selected Gaussians
     z_next = mu_selected + sigma_selected * torch.randn_like(mu_selected)
-    
-    return z_next.unsqueeze(0)  # [1, latent_dim]
+    return z_next.unsqueeze(0)
 
 
-def dream_rollout(
-    vae, 
-    rnn, 
-    initial_obs, 
-    action_space,
-    num_steps=500,
-    temperature=1.0,
-    save_dir="dream_frames"
-):
-    """
-    Generate a dream sequence using the world model.
-    
-    Args:
-        vae: Trained VAE model
-        rnn: Trained MDN-RNN model
-        initial_obs: Initial observation from real environment [H, W, C] numpy array
-        action_space: Gym action space for sampling random actions
-        num_steps: Number of dream steps to generate
-        temperature: Controls randomness in MDN sampling (higher = more random)
-        save_dir: Directory to save frames
-    """
-    os.makedirs(save_dir, exist_ok=True)
-    
+def dream_rollout(vae, rnn, initial_obs, action_space, num_steps=500, temperature=1.0):
+    """Generate a dream sequence using the world model."""
     vae.eval()
     rnn.eval()
     
     frames = []
     
     with torch.no_grad():
-        # Encode initial observation
         obs_tensor = torch.from_numpy(initial_obs).float() / 255.0
-        obs_tensor = obs_tensor.permute(2, 0, 1).unsqueeze(0).to(device)  # [1, 3, H, W]
+        obs_tensor = obs_tensor.permute(2, 0, 1).unsqueeze(0).to(device)
         
-        # Get initial latent
         mu, logvar = vae.encode(obs_tensor)
-        z = vae.reparamterize(mu, logvar)  # [1, latent_dim]
+        z = vae.reparamterize(mu, logvar)
         
-        # Initialize RNN hidden state
         h = rnn.get_initial_hidden(device, batch_size=1)
         
-        # Save initial real frame
-        frames.append(initial_obs.copy())
-        
         for step in range(num_steps):
+            # Decode current z to image
+            reconstructed = vae.decode(z, 128)
+            
+            img = reconstructed.squeeze(0).permute(1, 2, 0).cpu().numpy()
+            img = np.clip(img, -1, 1)
+            img = ((img + 1) / 2 * 255).astype(np.uint8)
+            frames.append(img)
+            
             # Sample random action
             action = action_space.sample()
-            a = torch.from_numpy(action.astype(np.float32)).unsqueeze(0).to(device)  # [1, action_dim]
+            a = torch.from_numpy(action.astype(np.float32)).unsqueeze(0).to(device)
             
-            # Get next z prediction from RNN
+            # Predict next z
             (mu_next, var_next, pi_next), h = rnn.forward(z, h, a)
-            
-            # Sample next z from the mixture of Gaussians
-            # Note: Check if your RNN outputs variance or sigma
-            # If variance: sigma = torch.sqrt(var_next)
-            # If already sigma: use directly
-            sigma_next = torch.sqrt(var_next)  # Adjust if your model outputs sigma directly
-            
-            # Apply temperature
-            sigma_next = sigma_next * temperature
+            sigma_next = torch.sqrt(var_next) * temperature
             
             z = sample_from_mdn(mu_next, sigma_next, pi_next)
-            
-            # Decode z to image
-            # Need to get the decoder_start_channels from VAE
-            # This depends on your VAE implementation
-            reconstructed = vae.decode(z, 128)  # Adjust 128 based on your VAE config
-            
-            # Convert to image
-            img = reconstructed.squeeze(0).permute(1, 2, 0).cpu().numpy()
-            img = np.clip(img, -1, 1)  # Tanh output is [-1, 1]
-            img = ((img + 1) / 2 * 255).astype(np.uint8)  # Convert to [0, 255]
-            
-            frames.append(img)
             
             if step % 50 == 0:
                 print(f"Dream step {step}/{num_steps}")
     
-    # Save frames
-    print(f"Saving {len(frames)} frames to {save_dir}/")
-    for idx, frame in enumerate(frames):
-        img = Image.fromarray(frame)
-        img.save(os.path.join(save_dir, f"dream_{idx:04d}.png"))
-    
-    print(f"Done! Frames saved to {save_dir}/")
     return frames
 
 
-def create_comparison_grid(real_frames, dream_frames, save_path="comparison.png"):
-    """
-    Create a side-by-side comparison of real vs dream frames.
-    """
-    import matplotlib.pyplot as plt
+def collect_real_frames(env, num_steps=500):
+    """Collect frames from real environment with random actions."""
+    frames = []
+    obs, _ = env.reset()
     
-    n_frames = min(10, len(real_frames), len(dream_frames))
-    fig, axes = plt.subplots(2, n_frames, figsize=(2*n_frames, 4))
-    
-    for i in range(n_frames):
-        axes[0, i].imshow(real_frames[i])
-        axes[0, i].axis('off')
-        axes[0, i].set_title(f'Real {i}')
+    for step in range(num_steps):
+        frames.append(obs.copy())
+        action = env.action_space.sample()
+        obs, _, done, truncated, _ = env.step(action)
         
-        axes[1, i].imshow(dream_frames[i])
-        axes[1, i].axis('off')
-        axes[1, i].set_title(f'Dream {i}')
+        if done or truncated:
+            obs, _ = env.reset()
+        
+        if step % 50 == 0:
+            print(f"Real step {step}/{num_steps}")
     
-    plt.tight_layout()
-    plt.savefig(save_path, dpi=150)
-    plt.show()
-    print(f"Comparison saved to {save_path}")
+    return frames
+
+
+def frames_to_mp4(frames, output_path="output.mp4", fps=30):
+    """Convert frames to MP4."""
+    import cv2
+    
+    h, w = frames[0].shape[:2]
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    out = cv2.VideoWriter(output_path, fourcc, fps, (w, h))
+    
+    for frame in frames:
+        out.write(cv2.cvtColor(frame, cv2.COLOR_RGB2BGR))
+    
+    out.release()
+    print(f"Saved: {output_path} ({len(frames)} frames)")
+
+
+def frames_to_gif(frames, output_path="output.gif", fps=30):
+    """Convert frames to GIF."""
+    pil_frames = [Image.fromarray(f) for f in frames]
+    pil_frames[0].save(
+        output_path,
+        save_all=True,
+        append_images=pil_frames[1:],
+        duration=int(1000/fps),
+        loop=0
+    )
+    print(f"Saved: {output_path} ({len(frames)} frames)")
+
+
+def create_side_by_side(real_frames, dream_frames, output_path="comparison.mp4", fps=30):
+    """Create side-by-side comparison video."""
+    import cv2
+    
+    n = min(len(real_frames), len(dream_frames))
+    h, w = real_frames[0].shape[:2]
+    
+    # Resize dream frames to match real if needed
+    dream_h, dream_w = dream_frames[0].shape[:2]
+    
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    out = cv2.VideoWriter(output_path, fourcc, fps, (w + dream_w + 10, max(h, dream_h)))
+    
+    for i in range(n):
+        real = cv2.cvtColor(real_frames[i], cv2.COLOR_RGB2BGR)
+        dream = cv2.cvtColor(dream_frames[i], cv2.COLOR_RGB2BGR)
+        
+        # Resize dream to match real height if needed
+        if dream.shape[0] != real.shape[0]:
+            dream = cv2.resize(dream, (int(dream_w * h / dream_h), h))
+        
+        gap = np.zeros((real.shape[0], 10, 3), dtype=np.uint8)
+        combined = np.concatenate([real, gap, dream], axis=1)
+        out.write(combined)
+    
+    out.release()
+    print(f"Saved: {output_path}")
 
 
 def main():
-    # Initialize environment (just to get initial observation and action space)
+    # Initialize
     env = gym.make("CarRacing-v3")
     
-    # Initialize models
     vae = VAE(3, 3, 32, [64, 64, 128, 128]).to(device)
-    rnn = RNN_MDN(
-        input_size=32,      # latent_dim
-        action_dim=3,       # CarRacing action space
-        hidden_size=35,     # Match your training config
-        num_gaussians=5,
-        hidden_layer=256,
-        num_layers=1
-    ).to(device)
+    rnn = RNN_MDN(32, 3, 35, 5, 256, 1).to(device)
     
-    # Load trained weights
     vae.load_state_dict(torch.load("vae_weights_epoch_05.pth", map_location=device))
     rnn.load_state_dict(torch.load("weights/RNN_weights_epoch_20.pth", map_location=device))
-    
     print("Models loaded!")
     
-    # Get initial observation from real environment
-    obs, _ = env.reset()
+    # Get initial observation
+    initial_obs, _ = env.reset()
     
-    # Run dream rollout
+    # Generate dream
+    print("\n=== Generating Dream Sequence ===")
     dream_frames = dream_rollout(
-        vae=vae,
-        rnn=rnn,
-        initial_obs=obs,
-        action_space=env.action_space,
-        num_steps=200,
-        temperature=1.0,
-        save_dir="dream_frames"
+        vae, rnn, initial_obs, env.action_space,
+        num_steps=300,
+        temperature=1.0
     )
     
-    # Also collect some real frames for comparison
-    print("Collecting real frames for comparison...")
-    real_frames = [obs.copy()]
-    for _ in range(10):
-        action = env.action_space.sample()
-        obs, _, done, _, _ = env.step(action)
-        real_frames.append(obs.copy())
-        if done:
-            break
+    # Collect real frames
+    print("\n=== Collecting Real Frames ===")
+    real_frames = collect_real_frames(env, num_steps=300)
     
-    # Create comparison
-    create_comparison_grid(real_frames, dream_frames[:11], "real_vs_dream.png")
+    # Save outputs
+    print("\n=== Saving Videos ===")
+    frames_to_mp4(dream_frames, "dream.mp4", fps=30)
+    frames_to_mp4(real_frames, "real.mp4", fps=30)
+    create_side_by_side(real_frames, dream_frames, "comparison.mp4", fps=30)
+    
+    # Also save as GIF (smaller, easier to view)
+    frames_to_gif(dream_frames[::3], "dream.gif", fps=10)  # Every 3rd frame for smaller file
     
     env.close()
+    print("\nDone!")
 
 
 if __name__ == "__main__":

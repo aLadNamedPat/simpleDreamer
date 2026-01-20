@@ -99,20 +99,22 @@ def train_controller_es(
     for gen in range(generations):
         # Generate population of perturbations
         noise = torch.randn(population_size, num_params, device=device)
-        
+        print(f"Current Generation: {gen}")
         rewards = []
         
         for i in range(population_size):
             # Create perturbed controller
             perturbed_params = params + sigma * noise[i]
+            print(f"Current population: {i}")
+
             set_controller_params(controller, perturbed_params)
-            
+
             # Evaluate over multiple episodes
             ep_rewards = []
             for _ in range(eval_episodes):
                 r = evaluate_controller(vae, rnn, controller, env)
                 ep_rewards.append(r)
-            
+            print(f"Obtained reward {r}")
             avg_reward = np.mean(ep_rewards)
             rewards.append(avg_reward)
         

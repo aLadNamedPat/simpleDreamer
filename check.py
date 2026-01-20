@@ -1,126 +1,158 @@
-# controller_train.py
+# train_controller.py
 
 import torch
-import torch.nn as nn
-import torch.optim as optim
 import numpy as np
 import gymnasium as gym
 from VAE import VAE
 from RNN_MDN import RNN_MDN
 from Controller import Controller
+import copy
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 
-def sample_from_mdn(mu, var, pi):
-    """Sample z from MDN output."""
-    mu = mu.squeeze(0).squeeze(0)
-    sigma = torch.sqrt(var).squeeze(0).squeeze(0)
-    pi = pi.squeeze(0).squeeze(0)
-    
-    pi_t = pi.T
-    indices = torch.multinomial(pi_t, 1).squeeze(-1)
-    
-    latent_dim = mu.shape[1]
-    mu_sel = mu[indices, torch.arange(latent_dim, device=mu.device)]
-    sigma_sel = sigma[indices, torch.arange(latent_dim, device=sigma.device)]
-    
-    z_next = mu_sel + sigma_sel * torch.randn_like(mu_sel)
-    return z_next.unsqueeze(0)
-
-
-def dream_rollout_with_controller(vae, rnn, controller, initial_z, max_steps=500, temperature=1.0):
-    """
-    Run controller inside the dream world.
-    Returns total reward proxy (negative reconstruction uncertainty or similar).
-    """
-    z = initial_z
-    h = rnn.get_initial_hidden(device, batch_size=1)
-    
-    # For CarRacing, reward proxy: how long we survive / stay on track
-    # In dream, we don't have true reward, so we use a proxy
-    total_steps = 0
-    
-    for step in range(max_steps):
-        # Controller takes [z, h] and outputs action
-        h_for_controller = h[0][-1]  # Last layer hidden state [1, hidden_size]
-        controller_input = torch.cat([z, h_for_controller], dim=1)
-        
-        action = controller(controller_input)
-        action = torch.tanh(action)  # Bound actions to [-1, 1]
-        
-        # Scale actions to CarRacing range
-        # steering: [-1, 1], gas: [0, 1], brake: [0, 1]
-        a = action.clone()
-        a[:, 1] = (a[:, 1] + 1) / 2  # gas: [-1,1] -> [0,1]
-        a[:, 2] = (a[:, 2] + 1) / 2  # brake: [-1,1] -> [0,1]
-        
-        # Step in dream world
-        (mu_next, var_next, pi_next), h = rnn.forward(z, h, a)
-        
-        sigma_next = torch.sqrt(var_next) * temperature
-        z = sample_from_mdn(mu_next, var_next, pi_next)
-        
-        total_steps += 1
-    
-    return total_steps  # Simple proxy: survived all steps
-
-
-def evaluate_in_real_env(vae, rnn, controller, env, num_episodes=5, max_steps=1000):
-    """Evaluate controller in real environment."""
+def evaluate_controller(vae, rnn, controller, env, max_steps=1000):
+    """Evaluate controller in real environment. Returns total reward."""
     vae.eval()
     rnn.eval()
     controller.eval()
     
-    total_rewards = []
-    
     with torch.no_grad():
-        for ep in range(num_episodes):
-            obs, _ = env.reset()
-            h = rnn.get_initial_hidden(device, batch_size=1)
-            episode_reward = 0
+        obs, _ = env.reset()
+        h = rnn.get_initial_hidden(device, batch_size=1)
+        total_reward = 0
+        
+        for step in range(max_steps):
+            # Encode observation
+            obs_tensor = torch.from_numpy(obs).float() / 255.0
+            obs_tensor = obs_tensor.permute(2, 0, 1).unsqueeze(0).to(device)
             
-            for step in range(max_steps):
-                # Encode observation
-                obs_tensor = torch.from_numpy(obs).float() / 255.0
-                obs_tensor = obs_tensor.permute(2, 0, 1).unsqueeze(0).to(device)
-                
-                mu, logvar = vae.encode(obs_tensor)
-                z = vae.reparamterize(mu, logvar)
-                
-                # Get action from controller
-                h_for_controller = h[0][-1]
-                controller_input = torch.cat([z, h_for_controller], dim=1)
-                
-                action = controller(controller_input)
-                action = torch.tanh(action)
-                
-                # Scale to CarRacing
-                a = action.squeeze(0).cpu().numpy()
-                a[1] = (a[1] + 1) / 2  # gas
-                a[2] = (a[2] + 1) / 2  # brake
-                
-                # Step environment
-                obs, reward, done, truncated, _ = env.step(a)
-                episode_reward += reward
-                
-                # Update RNN hidden state
-                a_tensor = torch.from_numpy(a).float().unsqueeze(0).to(device)
-                (_, _, _), h = rnn.forward(z, h, a_tensor)
-                
-                if done or truncated:
-                    break
+            mu, logvar = vae.encode(obs_tensor)
+            z = vae.reparamterize(mu, logvar)
             
-            total_rewards.append(episode_reward)
-            print(f"Episode {ep+1}: {episode_reward:.1f}")
+            # Get action from controller
+            h_for_controller = h[0][-1]  # [1, hidden_size]
+            controller_input = torch.cat([z, h_for_controller], dim=1)
+            
+            action = controller(controller_input)
+            action = torch.tanh(action)
+            
+            # Scale to CarRacing action space
+            a = action.squeeze(0).cpu().numpy()
+            a[1] = (a[1] + 1) / 2  # gas: [-1,1] -> [0,1]
+            a[2] = (a[2] + 1) / 2  # brake: [-1,1] -> [0,1]
+            a = a.astype(np.float32)
+            
+            # Step environment
+            obs, reward, done, truncated, _ = env.step(a)
+            total_reward += reward
+            
+            # Update RNN hidden state
+            a_tensor = torch.from_numpy(a).float().unsqueeze(0).to(device)
+            (_, _, _), h = rnn.forward(z, h, a_tensor)
+            
+            if done or truncated:
+                break
+        
+        return total_reward
+
+
+def get_controller_params(controller):
+    """Flatten all controller parameters into a single vector."""
+    return torch.cat([p.data.view(-1) for p in controller.parameters()])
+
+
+def set_controller_params(controller, params):
+    """Set controller parameters from a flattened vector."""
+    idx = 0
+    for p in controller.parameters():
+        size = p.numel()
+        p.data.copy_(params[idx:idx+size].view(p.shape))
+        idx += size
+
+
+def train_controller_es(
+    vae, 
+    rnn, 
+    controller, 
+    env,
+    generations=100,
+    population_size=32,
+    sigma=0.1,
+    learning_rate=0.01,
+    eval_episodes=3
+):
+    """
+    Train controller using simple Evolution Strategy.
+    """
+    vae.eval()
+    rnn.eval()
     
-    return np.mean(total_rewards), np.std(total_rewards)
+    # Get initial parameters
+    params = get_controller_params(controller)
+    num_params = len(params)
+    print(f"Training controller with {num_params} parameters")
+    
+    best_reward = -float('inf')
+    best_params = params.clone()
+    
+    for gen in range(generations):
+        # Generate population of perturbations
+        noise = torch.randn(population_size, num_params, device=device)
+        
+        rewards = []
+        
+        for i in range(population_size):
+            # Create perturbed controller
+            perturbed_params = params + sigma * noise[i]
+            set_controller_params(controller, perturbed_params)
+            
+            # Evaluate over multiple episodes
+            ep_rewards = []
+            for _ in range(eval_episodes):
+                r = evaluate_controller(vae, rnn, controller, env)
+                ep_rewards.append(r)
+            
+            avg_reward = np.mean(ep_rewards)
+            rewards.append(avg_reward)
+        
+        rewards = np.array(rewards)
+        
+        # Normalize rewards
+        rewards_norm = (rewards - rewards.mean()) / (rewards.std() + 1e-8)
+        
+        # Update parameters (gradient estimate)
+        grad = torch.zeros(num_params, device=device)
+        for i in range(population_size):
+            grad += rewards_norm[i] * noise[i]
+        grad /= (population_size * sigma)
+        
+        params = params + learning_rate * grad
+        
+        # Evaluate current best
+        set_controller_params(controller, params)
+        current_reward = np.mean([evaluate_controller(vae, rnn, controller, env) for _ in range(3)])
+        
+        if current_reward > best_reward:
+            best_reward = current_reward
+            best_params = params.clone()
+        
+        print(f"Gen {gen+1:3d} | Mean: {rewards.mean():7.1f} | Max: {rewards.max():7.1f} | Best: {best_reward:7.1f}")
+        
+        # Save checkpoint every 10 generations
+        if (gen + 1) % 10 == 0:
+            set_controller_params(controller, best_params)
+            torch.save(controller.state_dict(), f"controller_gen_{gen+1:03d}.pth")
+    
+    # Restore best parameters
+    set_controller_params(controller, best_params)
+    return best_reward
 
 
 def main():
-    # Load models
     env = gym.make("CarRacing-v3")
     
+    # Load VAE and RNN
     vae = VAE(3, 3, 32, [64, 64, 128, 128]).to(device)
     rnn = RNN_MDN(32, 3, 35, 5, 256, 1).to(device)
     
@@ -130,17 +162,36 @@ def main():
     # Initialize controller
     # Input: z (32) + h (35) = 67
     controller = Controller(
-        input_features=32 + 35,  # z_dim + hidden_size
+        input_features=32 + 35,
         actions_dims=3,
-        action_space=env.action_space
     ).to(device)
     
     print("Models loaded!")
     
-    # First: Evaluate random controller as baseline
-    print("\n=== Baseline (Untrained Controller) ===")
-    mean_reward, std_reward = evaluate_in_real_env(vae, rnn, controller, env, num_episodes=5)
-    print(f"Mean reward: {mean_reward:.1f} ± {std_reward:.1f}")
+    # Baseline
+    print("\n=== Baseline ===")
+    baseline = np.mean([evaluate_controller(vae, rnn, controller, env) for _ in range(3)])
+    print(f"Untrained controller: {baseline:.1f}")
+    
+    # Train
+    print("\n=== Training Controller ===")
+    best_reward = train_controller_es(
+        vae, rnn, controller, env,
+        generations=100,
+        population_size=16,  # Smaller for faster iteration
+        sigma=0.1,
+        learning_rate=0.03,
+        eval_episodes=1  # 1 episode per candidate for speed
+    )
+    
+    # Final evaluation
+    print("\n=== Final Evaluation ===")
+    final_rewards = [evaluate_controller(vae, rnn, controller, env) for _ in range(10)]
+    print(f"Final: {np.mean(final_rewards):.1f} ± {np.std(final_rewards):.1f}")
+    
+    # Save final controller
+    torch.save(controller.state_dict(), "controller_final.pth")
+    print("Saved controller_final.pth")
     
     env.close()
 

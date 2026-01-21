@@ -28,8 +28,8 @@ class RNN_MDN(nn.Module):
 
         self.firstLayer = nn.Linear(hidden_size, hidden_layer)
         self.mu = nn.Linear(hidden_layer,  self.input_size * num_gaussians)
-        self.var = nn.Linear(hidden_layer, self.input_size * num_gaussians)
-        self.pi = nn.Linear(hidden_layer,  self.input_size * num_gaussians)
+        self.var = nn.Linear(hidden_layer)
+        self.pi = nn.Linear(hidden_layer)
         self.leakyReLU = nn.LeakyReLU()
 
     def MDN(
@@ -51,21 +51,22 @@ class RNN_MDN(nn.Module):
         So let utilize non-linear models to predict the following: \pi_k, \mu_k and \var_k
 
         Dimensionality of each output:
-        1. pi_k: K * input_features
+        1. pi_k: K
         2. mu_k : K * input_features
-        3. var_k : K * input_features
+        3. var_k : K
         
         Chose not to use isotropic gaussians in this implementation. Felt kind of limiting.
         """
 
-        batch_size, seq_len, _ = x.shape      # x: [B, T, hidden_size]
+        batch_size, seq_len, _ = x.shape
         x = self.firstLayer(x)
         x = self.leakyReLU(x)
 
-        # Output for all of these are 1 dimensional L * K tensors. We want to convert this into a vector of dimensionality [B, K, L]
+        # Output for mu is a 1 dimensional L * K tensor. We want to convert this into a vector of dimensionality [B, seq_len, L, K]
         mu = self.mu(x)
         mu = mu.view(batch_size, seq_len, self.num_gaussians, self.input_size)
 
+        # Output for var and pi is a 1 dimensional K tensor. We want to broadcast this to a vector of dimensionality [B, seq_len, L, K]
         var = torch.exp(self.var(x)) # Need to have a positive variance here
         var = var.view(batch_size, seq_len, self.num_gaussians, self.input_size)
 
@@ -86,7 +87,7 @@ class RNN_MDN(nn.Module):
 
         f(x) = \frac{e^{\frac{-(x - \mu)^2}{2 \var}}}{\sqrt{2\pi\var}}
         """
-        numerator = torch.exp(-(torch.subtract(y, mu)**2) / (2 * var))
+        numerator = torch.exp(-(torch.subtract(y, mu)**2) / (2 * var + 1e-10))
         denominator = torch.sqrt(2 * np.pi * var)
 
         return numerator / denominator

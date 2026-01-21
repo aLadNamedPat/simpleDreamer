@@ -62,7 +62,7 @@ optimizer = torch.optim.Adam(model.parameters(), lr=initial_lr)
 # scheduler = torch.optim.lr_scheduler.ExponentialLR(optimizer, gamma=0.995)
 
 # Option 3: CosineAnnealingLR - smooth cosine decay
-scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=200, eta_min=1e-6)
+scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=50, eta_min=1e-6)
 
 # Option 4: ReduceLROnPlateau - reduce when loss plateaus
 # scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=10)
@@ -71,7 +71,7 @@ scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=200, eta
 print("\nTraining with LR annealing...")
 losses = []
 lrs = []
-num_epochs = 200
+num_epochs = 50
 
 for epoch in range(num_epochs):
     epoch_loss = 0

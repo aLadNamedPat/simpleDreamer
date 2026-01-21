@@ -85,6 +85,35 @@ def train_model(model, train_data, num_epochs=200, use_actions=False, action_dim
     return losses, lrs
 
 
+def get_weighted_prediction(mu, var, pi):
+    """
+    Get weighted mean prediction from GMM outputs.
+    
+    Handles different possible shapes from the MDN.
+    """
+    # Debug: print shapes
+    # print(f"mu shape: {mu.shape}, pi shape: {pi.shape}")
+    
+    # Remove time dimension if present (T=1 during inference)
+    if mu.dim() == 4:  # [B, T, K, L]
+        mu = mu.squeeze(1)  # [B, K, L]
+    if pi.dim() == 3:  # [B, T, K]
+        pi = pi.squeeze(1)  # [B, K]
+    elif pi.dim() == 4:  # [B, T, K, L] - if pi was expanded per-feature
+        pi = pi.squeeze(1)  # [B, K, L]
+    
+    # Now compute weighted average
+    if pi.dim() == 2:  # [B, K] - single weight per component (correct GMM)
+        # Broadcast pi to match mu: [B, K] -> [B, K, 1] -> broadcast to [B, K, L]
+        z_next = (mu * pi.unsqueeze(-1)).sum(dim=1)  # [B, L]
+    elif pi.dim() == 3:  # [B, K, L] - per-feature weights (your old version)
+        z_next = (mu * pi).sum(dim=1)  # [B, L]
+    else:
+        raise ValueError(f"Unexpected pi shape: {pi.shape}")
+    
+    return z_next
+
+
 def predict_autoregressive(model, initial_context, num_steps, use_actions=False, action_dim=2):
     """
     Autoregressive prediction: use model's own outputs as next input.
@@ -101,23 +130,20 @@ def predict_autoregressive(model, initial_context, num_steps, use_actions=False,
         # Initialize hidden state by running through context
         h = model.get_initial_hidden(device, batch_size=1)
         
-        z_current = initial_context[0:1, :].to(device)  # [1, latent_dim]
-        
         # Run through context to build up hidden state
         for t in range(context_len - 1):
-            z_t = initial_context[t:t+1, :].to(device)
+            z_t = initial_context[t:t+1, :].to(device)  # [1, latent_dim]
+            
             if use_actions:
                 a_t = torch.zeros(1, action_dim, device=device)
                 (mu, var, pi), h = model.forward(z_t, h, a_t)
             else:
-                # For no-action model, we need to modify forward or pass zeros
-                a_t = torch.zeros(1, 0, device=device)  # empty action
-                inp = z_t.unsqueeze(1)
+                inp = z_t.unsqueeze(1)  # [1, 1, latent_dim]
                 out, h = model.rnn(inp, h)
                 mu, var, pi = model.MDN(out)
         
-        # Now predict autoregressively
-        z_current = initial_context[-1:, :].to(device)
+        # Now predict autoregressively starting from last context point
+        z_current = initial_context[-1:, :].to(device)  # [1, latent_dim]
         predictions = []
         
         for t in range(num_steps):
@@ -125,17 +151,12 @@ def predict_autoregressive(model, initial_context, num_steps, use_actions=False,
                 a_t = torch.zeros(1, action_dim, device=device)
                 (mu, var, pi), h = model.forward(z_current, h, a_t)
             else:
-                inp = z_current.unsqueeze(1)
+                inp = z_current.unsqueeze(1)  # [1, 1, latent_dim]
                 out, h = model.rnn(inp, h)
                 mu, var, pi = model.MDN(out)
             
-            # Get prediction: weighted mean of Gaussian components
-            # mu: [B, T, K, L], pi: [B, T, K]
-            mu = mu.squeeze(1)  # [B, K, L]
-            pi = pi.squeeze(1)  # [B, K]
-            
-            # Weighted average across components
-            z_next = (mu * pi.unsqueeze(-1)).sum(dim=1)  # [B, L]
+            # Get weighted prediction
+            z_next = get_weighted_prediction(mu, var, pi)
             
             predictions.append(z_next.cpu().numpy())
             z_current = z_next
@@ -153,23 +174,37 @@ def predict_teacher_forcing(model, z_true, use_actions=False, action_dim=2):
         predictions = []
         
         for t in range(seq_len - 1):
-            z_t = z_true[t:t+1, :].to(device)
+            z_t = z_true[t:t+1, :].to(device)  # [1, latent_dim]
             
             if use_actions:
                 a_t = torch.zeros(1, action_dim, device=device)
                 (mu, var, pi), h = model.forward(z_t, h, a_t)
             else:
-                inp = z_t.unsqueeze(1)
+                inp = z_t.unsqueeze(1)  # [1, 1, latent_dim]
                 out, h = model.rnn(inp, h)
                 mu, var, pi = model.MDN(out)
             
-            mu = mu.squeeze(1)
-            pi = pi.squeeze(1)
-            z_next = (mu * pi.unsqueeze(-1)).sum(dim=1)
-            
+            z_next = get_weighted_prediction(mu, var, pi)
             predictions.append(z_next.cpu().numpy())
     
     return np.array(predictions).squeeze()
+
+
+def inspect_model_outputs(model, sample_input):
+    """Debug helper to print MDN output shapes."""
+    model.eval()
+    with torch.no_grad():
+        h = model.get_initial_hidden(device, batch_size=1)
+        inp = sample_input.unsqueeze(0).unsqueeze(0).to(device)  # [1, 1, latent_dim]
+        out, h = model.rnn(inp, h)
+        mu, var, pi = model.MDN(out)
+        
+        print(f"\nMDN Output Shapes:")
+        print(f"  mu:  {mu.shape}")
+        print(f"  var: {var.shape}")
+        print(f"  pi:  {pi.shape}")
+        
+        return mu, var, pi
 
 
 def main():
@@ -205,6 +240,10 @@ def main():
     print(f"  Hidden size: 128")
     print(f"  Num Gaussians: 5")
     print(f"  Num layers: 2")
+    
+    # Inspect model output shapes before training
+    sample = torch.from_numpy(train_data[0]['z'][0])
+    inspect_model_outputs(model, sample)
     
     # Train
     print("\nTraining...")

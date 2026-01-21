@@ -74,11 +74,13 @@ class RNN_MDN(nn.Module):
         var = torch.exp(self.var(x)) # Need to have a positive variance here
         print(var.shape)
         print(var)
-        var = var.view(batch_size, seq_len, self.num_gaussians, self.input_size)
+        var = var.view(batch_size, seq_len, self.num_gaussians)
+        var = var.expand(-1, -1, -1, 8)
 
         pi = self.pi(x)
-        pi = pi.view(batch_size,seq_len, self.num_gaussians, self.input_size)
+        pi = pi.view(batch_size, seq_len, self.num_gaussians)
         pi = F.softmax(pi, 2) 
+        pi = pi.expand(-1, -1, -1, 8)
 
         return mu, var, pi
        

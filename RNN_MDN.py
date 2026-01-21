@@ -64,10 +64,12 @@ class RNN_MDN(nn.Module):
 
         # Output for mu is a 1 dimensional L * K tensor. We want to convert this into a vector of dimensionality [B, seq_len, L, K]
         mu = self.mu(x)
+        print(mu)
         mu = mu.view(batch_size, seq_len, self.num_gaussians, self.input_size)
 
         # Output for var and pi is a 1 dimensional K tensor. We want to broadcast this to a vector of dimensionality [B, seq_len, L, K]
         var = torch.exp(self.var(x)) # Need to have a positive variance here
+        print(var)
         var = var.view(batch_size, seq_len, self.num_gaussians, self.input_size)
 
         pi = self.pi(x)

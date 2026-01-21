@@ -67,6 +67,8 @@ class RNN_MDN(nn.Module):
         print(mu.shape)
         print(mu)
         mu = mu.view(batch_size, seq_len, self.num_gaussians, self.input_size)
+        print(mu)
+        print(mu.shape)
 
         # Output for var and pi is a 1 dimensional K tensor. We want to broadcast this to a vector of dimensionality [B, seq_len, L, K]
         var = torch.exp(self.var(x)) # Need to have a positive variance here

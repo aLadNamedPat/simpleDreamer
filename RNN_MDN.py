@@ -28,7 +28,7 @@ class RNN_MDN(nn.Module):
 
         self.firstLayer = nn.Linear(hidden_size, hidden_layer)
         self.mu = nn.Linear(hidden_layer,  self.input_size * num_gaussians)
-        self.var = nn.Linear(hidden_layer, num_gaussians)
+        self.var = nn.Linear(hidden_layer, self.input_size * num_gaussians)
         self.pi = nn.Linear(hidden_layer, num_gaussians)
         self.leakyReLU = nn.LeakyReLU()
 
@@ -66,17 +66,15 @@ class RNN_MDN(nn.Module):
         mu = self.mu(x)
         mu = mu.view(batch_size, seq_len, self.num_gaussians, self.input_size)
 
-        # Output for var and pi is a 1 dimensional K tensor. We want to broadcast this to a vector of dimensionality [B, seq_len, L, K]
         var = torch.exp(self.var(x)) # Need to have a positive variance here
-        var = var.view(batch_size, seq_len, self.num_gaussians)
-        var = var.unsqueeze(-1)
-        var = var.expand(-1, -1, -1, 8)
+        var = var.view(batch_size, seq_len, self.num_gaussians, self.input_size)
 
+        # Output for pi is a 1 dimensional K tensor. We want to broadcast this to a vector of dimensionality [B, seq_len, L, K]
         pi = self.pi(x)
         pi = pi.view(batch_size, seq_len, self.num_gaussians)
         pi = pi.unsqueeze(-1)
         pi = F.softmax(pi, 2) 
-        pi = pi.expand(-1, -1, -1, 8)
+        pi = pi.expand(-1, -1, -1, self.input_size)
 
         return mu, var, pi
        

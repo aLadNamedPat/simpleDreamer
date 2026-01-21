@@ -43,10 +43,10 @@ test_data = generate_sine_data(num_sequences=50, seq_len=100, latent_dim=8, acti
 model = RNN_MDN(
     input_size=8,
     action_dim=2,
-    hidden_size=64,
-    num_gaussians=3,
-    hidden_layer=32,
-    num_layers=1
+    hidden_size=128,
+    num_gaussians=6,
+    hidden_layer=128,
+    num_layers=2
 ).to(device)
 
 # Optimizer with initial learning rate

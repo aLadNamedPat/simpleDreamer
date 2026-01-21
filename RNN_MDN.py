@@ -75,10 +75,12 @@ class RNN_MDN(nn.Module):
         print(var.shape)
         print(var)
         var = var.view(batch_size, seq_len, self.num_gaussians)
+        var = var.unsqueeze(-1)
         var = var.expand(-1, -1, -1, 8)
 
         pi = self.pi(x)
         pi = pi.view(batch_size, seq_len, self.num_gaussians)
+        pi = pi.unsqueeze(-1)
         pi = F.softmax(pi, 2) 
         pi = pi.expand(-1, -1, -1, 8)
 

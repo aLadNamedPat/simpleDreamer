@@ -205,7 +205,7 @@ class Train():
                     h = None
                 prev_ep = ep_id
                 x, a, y = x.to(device), a.to(device), y.to(device)
-                loss, h = self.rnn.MDN_loss(torch.cat((x, a), dim = -1), y, None)
+                loss, h = self.rnn.MDN_loss(torch.cat((x, a), dim = -1), y, h0=h)
                 h = (h[0].detach(), h[1].detach())
 
                 optimizer.zero_grad()

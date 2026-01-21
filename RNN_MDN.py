@@ -28,8 +28,8 @@ class RNN_MDN(nn.Module):
 
         self.firstLayer = nn.Linear(hidden_size, hidden_layer)
         self.mu = nn.Linear(hidden_layer,  self.input_size * num_gaussians)
-        self.var = nn.Linear(hidden_layer)
-        self.pi = nn.Linear(hidden_layer)
+        self.var = nn.Linear(hidden_layer, num_gaussians)
+        self.pi = nn.Linear(hidden_layer, num_gaussians)
         self.leakyReLU = nn.LeakyReLU()
 
     def MDN(

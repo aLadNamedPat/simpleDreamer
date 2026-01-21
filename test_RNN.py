@@ -130,7 +130,7 @@ optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 print("\nTraining...")
 losses = []
 
-for epoch in range(50):
+for epoch in range(200):
     epoch_loss = 0
     np.random.shuffle(train_data)
     

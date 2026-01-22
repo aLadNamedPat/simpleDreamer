@@ -36,7 +36,7 @@ def generate_sine_sequences(num_sequences=1000, seq_len=100, latent_dim=8):
     return data
 
 
-def train_model(model, train_data, num_epochs=200, use_actions=False, action_dim=2):
+def train_model(model, train_data, num_epochs=200, action_dim=1):
     """Train the model on sequence prediction."""
     
     initial_lr = 0.001
@@ -47,19 +47,16 @@ def train_model(model, train_data, num_epochs=200, use_actions=False, action_dim
     lrs = []
     
     for epoch in range(num_epochs):
+        model.train()  # Ensure model is in training mode
         epoch_loss = 0
         np.random.shuffle(train_data)
         
         for seq in train_data:
             z = torch.from_numpy(seq['z']).unsqueeze(0).to(device)  # [1, seq_len, latent_dim]
             
-            if use_actions:
-                # Random actions - model should learn to ignore them
-                a = torch.randn(1, z.shape[1], action_dim, device=device) * 0.1
-                x = torch.cat([z[:, :-1, :], a[:, :-1, :]], dim=-1)
-            else:
-                # No actions - pure sequence prediction
-                x = z[:, :-1, :]
+            # Zero actions - model must rely purely on sequence history
+            a = torch.zeros(1, z.shape[1], action_dim, device=device)
+            x = torch.cat([z[:, :-1, :], a[:, :-1, :]], dim=-1)
             
             y = z[:, 1:, :]  # Target: next timestep
             
@@ -85,7 +82,7 @@ def train_model(model, train_data, num_epochs=200, use_actions=False, action_dim
     return losses, lrs
 
 
-def predict_autoregressive(model, initial_context, num_steps, use_actions=False, action_dim=2):
+def predict_autoregressive(model, initial_context, num_steps, action_dim=1):
     """
     Autoregressive prediction: use model's own outputs as next input.
     
@@ -95,47 +92,32 @@ def predict_autoregressive(model, initial_context, num_steps, use_actions=False,
     """
     model.eval()
     context_len = initial_context.shape[0]
-    latent_dim = initial_context.shape[1]
     
     with torch.no_grad():
-        # Initialize hidden state by running through context
+        # Initialize hidden state
         h = model.get_initial_hidden(device, batch_size=1)
-        
-        z_current = initial_context[0:1, :].to(device)  # [1, latent_dim]
         
         # Run through context to build up hidden state
         for t in range(context_len - 1):
-            z_t = initial_context[t:t+1, :].to(device)
-            if use_actions:
-                a_t = torch.zeros(1, action_dim, device=device)
-                (mu, var, pi), h = model.forward(z_t, h, a_t)
-            else:
-                # For no-action model, we need to modify forward or pass zeros
-                a_t = torch.zeros(1, 0, device=device)  # empty action
-                inp = z_t.unsqueeze(1)
-                out, h = model.rnn(inp, h)
-                mu, var, pi = model.MDN(out)
+            z_t = initial_context[t:t+1, :].to(device)  # [1, latent_dim]
+            a_t = torch.zeros(1, action_dim, device=device)
+            (mu, var, pi), h = model.forward(z_t, h, a_t)
         
-        # Now predict autoregressively
+        # Now predict autoregressively starting from last context point
         z_current = initial_context[-1:, :].to(device)
         predictions = []
         
         for t in range(num_steps):
-            if use_actions:
-                a_t = torch.zeros(1, action_dim, device=device)
-                (mu, var, pi), h = model.forward(z_current, h, a_t)
-            else:
-                inp = z_current.unsqueeze(1)
-                out, h = model.rnn(inp, h)
-                mu, var, pi = model.MDN(out)
+            a_t = torch.zeros(1, action_dim, device=device)
+            (mu, var, pi), h = model.forward(z_current, h, a_t)
             
-            # Get prediction: weighted mean of Gaussian components
-            # mu: [B, T, K, L], pi: [B, T, K]
+            # mu: [B, T, K, L], pi: [B, T, K, L] (pi is expanded to match mu)
             mu = mu.squeeze(1)  # [B, K, L]
-            pi = pi.squeeze(1)  # [B, K]
+            pi = pi.squeeze(1)  # [B, K, L]
             
-            # Weighted average across components
-            z_next = (mu * pi.unsqueeze(-1)).sum(dim=1)  # [B, L]
+            # Weighted average across Gaussian components (dim 1 = K)
+            # Both mu and pi have shape [B, K, L], so element-wise multiply and sum over K
+            z_next = (mu * pi).sum(dim=1)  # [B, L]
             
             predictions.append(z_next.cpu().numpy())
             z_current = z_next
@@ -143,7 +125,7 @@ def predict_autoregressive(model, initial_context, num_steps, use_actions=False,
     return np.array(predictions).squeeze()  # [num_steps, latent_dim]
 
 
-def predict_teacher_forcing(model, z_true, use_actions=False, action_dim=2):
+def predict_teacher_forcing(model, z_true, action_dim=1):
     """Predict with teacher forcing - always use ground truth as input."""
     model.eval()
     seq_len = z_true.shape[0]
@@ -154,18 +136,15 @@ def predict_teacher_forcing(model, z_true, use_actions=False, action_dim=2):
         
         for t in range(seq_len - 1):
             z_t = z_true[t:t+1, :].to(device)
+            a_t = torch.zeros(1, action_dim, device=device)
+            (mu, var, pi), h = model.forward(z_t, h, a_t)
             
-            if use_actions:
-                a_t = torch.zeros(1, action_dim, device=device)
-                (mu, var, pi), h = model.forward(z_t, h, a_t)
-            else:
-                inp = z_t.unsqueeze(1)
-                out, h = model.rnn(inp, h)
-                mu, var, pi = model.MDN(out)
+            # mu: [B, T, K, L], pi: [B, T, K, L]
+            mu = mu.squeeze(1)  # [B, K, L]
+            pi = pi.squeeze(1)  # [B, K, L]
             
-            mu = mu.squeeze(1)
-            pi = pi.squeeze(1)
-            z_next = (mu * pi.unsqueeze(-1)).sum(dim=1)
+            # Weighted average across Gaussian components
+            z_next = (mu * pi).sum(dim=1)  # [B, L]
             
             predictions.append(z_next.cpu().numpy())
     
@@ -180,8 +159,9 @@ def main():
     
     # Configuration
     latent_dim = 8
-    use_actions = False  # Set to True to test with dummy actions
-    action_dim = 2 if use_actions else 0
+    # Always use action_dim >= 1 since the model expects actions
+    # We just pass zeros to make them meaningless
+    action_dim = 1
     
     # Generate data
     print("\nGenerating synthetic data...")
@@ -211,7 +191,6 @@ def main():
     losses, lrs = train_model(
         model, train_data, 
         num_epochs=200, 
-        use_actions=use_actions, 
         action_dim=action_dim
     )
     
@@ -228,14 +207,12 @@ def main():
     z_pred_ar = predict_autoregressive(
         model, context, 
         num_steps=len(test_seq['z']) - context_len,
-        use_actions=use_actions,
         action_dim=action_dim
     )
     
     # Teacher forcing prediction
     z_pred_tf = predict_teacher_forcing(
         model, z_true,
-        use_actions=use_actions,
         action_dim=action_dim
     )
     

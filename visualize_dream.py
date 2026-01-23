@@ -213,8 +213,8 @@ def main():
     controller = Controller(input_features=32 + 35, actions_dims=3).to(device)
     
     vae.load_state_dict(torch.load("vae_weights_epoch_04.pth", map_location=device))
-    rnn.load_state_dict(torch.load("weights/RNN_weights_epoch_50.pth", map_location=device))
-    controller.load_state_dict(torch.load("controller_gen_100.pth", map_location=device))
+    rnn.load_state_dict(torch.load("weights_new/RNN_weights_best.pth", map_location=device))
+    controller.load_state_dict(torch.load("controller_cma_gen_020.pth", map_location=device))
     
     print("All models loaded!")
     

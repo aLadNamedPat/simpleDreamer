@@ -188,12 +188,12 @@ class Train():
     ):
         optimizer = torch.optim.Adam(self.rnn.parameters(), lr= 0.0001)
         self.rnn.train()
-        self.loader = RolloutLatentDataset(root_dir="rollouts_2", segment_len=128)
+        self.loader = RolloutLatentDataset(root_dir="rollouts_rnn", segment_len=128)
 
         dataloader = DataLoader(self.loader,
                         batch_size=batch_size,
                         drop_last=True) 
-        os.makedirs("weights", exist_ok=True)
+        os.makedirs("weights_new", exist_ok=True)
 
         for epoch in range(epochs):
             prev_ep = None
@@ -216,5 +216,5 @@ class Train():
                 # print(total_loss)
                 wandb.log({"loss": loss})
 
-            save_path = f"weights/RNN_weights_epoch_{epoch+1:02d}.pth"
+            save_path = f"weights_new/RNN_weights_epoch_{epoch+1:02d}.pth"
             torch.save(self.rnn.state_dict(), save_path)

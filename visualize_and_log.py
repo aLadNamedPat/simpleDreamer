@@ -31,10 +31,11 @@ def sample_from_mdn(mu, var, pi, temperature=1.0):
     Returns:
         z_next: [1, latent_dim]
     """
+    print(mu.shape)
     mu = mu.squeeze(0)      # [n_gaussians, latent_dim]
     sigma = torch.sqrt(var).squeeze(0) * temperature
     pi = pi.squeeze(0)      # [n_gaussians, latent_dim]
-    
+
     n_gaussians, latent_dim = mu.shape
     
     # Numerical stability

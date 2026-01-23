@@ -23,19 +23,27 @@ def sample_from_mdn(mu, var, pi, temperature=1.0):
     Sample from Mixture Density Network output.
     
     Args:
-        mu:  [1, 1, n_gaussians, latent_dim] or [1, n_gaussians, latent_dim]
-        var: [1, 1, n_gaussians, latent_dim] or [1, n_gaussians, latent_dim]
-        pi:  [1, 1, n_gaussians, latent_dim] or [1, n_gaussians, latent_dim]
+        mu:  [1, 1, n_gaussians, latent_dim] or [1, n_gaussians, latent_dim] or [n_gaussians, latent_dim]
+        var: same shape as mu
+        pi:  same shape as mu
         temperature: sampling temperature (higher = more random)
     
     Returns:
         z_next: [1, latent_dim]
     """
-    # Squeeze all leading dimensions until we have [n_gaussians, latent_dim]
-    while mu.dim() > 2:
-        mu = mu.squeeze(0)
-        var = var.squeeze(0)
-        pi = pi.squeeze(0)
+    # Squeeze only batch and sequence dimensions, keep [n_gaussians, latent_dim]
+    # We want exactly 2 dimensions at the end
+    if mu.dim() == 4:
+        # [batch, seq, n_gaussians, latent_dim] -> [n_gaussians, latent_dim]
+        mu = mu[0, 0]
+        var = var[0, 0]
+        pi = pi[0, 0]
+    elif mu.dim() == 3:
+        # [batch, n_gaussians, latent_dim] -> [n_gaussians, latent_dim]
+        mu = mu[0]
+        var = var[0]
+        pi = pi[0]
+    # else: already [n_gaussians, latent_dim]
     
     sigma = torch.sqrt(var) * temperature
     
@@ -65,10 +73,16 @@ def sample_from_mdn(mu, var, pi, temperature=1.0):
 
 def get_mdn_mean(mu, pi):
     """Get weighted mean prediction from MDN (deterministic)."""
-    # Squeeze all leading dimensions until we have [n_gaussians, latent_dim]
-    while mu.dim() > 2:
-        mu = mu.squeeze(0)
-        pi = pi.squeeze(0)
+    # Handle different input shapes
+    if mu.dim() == 4:
+        # [batch, seq, n_gaussians, latent_dim] -> [n_gaussians, latent_dim]
+        mu = mu[0, 0]
+        pi = pi[0, 0]
+    elif mu.dim() == 3:
+        # [batch, n_gaussians, latent_dim] -> [n_gaussians, latent_dim]
+        mu = mu[0]
+        pi = pi[0]
+    # else: already [n_gaussians, latent_dim]
     
     # Weighted sum across gaussians
     z_mean = (pi * mu).sum(dim=0)  # [latent_dim]

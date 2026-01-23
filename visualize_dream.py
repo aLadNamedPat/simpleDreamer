@@ -214,7 +214,7 @@ def main():
     
     vae.load_state_dict(torch.load("vae_weights_epoch_04.pth", map_location=device))
     rnn.load_state_dict(torch.load("weights/RNN_weights_epoch_50.pth", map_location=device))
-    controller.load_state_dict(torch.load("controller_final.pth", map_location=device))
+    controller.load_state_dict(torch.load("controller_gen_100.pth", map_location=device))
     
     print("All models loaded!")
     

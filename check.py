@@ -173,7 +173,7 @@ def main():
     rnn = RNN_MDN(32, 3, 35, 5, 256, 1).to(device)
     
     vae.load_state_dict(torch.load("vae_weights_epoch_04.pth", map_location=device))
-    rnn.load_state_dict(torch.load("weights/RNN_weights_epoch_50.pth", map_location=device))
+    rnn.load_state_dict(torch.load("weights_new/RNN_weights_best.pth", map_location=device))
     
     # Initialize controller
     controller = Controller(

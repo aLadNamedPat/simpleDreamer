@@ -212,8 +212,8 @@ def main():
     rnn = RNN_MDN(32, 3, 35, 5, 256, 1).to(device)
     controller = Controller(input_features=32 + 35, actions_dims=3).to(device)
     
-    vae.load_state_dict(torch.load("vae_weights_epoch_05.pth", map_location=device))
-    rnn.load_state_dict(torch.load("weights/RNN_weights_epoch_20.pth", map_location=device))
+    vae.load_state_dict(torch.load("vae_weights_epoch_04.pth", map_location=device))
+    rnn.load_state_dict(torch.load("weights/RNN_weights_epoch_50.pth", map_location=device))
     controller.load_state_dict(torch.load("controller_final.pth", map_location=device))
     
     print("All models loaded!")

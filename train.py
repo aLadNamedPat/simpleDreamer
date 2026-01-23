@@ -9,6 +9,7 @@ from PIL import Image
 import numpy as np
 import wandb
 from tqdm.auto import tqdm
+from torch.optim.lr_scheduler import CosineAnnealingLR
 
 wandb.init(
     # set the wandb project where this run will be logged
@@ -186,7 +187,10 @@ class Train():
         epochs,
         batch_size  = 16
     ):
-        optimizer = torch.optim.Adam(self.rnn.parameters(), lr= 0.0001)
+        initial_lr = 0.001
+        min_lr = 0.0001
+        optimizer = torch.optim.Adam(self.rnn.parameters(), lr= initial_lr)
+        scheduler = CosineAnnealingLR(optimizer, T_max=epochs, eta_min = min_lr)
         self.rnn.train()
         self.loader = RolloutLatentDataset(root_dir="rollouts_rnn", segment_len=128)
 
@@ -211,7 +215,7 @@ class Train():
                 loss.backward()
                 torch.nn.utils.clip_grad_norm_(self.rnn.parameters(), 1.0)
                 optimizer.step()
-
+                scheduler.step()
                 total_loss += loss.item()
                 # print(total_loss)
                 wandb.log({"loss": loss})

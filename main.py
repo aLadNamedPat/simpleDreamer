@@ -12,16 +12,16 @@ training.initialize(
     path_to_RNN_weights=None
 )
 
-# Collect latent rollouts for RNN training
-for i in range(5000):  # Fewer rollouts needed since each has many timesteps
-    print(f"Latent rollout {i}")
-    training.rollout(
-        random_action=True,
-        save_images=False,      # Don't need raw images
-        RNN_latents=True,       # Save latent encodings + actions
-        save_root="rollouts_rnn",  # Different directory for RNN data
-        max_steps=1000
-    )
+# # Collect latent rollouts for RNN training
+# for i in range(5000):  # Fewer rollouts needed since each has many timesteps
+#     print(f"Latent rollout {i}")
+#     training.rollout(
+#         random_action=True,
+#         save_images=False,      # Don't need raw images
+#         RNN_latents=True,       # Save latent encodings + actions
+#         save_root="rollouts_rnn",  # Different directory for RNN data
+#         max_steps=1000
+#     )
 
 # Train RNN on collected latents
 training.RNN_Train(epochs=50)

@@ -200,7 +200,6 @@ class Train():
             h = None
             total_loss = 0
             for x, a, y, ep_id in tqdm(dataloader, desc=f"Epoch {epoch+1}/{epochs}", leave=False):
-
                 if prev_ep is None or (ep_id != prev_ep).any():
                     h = None
                 prev_ep = ep_id

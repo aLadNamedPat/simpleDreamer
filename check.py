@@ -158,8 +158,8 @@ def main():
     vae = VAE(3, 3, 32, [64, 64, 128, 128]).to(device)
     rnn = RNN_MDN(32, 3, 35, 5, 256, 1).to(device)
     
-    vae.load_state_dict(torch.load("vae_weights_epoch_05.pth", map_location=device))
-    rnn.load_state_dict(torch.load("weights/RNN_weights_epoch_20.pth", map_location=device))
+    vae.load_state_dict(torch.load("vae_weights_epoch_04.pth", map_location=device))
+    rnn.load_state_dict(torch.load("weights/RNN_weights_epoch_50.pth", map_location=device))
     
     # Initialize controller
     # Input: z (32) + h (35) = 67

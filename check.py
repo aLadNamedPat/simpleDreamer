@@ -1,12 +1,12 @@
-# train_controller.py
+# train_controller_cma.py
 
 import torch
 import numpy as np
 import gymnasium as gym
+import cma
 from VAE import VAE
 from RNN_MDN import RNN_MDN
 from Controller import Controller
-import copy
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -59,92 +59,106 @@ def evaluate_controller(vae, rnn, controller, env, max_steps=1000):
 
 def get_controller_params(controller):
     """Flatten all controller parameters into a single vector."""
-    return torch.cat([p.data.view(-1) for p in controller.parameters()])
+    return torch.cat([p.data.view(-1) for p in controller.parameters()]).cpu().numpy()
 
 
 def set_controller_params(controller, params):
-    """Set controller parameters from a flattened vector."""
+    """Set controller parameters from a flattened vector (numpy array)."""
+    params_tensor = torch.from_numpy(params).float().to(device)
     idx = 0
     for p in controller.parameters():
         size = p.numel()
-        p.data.copy_(params[idx:idx+size].view(p.shape))
+        p.data.copy_(params_tensor[idx:idx+size].view(p.shape))
         idx += size
 
 
-def train_controller_es(
+def train_controller_cma(
     vae, 
     rnn, 
     controller, 
     env,
-    generations=100,
-    population_size=32,
-    sigma=0.1,
-    learning_rate=0.01,
-    eval_episodes=3
+    max_generations=100,
+    population_size=16,
+    sigma_init=0.5,
+    eval_episodes=1
 ):
     """
-    Train controller using simple Evolution Strategy.
+    Train controller using CMA-ES.
     """
     vae.eval()
     rnn.eval()
     
     # Get initial parameters
-    params = get_controller_params(controller)
-    num_params = len(params)
-    print(f"Training controller with {num_params} parameters")
+    x0 = get_controller_params(controller)
+    num_params = len(x0)
+    print(f"Training controller with {num_params} parameters using CMA-ES")
+    
+    # CMA-ES options
+    opts = {
+        'popsize': population_size,
+        'maxiter': max_generations,
+        'CMA_diagonal': True,  # Use diagonal covariance (faster for many params)
+        'verb_disp': 1,        # Print every generation
+        'verb_log': 0,         # No file logging
+    }
+    
+    # Initialize CMA-ES
+    # Note: CMA-ES minimizes, so we'll negate rewards
+    es = cma.CMAEvolutionStrategy(x0, sigma_init, opts)
     
     best_reward = -float('inf')
-    best_params = params.clone()
+    best_params = x0.copy()
+    generation = 0
     
-    for gen in range(generations):
-        # Generate population of perturbations
-        noise = torch.randn(population_size, num_params, device=device)
-        print(f"Current Generation: {gen}")
-        rewards = []
+    while not es.stop():
+        # Get candidate solutions
+        candidates = es.ask()
         
-        for i in range(population_size):
-            # Create perturbed controller
-            perturbed_params = params + sigma * noise[i]
-            print(f"Current population: {i}")
-
-            set_controller_params(controller, perturbed_params)
-
+        # Evaluate each candidate
+        fitnesses = []
+        rewards_for_logging = []
+        
+        for i, candidate in enumerate(candidates):
+            set_controller_params(controller, candidate)
+            
             # Evaluate over multiple episodes
             ep_rewards = []
             for _ in range(eval_episodes):
                 r = evaluate_controller(vae, rnn, controller, env)
                 ep_rewards.append(r)
-            print(f"Obtained reward {r}")
+            
             avg_reward = np.mean(ep_rewards)
-            rewards.append(avg_reward)
+            rewards_for_logging.append(avg_reward)
+            
+            # CMA-ES minimizes, so negate the reward
+            fitnesses.append(-avg_reward)
+            
+            print(f"  Gen {generation} | Candidate {i+1}/{len(candidates)} | Reward: {avg_reward:.1f}")
         
-        rewards = np.array(rewards)
+        # Update CMA-ES
+        es.tell(candidates, fitnesses)
         
-        # Normalize rewards
-        rewards_norm = (rewards - rewards.mean()) / (rewards.std() + 1e-8)
+        # Track best
+        gen_best_idx = np.argmin(fitnesses)
+        gen_best_reward = rewards_for_logging[gen_best_idx]
         
-        # Update parameters (gradient estimate)
-        grad = torch.zeros(num_params, device=device)
-        for i in range(population_size):
-            grad += rewards_norm[i] * noise[i]
-        grad /= (population_size * sigma)
+        if gen_best_reward > best_reward:
+            best_reward = gen_best_reward
+            best_params = candidates[gen_best_idx].copy()
         
-        params = params + learning_rate * grad
-        
-        # Evaluate current best
-        set_controller_params(controller, params)
-        current_reward = np.mean([evaluate_controller(vae, rnn, controller, env) for _ in range(3)])
-        
-        if current_reward > best_reward:
-            best_reward = current_reward
-            best_params = params.clone()
-        
-        print(f"Gen {gen+1:3d} | Mean: {rewards.mean():7.1f} | Max: {rewards.max():7.1f} | Best: {best_reward:7.1f}")
+        print(f"Gen {generation+1:3d} | Mean: {np.mean(rewards_for_logging):7.1f} | "
+              f"Max: {np.max(rewards_for_logging):7.1f} | Best ever: {best_reward:7.1f} | "
+              f"Sigma: {es.sigma:.4f}")
         
         # Save checkpoint every 10 generations
-        if (gen + 1) % 10 == 0:
+        if (generation + 1) % 10 == 0:
             set_controller_params(controller, best_params)
-            torch.save(controller.state_dict(), f"controller_gen_{gen+1:03d}.pth")
+            torch.save(controller.state_dict(), f"controller_cma_gen_{generation+1:03d}.pth")
+        
+        generation += 1
+    
+    # Print stop reason
+    print(f"\nCMA-ES stopped: {es.stop()}")
     
     # Restore best parameters
     set_controller_params(controller, best_params)
@@ -162,7 +176,6 @@ def main():
     rnn.load_state_dict(torch.load("weights/RNN_weights_epoch_50.pth", map_location=device))
     
     # Initialize controller
-    # Input: z (32) + h (35) = 67
     controller = Controller(
         input_features=32 + 35,
         actions_dims=3,
@@ -175,15 +188,14 @@ def main():
     baseline = np.mean([evaluate_controller(vae, rnn, controller, env) for _ in range(3)])
     print(f"Untrained controller: {baseline:.1f}")
     
-    # Train
-    print("\n=== Training Controller ===")
-    best_reward = train_controller_es(
+    # Train with CMA-ES
+    print("\n=== Training Controller with CMA-ES ===")
+    best_reward = train_controller_cma(
         vae, rnn, controller, env,
-        generations=100,
-        population_size=16,  # Smaller for faster iteration
-        sigma=0.1,
-        learning_rate=0.03,
-        eval_episodes=1  # 1 episode per candidate for speed
+        max_generations=100,
+        population_size=16,
+        sigma_init=0.5,      # Initial step size (often larger than vanilla ES)
+        eval_episodes=1
     )
     
     # Final evaluation
@@ -192,8 +204,8 @@ def main():
     print(f"Final: {np.mean(final_rewards):.1f} ± {np.std(final_rewards):.1f}")
     
     # Save final controller
-    torch.save(controller.state_dict(), "controller_final.pth")
-    print("Saved controller_final.pth")
+    torch.save(controller.state_dict(), "controller_cma_final.pth")
+    print("Saved controller_cma_final.pth")
     
     env.close()
 

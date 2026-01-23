@@ -23,19 +23,22 @@ def sample_from_mdn(mu, var, pi, temperature=1.0):
     Sample from Mixture Density Network output.
     
     Args:
-        mu:  [1, n_gaussians, latent_dim]
-        var: [1, n_gaussians, latent_dim]
-        pi:  [1, n_gaussians, latent_dim]
+        mu:  [1, 1, n_gaussians, latent_dim] or [1, n_gaussians, latent_dim]
+        var: [1, 1, n_gaussians, latent_dim] or [1, n_gaussians, latent_dim]
+        pi:  [1, 1, n_gaussians, latent_dim] or [1, n_gaussians, latent_dim]
         temperature: sampling temperature (higher = more random)
     
     Returns:
         z_next: [1, latent_dim]
     """
-    print(mu.shape)
-    mu = mu.squeeze(0)      # [n_gaussians, latent_dim]
-    sigma = torch.sqrt(var).squeeze(0) * temperature
-    pi = pi.squeeze(0)      # [n_gaussians, latent_dim]
-
+    # Squeeze all leading dimensions until we have [n_gaussians, latent_dim]
+    while mu.dim() > 2:
+        mu = mu.squeeze(0)
+        var = var.squeeze(0)
+        pi = pi.squeeze(0)
+    
+    sigma = torch.sqrt(var) * temperature
+    
     n_gaussians, latent_dim = mu.shape
     
     # Numerical stability
@@ -62,8 +65,10 @@ def sample_from_mdn(mu, var, pi, temperature=1.0):
 
 def get_mdn_mean(mu, pi):
     """Get weighted mean prediction from MDN (deterministic)."""
-    mu = mu.squeeze(0)  # [n_gaussians, latent_dim]
-    pi = pi.squeeze(0)  # [n_gaussians, latent_dim]
+    # Squeeze all leading dimensions until we have [n_gaussians, latent_dim]
+    while mu.dim() > 2:
+        mu = mu.squeeze(0)
+        pi = pi.squeeze(0)
     
     # Weighted sum across gaussians
     z_mean = (pi * mu).sum(dim=0)  # [latent_dim]

@@ -182,43 +182,70 @@ class Train():
             torch.save(self.vae.state_dict(), save_path)
             print(f"→ Saved VAE weights to {save_path}")
                 
-    def RNN_Train(
-        self,
-        epochs,
-        batch_size  = 16
-    ):
-        initial_lr = 0.001
-        min_lr = 0.0001
-        optimizer = torch.optim.Adam(self.rnn.parameters(), lr= initial_lr)
-        scheduler = CosineAnnealingLR(optimizer, T_max=epochs, eta_min = min_lr)
-        self.rnn.train()
-        self.loader = RolloutLatentDataset(root_dir="rollouts_rnn", segment_len=128)
-
-        dataloader = DataLoader(self.loader,
-                        batch_size=batch_size,
-                        drop_last=True) 
-        os.makedirs("weights_new", exist_ok=True)
-
-        for epoch in range(epochs):
-            prev_ep = None
-            h = None
-            total_loss = 0
-            for x, a, y, ep_id in tqdm(dataloader, desc=f"Epoch {epoch+1}/{epochs}", leave=False):
-                if prev_ep is None or (ep_id != prev_ep).any():
-                    h = None
-                prev_ep = ep_id
-                x, a, y = x.to(device), a.to(device), y.to(device)
-                loss, h = self.rnn.MDN_loss(torch.cat((x, a), dim = -1), y, h0=h)
-                h = (h[0].detach(), h[1].detach())
-
-                optimizer.zero_grad()
-                loss.backward()
-                torch.nn.utils.clip_grad_norm_(self.rnn.parameters(), 1.0)
-                optimizer.step()
-                scheduler.step()
-                total_loss += loss.item()
-                # print(total_loss)
-                wandb.log({"loss": loss})
-
-            save_path = f"weights_new/RNN_weights_epoch_{epoch+1:02d}.pth"
-            torch.save(self.rnn.state_dict(), save_path)
+def RNN_Train(
+    self,
+    epochs,
+    batch_size=16,
+    seq_len=32,
+    stride=1,  # 1 for full overlap, or higher for less overlap
+):
+    initial_lr = 0.001
+    min_lr = 0.0001
+    optimizer = torch.optim.Adam(self.rnn.parameters(), lr=initial_lr)
+    
+    # Create dataset and dataloader
+    self.loader = RolloutLatentDataset(
+        root_dir="rollouts_rnn",
+        seq_len=seq_len,
+        sample_latent=True,
+        stride=stride,
+    )
+    dataloader = DataLoader(
+        self.loader,
+        batch_size=batch_size,
+        shuffle=True,  # Important: shuffle for i.i.d. batches
+        drop_last=True,
+        num_workers=4,  # Parallel loading
+        pin_memory=True,
+    )
+    
+    # Scheduler should step once per epoch, so T_max = epochs
+    scheduler = CosineAnnealingLR(optimizer, T_max=epochs, eta_min=min_lr)
+    
+    os.makedirs("weights_new", exist_ok=True)
+    self.rnn.train()
+    
+    for epoch in range(epochs):
+        total_loss = 0
+        num_batches = 0
+        
+        for x, a, y in tqdm(dataloader, desc=f"Epoch {epoch+1}/{epochs}", leave=False):
+            x, a, y = x.to(device), a.to(device), y.to(device)
+            
+            # Concatenate latent and action as input
+            rnn_input = torch.cat((x, a), dim=-1)  # [B, seq_len, z_dim + a_dim]
+            
+            # Forward pass with h0=None (fresh hidden state each sequence)
+            # LSTM handles hidden state propagation WITHIN the sequence automatically
+            loss, _ = self.rnn.MDN_loss(rnn_input, y, h0=None)
+            
+            # Backward pass
+            optimizer.zero_grad()
+            loss.backward()
+            torch.nn.utils.clip_grad_norm_(self.rnn.parameters(), 1.0)
+            optimizer.step()
+            
+            total_loss += loss.item()
+            num_batches += 1
+            
+        wandb.log({"loss": total_loss.item()})
+        
+        # Step scheduler once per epoch
+        scheduler.step()
+        
+        avg_loss = total_loss / num_batches
+        print(f"Epoch {epoch+1}/{epochs} | Avg Loss: {avg_loss:.4f} | LR: {scheduler.get_last_lr()[0]:.6f}")
+        
+        # Save checkpoint
+        save_path = f"weights_new/RNN_weights_epoch_{epoch+1:02d}.pth"
+        torch.save(self.rnn.state_dict(), save_path)

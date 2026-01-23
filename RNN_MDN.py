@@ -70,13 +70,9 @@ class RNN_MDN(nn.Module):
         var = var.view(batch_size, seq_len, self.num_gaussians, self.input_size)
 
         # Output for pi is a 1 dimensional K tensor. We want to broadcast this to a vector of dimensionality [B, seq_len, L, K]
-        pi = self.pi(x)
-        pi = pi.view(batch_size, seq_len, self.num_gaussians)
-        pi = pi.unsqueeze(-1)
-        pi = F.softmax(pi, 2) 
-        pi = pi.expand(-1, -1, -1, self.input_size)
-
-        return mu, var, pi
+        logpi = F.log_softmax(self.pi(x), dim=-1)        
+        
+        return mu, var, logpi
        
     def find_pdf_normal(
         self,
@@ -94,30 +90,58 @@ class RNN_MDN(nn.Module):
 
         return numerator / denominator
     
-    def MDN_loss(
-        self, 
-        x,
-        y_real,
-        h0 = None
-    ):
-        r"""
-        Our loss method is defined by the following equation:
-        L(w) = \frac{-1}{N} \sum_{n = 1}^_{N} { \log{\sum_{k}{\pi_k(x_n, w)\N(y_n|\mu_k(x_n, w), \var(x_n, w))}}}
-        """
-        batch_size, seq_len, _ = x.shape      # x: [B, T, hidden_size]
+    # def MDN_loss(
+    #     self, 
+    #     x,
+    #     y_real,
+    #     h0 = None
+    # ):
+    #     r"""
+    #     Our loss method is defined by the following equation:
+    #     L(w) = \frac{-1}{N} \sum_{n = 1}^_{N} { \log{\sum_{k}{\pi_k(x_n, w)\N(y_n|\mu_k(x_n, w), \var(x_n, w))}}}
+    #     """
+    #     batch_size, seq_len, _ = x.shape      # x: [B, T, hidden_size]
+    #     if h0 is None:
+    #         h0 = self.get_initial_hidden(x.device, batch_size)
+
+    #     x, h_last = self.rnn(x, h0) 
+    #     mu, var, pi = self.MDN(x)
+
+    #     y_real = y_real.unsqueeze(2)
+        
+    #     pdf = self.find_pdf_normal(y_real, mu, var)
+    #     mix  = (pdf * pi).sum(dim=2)
+    #     loss  = -torch.log(mix.clamp(min=1e-12)).mean()  
+    #     return loss, h_last
+
+    def MDN_loss(self, x, y_real, h0=None):
+        batch_size, seq_len, _ = x.shape
         if h0 is None:
             h0 = self.get_initial_hidden(x.device, batch_size)
-
-        x, h_last = self.rnn(x, h0) 
-        mu, var, pi = self.MDN(x)
-
-        y_real = y_real.unsqueeze(2)
         
-        pdf = self.find_pdf_normal(y_real, mu, var)
-        mix  = (pdf * pi).sum(dim=2)
-        loss  = -torch.log(mix.clamp(min=1e-12)).mean()  
+        x, h_last = self.rnn(x, h0)
+        mu, var, logpi = self.MDN(x)  # Assuming pi is already normalized probabilities
+        
+        y_real = y_real.unsqueeze(2)  # [B, T, 1, latent_dim]
+        
+        # log_pi = torch.log(pi.clamp(min=1e-12))  # Or output log_pi directly from MDN
+        var = var.clamp(min=1e-6)
+        
+        # Log probability of Gaussian
+        log_pdf = -0.5 * (
+            torch.log(2 * torch.pi * var) + 
+            (y_real - mu)**2 / var
+        ).sum(dim=-1)
+
+        log_mix = logpi + log_pdf
+        max_log = log_mix.max(dim=-1, keepdim=True)[0]
+        log_prob = max_log.squeeze(-1) + torch.log(
+            torch.exp(log_mix - max_log).sum(dim=-1)
+        )
+        
+        loss = -log_prob.mean()
         return loss, h_last
-    
+
     def get_initial_hidden(
         self,
         device,

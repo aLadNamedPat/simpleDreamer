@@ -23,69 +23,77 @@ def sample_from_mdn(mu, var, pi, temperature=1.0):
     Sample from Mixture Density Network output.
     
     Args:
-        mu:  [1, 1, n_gaussians, latent_dim] or [1, n_gaussians, latent_dim] or [n_gaussians, latent_dim]
-        var: same shape as mu
-        pi:  same shape as mu
+        mu:  [B, seq, n_gaussians, latent_dim] - means
+        var: [B, seq, n_gaussians, latent_dim] - variances
+        pi:  [B, seq, n_gaussians] - log mixing coefficients (shared across latent dims)
         temperature: sampling temperature (higher = more random)
     
     Returns:
         z_next: [1, latent_dim]
     """
-    # Squeeze only batch and sequence dimensions, keep [n_gaussians, latent_dim]
-    # We want exactly 2 dimensions at the end
+    # Handle different input shapes - get to [n_gaussians, latent_dim] for mu/var
     if mu.dim() == 4:
-        # [batch, seq, n_gaussians, latent_dim] -> [n_gaussians, latent_dim]
-        mu = mu[0, 0]
-        var = var[0, 0]
-        pi = pi[0, 0]
+        mu = mu[0, 0]    # [n_gaussians, latent_dim]
+        var = var[0, 0]  # [n_gaussians, latent_dim]
     elif mu.dim() == 3:
-        # [batch, n_gaussians, latent_dim] -> [n_gaussians, latent_dim]
-        mu = mu[0]
-        var = var[0]
-        pi = pi[0]
-    # else: already [n_gaussians, latent_dim]
+        mu = mu[0]       # [n_gaussians, latent_dim]
+        var = var[0]     # [n_gaussians, latent_dim]
     
-    sigma = torch.sqrt(var) * temperature
+    # Handle pi separately - it has shape [B, seq, n_gaussians] (no latent_dim)
+    if pi.dim() == 3:
+        pi = pi[0, 0]    # [n_gaussians]
+    elif pi.dim() == 2:
+        pi = pi[0]       # [n_gaussians]
+    # else: already [n_gaussians]
     
     n_gaussians, latent_dim = mu.shape
+    sigma = torch.sqrt(var) * temperature
+    
+    # pi is log_softmax output, convert to probabilities
+    pi_probs = torch.exp(pi)  # [n_gaussians]
     
     # Numerical stability
-    pi = torch.clamp(pi, min=1e-8)
-    pi = pi / pi.sum(dim=0, keepdim=True)
+    pi_probs = torch.clamp(pi_probs, min=1e-8)
+    pi_probs = pi_probs / pi_probs.sum()  # Renormalize
     
-    if torch.isnan(pi).any() or torch.isinf(pi).any():
-        pi = torch.ones_like(pi) / n_gaussians
+    if torch.isnan(pi_probs).any() or torch.isinf(pi_probs).any():
+        pi_probs = torch.ones(n_gaussians, device=pi.device) / n_gaussians
     
-    # Sample component for each latent dimension
-    pi_t = pi.permute(1, 0)  # [latent_dim, n_gaussians]
-    indices = torch.multinomial(pi_t, num_samples=1).squeeze(-1)  # [latent_dim]
+    # Sample ONE component index (shared for all latent dimensions)
+    idx = torch.multinomial(pi_probs, num_samples=1).item()  # scalar
     
-    # Gather selected parameters
-    latent_indices = torch.arange(latent_dim, device=mu.device)
-    mu_sel = mu[indices, latent_indices]
-    sigma_sel = sigma[indices, latent_indices]
+    # Get the selected gaussian's parameters
+    mu_sel = mu[idx]      # [latent_dim]
+    sigma_sel = sigma[idx]  # [latent_dim]
     
-    # Sample
+    # Sample from selected Gaussian
     z_next = mu_sel + sigma_sel * torch.randn_like(mu_sel)
     
-    return z_next.unsqueeze(0)
+    return z_next.unsqueeze(0)  # [1, latent_dim]
 
 
 def get_mdn_mean(mu, pi):
     """Get weighted mean prediction from MDN (deterministic)."""
-    # Handle different input shapes
+    # Handle mu: [B, seq, n_gaussians, latent_dim] -> [n_gaussians, latent_dim]
     if mu.dim() == 4:
-        # [batch, seq, n_gaussians, latent_dim] -> [n_gaussians, latent_dim]
         mu = mu[0, 0]
-        pi = pi[0, 0]
     elif mu.dim() == 3:
-        # [batch, n_gaussians, latent_dim] -> [n_gaussians, latent_dim]
         mu = mu[0]
+    
+    # Handle pi: [B, seq, n_gaussians] -> [n_gaussians]
+    if pi.dim() == 3:
+        pi = pi[0, 0]
+    elif pi.dim() == 2:
         pi = pi[0]
-    # else: already [n_gaussians, latent_dim]
+    
+    # pi is log_softmax, convert to probabilities
+    pi_probs = torch.exp(pi)  # [n_gaussians]
+    pi_probs = pi_probs / pi_probs.sum()  # Normalize
     
     # Weighted sum across gaussians
-    z_mean = (pi * mu).sum(dim=0)  # [latent_dim]
+    # mu: [n_gaussians, latent_dim], pi_probs: [n_gaussians]
+    # Expand pi to broadcast: [n_gaussians, 1] * [n_gaussians, latent_dim]
+    z_mean = (pi_probs.unsqueeze(-1) * mu).sum(dim=0)  # [latent_dim]
     return z_mean.unsqueeze(0)
 
 

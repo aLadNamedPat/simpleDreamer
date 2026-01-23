@@ -123,10 +123,10 @@ class RNN_MDN(nn.Module):
         mu, var, logpi = self.MDN(x)  # Assuming pi is already normalized probabilities
         
         y_real = y_real.unsqueeze(2)  # [B, T, 1, latent_dim]
-        
+            
         # log_pi = torch.log(pi.clamp(min=1e-12))  # Or output log_pi directly from MDN
         var = var.clamp(min=1e-6)
-        
+
         # Log probability of Gaussian
         log_pdf = -0.5 * (
             torch.log(2 * torch.pi * var) + 

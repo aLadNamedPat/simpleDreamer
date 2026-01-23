@@ -187,46 +187,45 @@ class Train():
         epochs,
         batch_size=16,
         seq_len=32,
-        stride=1,  # 1 for full overlap, or higher for less overlap
+        stride=2,
+        test_count=100,  # Number of files to reserve for test set
+        eval_every=1,    # Evaluate on test set every N epochs
     ):
         initial_lr = 0.001
         min_lr = 0.0001
         optimizer = torch.optim.Adam(self.rnn.parameters(), lr=initial_lr)
         
-        # Create dataset and dataloader
-        self.loader = RolloutLatentDataset(
+        # Create train and test dataloaders
+        train_loader, test_loader = get_train_test_loaders(
             root_dir="rollouts_rnn",
             seq_len=seq_len,
             sample_latent=True,
             stride=stride,
-        )
-        dataloader = DataLoader(
-            self.loader,
+            test_count=test_count,
             batch_size=batch_size,
-            shuffle=True,  # Important: shuffle for i.i.d. batches
-            drop_last=True,
-            num_workers=4,  # Parallel loading
-            pin_memory=True,
+            num_workers=4,
         )
         
         # Scheduler should step once per epoch, so T_max = epochs
         scheduler = CosineAnnealingLR(optimizer, T_max=epochs, eta_min=min_lr)
         
         os.makedirs("weights_new", exist_ok=True)
-        self.rnn.train()
+        
+        best_test_loss = float('inf')
         
         for epoch in range(epochs):
-            total_loss = 0
-            num_batches = 0
+            # ==================== Training ====================
+            self.rnn.train()
+            total_train_loss = 0
+            num_train_batches = 0
             
-            for x, a, y in tqdm(dataloader, desc=f"Epoch {epoch+1}/{epochs}", leave=False):
+            for x, a, y in tqdm(train_loader, desc=f"Epoch {epoch+1}/{epochs} [Train]", leave=False):
                 x, a, y = x.to(device), a.to(device), y.to(device)
                 
                 # Concatenate latent and action as input
                 rnn_input = torch.cat((x, a), dim=-1)  # [B, seq_len, z_dim + a_dim]
                 
                 # Forward pass with h0=None (fresh hidden state each sequence)
-                # LSTM handles hidden state propagation WITHIN the sequence automatically
                 loss, _ = self.rnn.MDN_loss(rnn_input, y, h0=None)
                 
                 # Backward pass
@@ -235,17 +234,61 @@ class Train():
                 torch.nn.utils.clip_grad_norm_(self.rnn.parameters(), 1.0)
                 optimizer.step()
                 
-                total_loss += loss.item()
-                num_batches += 1
+                total_train_loss += loss.item()
+                num_train_batches += 1
+            
+            avg_train_loss = total_train_loss / num_train_batches
+            
+            # ==================== Evaluation ====================
+            if (epoch + 1) % eval_every == 0:
+                self.rnn.eval()
+                total_test_loss = 0
+                num_test_batches = 0
                 
-            wandb.log({"loss": total_loss.item()})
+                with torch.no_grad():
+                    for x, a, y in tqdm(test_loader, desc=f"Epoch {epoch+1}/{epochs} [Test]", leave=False):
+                        x, a, y = x.to(device), a.to(device), y.to(device)
+                        
+                        rnn_input = torch.cat((x, a), dim=-1)
+                        loss, _ = self.rnn.MDN_loss(rnn_input, y, h0=None)
+                        
+                        total_test_loss += loss.item()
+                        num_test_batches += 1
+                
+                avg_test_loss = total_test_loss / num_test_batches
+                
+                # Log both train and test loss
+                wandb.log({
+                    "train_loss": avg_train_loss,
+                    "test_loss": avg_test_loss,
+                    "lr": scheduler.get_last_lr()[0],
+                    "epoch": epoch + 1,
+                })
+                
+                print(f"Epoch {epoch+1}/{epochs} | Train Loss: {avg_train_loss:.4f} | "
+                    f"Test Loss: {avg_test_loss:.4f} | LR: {scheduler.get_last_lr()[0]:.6f}")
+                
+                # Save best model based on test loss
+                if avg_test_loss < best_test_loss:
+                    best_test_loss = avg_test_loss
+                    torch.save(self.rnn.state_dict(), "weights_new/RNN_weights_best.pth")
+                    print(f"  → New best test loss! Saved best model.")
+            else:
+                # Log only train loss on non-eval epochs
+                wandb.log({
+                    "train_loss": avg_train_loss,
+                    "lr": scheduler.get_last_lr()[0],
+                    "epoch": epoch + 1,
+                })
+                
+                print(f"Epoch {epoch+1}/{epochs} | Train Loss: {avg_train_loss:.4f} | "
+                    f"LR: {scheduler.get_last_lr()[0]:.6f}")
             
             # Step scheduler once per epoch
             scheduler.step()
             
-            avg_loss = total_loss / num_batches
-            print(f"Epoch {epoch+1}/{epochs} | Avg Loss: {avg_loss:.4f} | LR: {scheduler.get_last_lr()[0]:.6f}")
-            
-            # Save checkpoint
+            # Save checkpoint every epoch
             save_path = f"weights_new/RNN_weights_epoch_{epoch+1:02d}.pth"
             torch.save(self.rnn.state_dict(), save_path)
+        
+        print(f"\nTraining complete! Best test loss: {best_test_loss:.4f}")

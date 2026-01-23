@@ -24,4 +24,4 @@ training.initialize(
 #     )
 
 # Train RNN on collected latents
-training.RNN_Train(epochs=50)
+training.RNN_Train(epochs=20)

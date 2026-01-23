@@ -13,19 +13,69 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 
 def sample_from_mdn(mu, var, pi):
-    """Sample from Mixture Density Network output."""
-    mu = mu.squeeze(0).squeeze(0)
-    sigma = torch.sqrt(var).squeeze(0).squeeze(0)
-    pi = pi.squeeze(0).squeeze(0)
+    """
+    Sample from Mixture Density Network output.
     
-    pi_t = pi.T
-    indices = torch.multinomial(pi_t, 1).squeeze(-1)
+    Args:
+        mu:  [1, 1, n_gaussians, latent_dim] or [1, n_gaussians, latent_dim]
+        var: [1, 1, n_gaussians, latent_dim] or [1, n_gaussians, latent_dim]
+        pi:  [1, 1, n_gaussians, latent_dim] or [1, n_gaussians, latent_dim]
     
-    latent_dim = mu.shape[1]
-    mu_sel = mu[indices, torch.arange(latent_dim, device=mu.device)]
-    sigma_sel = sigma[indices, torch.arange(latent_dim, device=sigma.device)]
+    Returns:
+        z_next: [1, latent_dim]
+    """
+    # Remove batch/sequence dimensions
+    mu = mu.squeeze(0).squeeze(0)      # [n_gaussians, latent_dim]
+    sigma = torch.sqrt(var).squeeze(0).squeeze(0)  # [n_gaussians, latent_dim]
+    pi = pi.squeeze(0).squeeze(0)      # [n_gaussians, latent_dim]
     
+    n_gaussians, latent_dim = mu.shape
+    
+    # Ensure pi is valid (numerical stability)
+    # pi should already be softmax output, but let's ensure it's valid
+    pi = torch.clamp(pi, min=1e-8)  # Avoid zeros
+    pi = pi / pi.sum(dim=0, keepdim=True)  # Re-normalize along gaussian dimension
+    
+    # Check for NaN/Inf and replace with uniform if needed
+    if torch.isnan(pi).any() or torch.isinf(pi).any():
+        print("Warning: NaN/Inf in pi, using uniform distribution")
+        pi = torch.ones_like(pi) / n_gaussians
+    
+    # Sample component index for each latent dimension
+    # pi is [n_gaussians, latent_dim], we need [latent_dim, n_gaussians] for multinomial
+    pi_t = pi.permute(1, 0)  # [latent_dim, n_gaussians]
+    
+    # multinomial expects probabilities that sum to 1 along last dim
+    indices = torch.multinomial(pi_t, num_samples=1).squeeze(-1)  # [latent_dim]
+    
+    # Gather the selected mu and sigma for each latent dimension
+    # indices is [latent_dim], we need to index into [n_gaussians, latent_dim]
+    latent_indices = torch.arange(latent_dim, device=mu.device)
+    mu_sel = mu[indices, latent_indices]       # [latent_dim]
+    sigma_sel = sigma[indices, latent_indices] # [latent_dim]
+    
+    # Sample from selected Gaussians
     z_next = mu_sel + sigma_sel * torch.randn_like(mu_sel)
+    
+    return z_next.unsqueeze(0)  # [1, latent_dim]
+
+
+def sample_from_mdn_simple(mu, var, pi):
+    """
+    Simpler MDN sampling - just use the most likely component or mean.
+    Use this as fallback if the stochastic version causes issues.
+    """
+    mu = mu.squeeze(0).squeeze(0)      # [n_gaussians, latent_dim]
+    pi = pi.squeeze(0).squeeze(0)      # [n_gaussians, latent_dim]
+    
+    # Option 1: Weighted mean across all components
+    # z_next = (pi * mu).sum(dim=0)  # [latent_dim]
+    
+    # Option 2: Select most likely component per dimension
+    best_idx = pi.argmax(dim=0)  # [latent_dim]
+    latent_indices = torch.arange(mu.shape[1], device=mu.device)
+    z_next = mu[best_idx, latent_indices]
+    
     return z_next.unsqueeze(0)
 
 
@@ -90,8 +140,14 @@ def rollout_real_env(vae, rnn, controller, env, num_steps=1000):
     return frames, total_reward
 
 
-def rollout_dream(vae, rnn, controller, initial_obs, num_steps=500, temperature=1.0):
-    """Run trained controller in dream environment."""
+def rollout_dream(vae, rnn, controller, initial_obs, num_steps=500, temperature=1.0, 
+                  use_stochastic=True):
+    """
+    Run trained controller in dream environment.
+    
+    Args:
+        use_stochastic: If True, sample from MDN. If False, use deterministic mode selection.
+    """
     vae.eval()
     rnn.eval()
     controller.eval()
@@ -124,11 +180,34 @@ def rollout_dream(vae, rnn, controller, initial_obs, num_steps=500, temperature=
             # Predict next z using RNN
             (mu_next, var_next, pi_next), h = rnn.forward(z, h, a_tensor)
             
-            # Sample next z
-            z = sample_from_mdn(mu_next, var_next * (temperature ** 2), pi_next)
+            # Debug: Check for NaN/Inf
+            if step < 5 or step % 100 == 0:
+                print(f"Step {step}: mu range [{mu_next.min():.3f}, {mu_next.max():.3f}], "
+                      f"var range [{var_next.min():.3f}, {var_next.max():.3f}], "
+                      f"pi range [{pi_next.min():.6f}, {pi_next.max():.3f}]")
+                
+                if torch.isnan(mu_next).any():
+                    print("  WARNING: NaN in mu_next!")
+                if torch.isnan(var_next).any():
+                    print("  WARNING: NaN in var_next!")
+                if torch.isnan(pi_next).any():
+                    print("  WARNING: NaN in pi_next!")
             
-            if step % 100 == 0:
-                print(f"Dream step {step}/{num_steps}")
+            # Sample next z
+            if use_stochastic:
+                try:
+                    z = sample_from_mdn(mu_next, var_next * (temperature ** 2), pi_next)
+                except Exception as e:
+                    print(f"Stochastic sampling failed at step {step}: {e}")
+                    print("Falling back to deterministic sampling")
+                    z = sample_from_mdn_simple(mu_next, var_next, pi_next)
+            else:
+                z = sample_from_mdn_simple(mu_next, var_next, pi_next)
+            
+            # Check z for NaN
+            if torch.isnan(z).any():
+                print(f"WARNING: NaN in z at step {step}, resetting to zero")
+                z = torch.zeros_like(z)
     
     return frames
 
@@ -227,7 +306,13 @@ def main():
     
     # === Dream Environment Rollout ===
     print("\n=== Running Controller in Dream Environment ===")
-    dream_frames = rollout_dream(vae, rnn, controller, initial_obs, num_steps=len(real_frames), temperature=1.0)
+    # Try stochastic first, fall back to deterministic if issues
+    dream_frames = rollout_dream(
+        vae, rnn, controller, initial_obs, 
+        num_steps=len(real_frames), 
+        temperature=1.0,
+        use_stochastic=True  # Set to False if stochastic causes issues
+    )
     
     # === Save Videos ===
     print("\n=== Saving Visualizations ===")

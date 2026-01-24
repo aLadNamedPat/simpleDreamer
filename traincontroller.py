@@ -282,11 +282,12 @@ def main():
     # Load VAE
     print(f"\nLoading VAE from {args.vae_weights}...")
     # VAE constructor: VAE(input_channels, out_channels, latent_dim, hidden_dims)
+    # Trained with hidden_dims=[64, 64, 128, 128]
     vae = VAE(
         3,  # input_channels
         3,  # out_channels
-        args.latent_dim,  # latent_dim
-        [32, 64, 128, 256],  # hidden_dims
+        args.latent_dim,  # latent_dim (32)
+        [64, 64, 128, 128],  # hidden_dims - must match checkpoint!
     ).to(device)
     vae.load_state_dict(torch.load(args.vae_weights, map_location=device))
     vae.eval()

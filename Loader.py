@@ -11,11 +11,6 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 class RolloutImageDataset(Dataset):
     def __init__(self, root_dir, img_size=64):
-        """
-        Args:
-            root_dir (str): path to 'rollouts', which contains subfolders run_<timestamp>.
-            img_size (int): resize short edge to this and center-crop to img_size×img_size.
-        """
         pattern = os.path.join(root_dir, "run_*", "frame_*.png")
         self.paths = sorted(glob.glob(pattern))
         self.transform = transforms.Compose([

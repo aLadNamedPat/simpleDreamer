@@ -83,7 +83,7 @@ class Train():
             latents = []
             mus = []
             variances = []
-
+        
         obs = self.env.reset()[0]
         h = self.rnn.get_initial_hidden(device)
         print(h)
@@ -135,8 +135,8 @@ class Train():
         if save_images:
             for idx, frame in enumerate(frames):
                 # if your obs is float [0,1], convert back to uint8:
-                if frame.dtype != np.uint8:
-                    frame = (frame * 255).astype(np.uint8)
+                # if frame.dtype != np.uint8:
+                #     frame = (frame * 255).astype(np.uint8)
                 img = Image.fromarray(frame)
                 img.save(os.path.join(save_dir, f"frame_{idx:04d}.png"))
 
@@ -214,7 +214,6 @@ class Train():
         best_test_loss = float('inf')
         
         for epoch in range(epochs):
-            # ==================== Training ====================
             self.rnn.train()
             total_train_loss = 0
             num_train_batches = 0

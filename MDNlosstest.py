@@ -349,12 +349,17 @@ class TestMDNLoss(unittest.TestCase):
             print(f"  logpi: {logpi.shape}")
             
             # Get the most likely Gaussian's mean as prediction
-            pi = torch.exp(logpi.squeeze())
-            best_gaussian = torch.argmax(pi)
-            predicted_mean = mu.squeeze()[0, best_gaussian, :]  # [latent_dim]
+            # mu shape is [batch, seq_len, num_gaussians, latent_dim] = [1, 1, 3, 4]
+            # logpi shape is [batch, seq_len, num_gaussians] = [1, 1, 3]
+            pi = torch.exp(logpi.squeeze())  # [num_gaussians]
+            best_gaussian = torch.argmax(pi).item()
+            
+            # Squeeze batch and seq_len dims: [1, 1, 3, 4] -> [3, 4]
+            mu_squeezed = mu.squeeze(0).squeeze(0)  # [num_gaussians, latent_dim]
+            predicted_mean = mu_squeezed[best_gaussian, :]  # [latent_dim]
             actual_next = y_test[0, 0, :]  # [latent_dim]
             
-            print(f"\nPredicted mean (best Gaussian): {predicted_mean.cpu().numpy()}")
+            print(f"\nPredicted mean (best Gaussian {best_gaussian}): {predicted_mean.cpu().numpy()}")
             print(f"Actual next state: {actual_next.cpu().numpy()}")
             print(f"Mixture weights: {pi.cpu().numpy()}")
         

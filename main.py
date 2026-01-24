@@ -7,7 +7,7 @@ import argparse
 import gymnasium as gym
 import numpy as np
 import torch
-from Train import Train
+from train import *
 
 
 def parse_args():

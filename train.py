@@ -267,7 +267,6 @@ class Train():
             print(f"Epoch {epoch+1}/{epochs} | Loss: {mean_loss:.4f} | Saved to {save_path}")
         
         wandb.finish()
-        print("VAE training complete!")
 
     def encode_rollouts(
         self,
@@ -615,4 +614,3 @@ class Train():
                 img.save(os.path.join(save_dir, f"frame_{idx:04d}.png"))
         
         return cumm_reward
-    

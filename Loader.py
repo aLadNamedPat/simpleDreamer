@@ -10,9 +10,37 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 
 class RolloutImageDataset(Dataset):
+    """
+    Dataset for loading rollout images for VAE training.
+    
+    Supports two directory structures:
+    1. Old structure: root_dir/run_*/frame_*.png
+    2. New unified structure: root_dir/run_*/images/frame_*.png
+    
+    Automatically detects which structure is present.
+    """
+    
     def __init__(self, root_dir, img_size=64):
-        pattern = os.path.join(root_dir, "run_*", "frame_*.png")
-        self.paths = sorted(glob.glob(pattern))
+        # Try new unified structure first (run_*/images/frame_*.png)
+        pattern_new = os.path.join(root_dir, "run_*", "images", "frame_*.png")
+        self.paths = sorted(glob.glob(pattern_new))
+        
+        # If no images found, try old structure (run_*/frame_*.png)
+        if len(self.paths) == 0:
+            pattern_old = os.path.join(root_dir, "run_*", "frame_*.png")
+            self.paths = sorted(glob.glob(pattern_old))
+        
+        if len(self.paths) == 0:
+            raise RuntimeError(
+                f"No images found in {root_dir}. "
+                f"Tried patterns:\n"
+                f"  - {pattern_new}\n"
+                f"  - {pattern_old}\n"
+                f"Make sure you've collected rollouts first with collect_rollouts()."
+            )
+        
+        print(f"RolloutImageDataset: Found {len(self.paths)} images in {root_dir}")
+        
         self.transform = transforms.Compose([
             transforms.ToTensor(),
         ])
@@ -57,7 +85,28 @@ class RolloutLatentDataset(Dataset):
         
         all_files = sorted(glob.glob(os.path.join(root_dir, "run_*", "rollout_data.npz")))
         if not all_files:
-            raise RuntimeError(f"No NPZ files found in {root_dir}")
+            raise RuntimeError(
+                f"No NPZ files found in {root_dir}. "
+                f"Make sure you've collected rollouts and encoded them first."
+            )
+        
+        # Filter out files that don't have latents yet (for RNN training)
+        valid_files = []
+        for path in all_files:
+            with np.load(path) as data:
+                # Check if latents are present (either directly or via mu/logvar)
+                has_latents = 'latents' in data or 'mu' in data
+                if has_latents:
+                    valid_files.append(path)
+        
+        if not valid_files:
+            raise RuntimeError(
+                f"Found {len(all_files)} NPZ files, but none contain latent data. "
+                f"Make sure you've run encode_rollouts() after VAE training."
+            )
+        
+        all_files = valid_files
+        print(f"Found {len(all_files)} rollouts with latent data")
         
         # Perform train/test split at the file level
         if split is not None:

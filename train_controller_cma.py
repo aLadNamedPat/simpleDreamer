@@ -155,7 +155,7 @@ def train_controller_cma(
             set_controller_params(controller, best_params)
             torch.save(controller.state_dict(), f"controller_cma_gen_{generation+1:03d}.pth")
         
-        generation += 1
+        generation += 1 
     
     # Print stop reason
     print(f"\nCMA-ES stopped: {es.stop()}")
@@ -166,22 +166,40 @@ def train_controller_cma(
 
 
 def main():
+    import argparse
+    parser = argparse.ArgumentParser(description="Train controller with CMA-ES")
+    parser.add_argument("--vae", default="vae_weights_epoch_07.pth", help="VAE weights path")
+    parser.add_argument("--rnn", default="weights_rnn/RNN_weights_epoch_02.pth", help="RNN weights path")
+    parser.add_argument("--generations", type=int, default=100, help="Max generations")
+    parser.add_argument("--population", type=int, default=16, help="Population size")
+    parser.add_argument("--sigma", type=float, default=0.5, help="Initial sigma")
+    parser.add_argument("--eval-episodes", type=int, default=1, help="Episodes per evaluation")
+    args = parser.parse_args()
+    
     env = gym.make("CarRacing-v3")
     
-    # Load VAE and RNN
-    vae = VAE(3, 3, 32, [64, 64, 128, 128]).to(device)
-    rnn = RNN_MDN(32, 3, 35, 5, 256, 1).to(device)
+    # Model architecture parameters (must match training)
+    latent_dim = 32
+    hidden_size = 256  # RNN hidden size - MUST match your trained RNN
     
-    vae.load_state_dict(torch.load("vae_weights_epoch_04.pth", map_location=device))
-    rnn.load_state_dict(torch.load("weights_new/RNN_weights_best.pth", map_location=device))
+    # Load VAE and RNN
+    vae = VAE(3, 3, latent_dim, [64, 64, 128, 128]).to(device)
+    rnn = RNN_MDN(latent_dim, 3, hidden_size, 5, 256, 1).to(device)
+    
+    vae.load_state_dict(torch.load(args.vae, map_location=device))
+    rnn.load_state_dict(torch.load(args.rnn, map_location=device))
     
     # Initialize controller
+    # Input: latent (32) + RNN hidden state (256) = 288
     controller = Controller(
-        input_features=32 + 35,
+        input_features=latent_dim + hidden_size,
         actions_dims=3,
     ).to(device)
     
     print("Models loaded!")
+    print(f"VAE: {args.vae}")
+    print(f"RNN: {args.rnn}")
+    print(f"Controller input size: {latent_dim + hidden_size}")
     
     # Baseline
     print("\n=== Baseline ===")
@@ -192,10 +210,10 @@ def main():
     print("\n=== Training Controller with CMA-ES ===")
     best_reward = train_controller_cma(
         vae, rnn, controller, env,
-        max_generations=100,
-        population_size=16,
-        sigma_init=0.5,      # Initial step size (often larger than vanilla ES)
-        eval_episodes=1
+        max_generations=args.generations,
+        population_size=args.population,
+        sigma_init=args.sigma,
+        eval_episodes=args.eval_episodes
     )
     
     # Final evaluation

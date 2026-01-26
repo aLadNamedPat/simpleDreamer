@@ -16,6 +16,7 @@ from tqdm import tqdm
 import gc
 import multiprocessing as mp
 from concurrent.futures import ProcessPoolExecutor
+import wandb
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -284,6 +285,7 @@ def train_controller_cma(
     eval_episodes=8,
     max_steps=1000,
     candidates_parallel=4,
+    project_name="WorldModels_Controller",
 ):
     """
     Train controller using CMA-ES with batched candidate evaluation.
@@ -299,6 +301,20 @@ def train_controller_cma(
     print(f"Training controller with {num_params} parameters")
     print(f"Population: {population_size}, Eval episodes: {eval_episodes}")
     print(f"Candidates in parallel: {candidates_parallel}, Total envs: {total_envs}")
+    
+    # Initialize wandb
+    wandb.init(
+        project=project_name,
+        config={
+            "num_params": num_params,
+            "population_size": population_size,
+            "eval_episodes": eval_episodes,
+            "max_steps": max_steps,
+            "candidates_parallel": candidates_parallel,
+            "sigma_init": sigma_init,
+            "max_generations": max_generations,
+        }
+    )
     
     opts = {
         'popsize': population_size,
@@ -339,6 +355,8 @@ def train_controller_cma(
                 batch_candidates = candidates[start_idx:end_idx]
                 actual_batch_size = len(batch_candidates)
                 
+                print(f"  Batch {batch_idx+1}/{num_batches} ({actual_batch_size} candidates)...", flush=True)
+                
                 # Set params for each controller in batch
                 for i, candidate in enumerate(batch_candidates):
                     set_controller_params(controllers[i], candidate)
@@ -369,6 +387,17 @@ def train_controller_cma(
                 set_controller_params(controller, best_params)
                 torch.save(controller.state_dict(), "controller_cma_best.pth")
             
+            # Log to wandb
+            wandb.log({
+                "generation": generation + 1,
+                "mean_reward": np.mean(rewards),
+                "max_reward": np.max(rewards),
+                "min_reward": np.min(rewards),
+                "std_reward": np.std(rewards),
+                "best_ever_reward": best_reward,
+                "sigma": es.sigma,
+            })
+            
             print(f"Gen {generation+1:3d} | Mean: {np.mean(rewards):7.1f} | "
                   f"Max: {np.max(rewards):7.1f} | Best ever: {best_reward:7.1f} | "
                   f"Sigma: {es.sigma:.4f}")
@@ -383,6 +412,7 @@ def train_controller_cma(
     except KeyboardInterrupt:
         print("\nTraining interrupted")
     
+    wandb.finish()
     set_controller_params(controller, best_params)
     return best_reward
 
@@ -426,6 +456,9 @@ def evaluate_candidates_batched(vae, rnn, controllers, eval_episodes, max_steps)
             steps = 0
             
             while not np.all(dones) and steps < max_steps:
+                if steps % 100 == 0:
+                    print(f"    Step {steps}, {np.sum(~dones)}/{total_envs} envs active...", flush=True)
+                
                 # Process all observations through VAE
                 obs_tensor = torch.from_numpy(obs).float() / 255.0
                 obs_tensor = obs_tensor.permute(0, 3, 1, 2).to(device)
@@ -689,6 +722,7 @@ def main():
     parser.add_argument("--max-steps", type=int, default=1000, help="Max steps per episode")
     parser.add_argument("--num-workers", type=int, default=0, help="Number of parallel workers (0 = no parallelism)")
     parser.add_argument("--candidates-parallel", type=int, default=4, help="Number of candidates to evaluate in parallel (when num-workers=0)")
+    parser.add_argument("--project", type=str, default="WorldModels_Controller", help="Wandb project name")
     args = parser.parse_args()
     
     print("=" * 60)
@@ -765,6 +799,7 @@ def main():
             eval_episodes=args.eval_episodes,
             max_steps=args.max_steps,
             candidates_parallel=args.candidates_parallel,
+            project_name=args.project,
         )
         
         # Final evaluation

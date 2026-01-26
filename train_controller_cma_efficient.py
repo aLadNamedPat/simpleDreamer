@@ -198,14 +198,10 @@ def evaluate_controller_vectorized(vae, rnn, controller, num_envs, max_steps=100
     Evaluate controller with a fresh vectorized environment.
     Creates and destroys env each call to manage memory.
     """
-    print(f"  Creating {num_envs} vectorized envs...", flush=True)
-    
     # Create env
     vec_env = gym.vector.SyncVectorEnv([
         lambda: gym.make("CarRacing-v3", render_mode=None) for _ in range(num_envs)
     ])
-    
-    print(f"  Envs created, resetting...", flush=True)
     
     try:
         vae.eval()
@@ -214,7 +210,6 @@ def evaluate_controller_vectorized(vae, rnn, controller, num_envs, max_steps=100
         
         with torch.no_grad():
             obs, _ = vec_env.reset()
-            print(f"  Reset done, starting rollout...", flush=True)
             h = rnn.get_initial_hidden(device, batch_size=num_envs)
             
             total_rewards = np.zeros(num_envs)
@@ -222,9 +217,6 @@ def evaluate_controller_vectorized(vae, rnn, controller, num_envs, max_steps=100
             steps = 0
             
             while not np.all(dones) and steps < max_steps:
-                if steps % 100 == 0:
-                    print(f"  Step {steps}, {np.sum(~dones)} envs active...", flush=True)
-                
                 obs_tensor = torch.from_numpy(obs).float() / 255.0
                 obs_tensor = obs_tensor.permute(0, 3, 1, 2).to(device)
                 
@@ -284,12 +276,12 @@ def train_controller_cma(
     sigma_init=0.5,
     eval_episodes=8,
     max_steps=1000,
-    candidates_parallel=4,
+    candidates_parallel=4,  # Ignored - kept for compatibility
     project_name="WorldModels_Controller",
 ):
     """
-    Train controller using CMA-ES with batched candidate evaluation.
-    Evaluates multiple candidates in parallel using a large vectorized environment.
+    Train controller using CMA-ES.
+    Evaluates one candidate at a time using vectorized environments.
     """
     vae.eval()
     rnn.eval()
@@ -297,10 +289,8 @@ def train_controller_cma(
     x0 = get_controller_params(controller)
     num_params = len(x0)
     
-    total_envs = candidates_parallel * eval_episodes
     print(f"Training controller with {num_params} parameters")
     print(f"Population: {population_size}, Eval episodes: {eval_episodes}")
-    print(f"Candidates in parallel: {candidates_parallel}, Total envs: {total_envs}")
     
     # Initialize wandb
     wandb.init(
@@ -310,7 +300,6 @@ def train_controller_cma(
             "population_size": population_size,
             "eval_episodes": eval_episodes,
             "max_steps": max_steps,
-            "candidates_parallel": candidates_parallel,
             "sigma_init": sigma_init,
             "max_generations": max_generations,
         }
@@ -330,47 +319,26 @@ def train_controller_cma(
     best_params = x0.copy()
     generation = 0
     
-    # Create multiple controllers for parallel evaluation
-    # Use same dimensions as the original controller: latent_dim + hidden_size -> 3 actions
-    latent_dim = 32
-    hidden_size = 256
-    
-    controllers = [Controller(input_features=latent_dim + hidden_size, 
-                              actions_dims=3).to(device) 
-                   for _ in range(candidates_parallel)]
-    
     try:
         while not es.stop():
             candidates = es.ask()
             rewards = []
             
-            # Process candidates in batches
-            num_batches = (len(candidates) + candidates_parallel - 1) // candidates_parallel
-            
-            pbar = tqdm(total=len(candidates), desc=f"Gen {generation}", leave=False)
-            
-            for batch_idx in range(num_batches):
-                start_idx = batch_idx * candidates_parallel
-                end_idx = min(start_idx + candidates_parallel, len(candidates))
-                batch_candidates = candidates[start_idx:end_idx]
-                actual_batch_size = len(batch_candidates)
+            pbar = tqdm(candidates, desc=f"Gen {generation}", leave=False)
+            for candidate in pbar:
+                set_controller_params(controller, candidate)
                 
-                print(f"  Batch {batch_idx+1}/{num_batches} ({actual_batch_size} candidates)...", flush=True)
-                
-                # Set params for each controller in batch
-                for i, candidate in enumerate(batch_candidates):
-                    set_controller_params(controllers[i], candidate)
-                
-                # Evaluate batch
-                batch_rewards = evaluate_candidates_batched(
-                    vae, rnn, controllers[:actual_batch_size],
-                    eval_episodes=eval_episodes,
+                # Evaluate with vectorized env (16 episodes in parallel)
+                episode_rewards = evaluate_controller_vectorized(
+                    vae, rnn, controller, 
+                    num_envs=eval_episodes,
                     max_steps=max_steps
                 )
                 
-                rewards.extend(batch_rewards)
-                pbar.update(actual_batch_size)
-                pbar.set_postfix({'last_reward': f'{batch_rewards[-1]:.1f}'})
+                avg_reward = np.mean(episode_rewards)
+                rewards.append(avg_reward)
+                
+                pbar.set_postfix({'reward': f'{avg_reward:.1f}'})
             
             pbar.close()
             

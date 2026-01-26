@@ -26,13 +26,23 @@ _worker_models = None
 def init_worker(vae_path, rnn_path, latent_dim, hidden_size, eval_episodes):
     """Initialize models in worker process."""
     global _worker_models
+    import os
+    
+    worker_id = os.getpid()
+    print(f"[Worker {worker_id}] Starting initialization...", flush=True)
     
     worker_device = torch.device('cpu')
     
+    print(f"[Worker {worker_id}] Loading VAE...", flush=True)
     vae = VAE(3, 3, latent_dim, [64, 64, 128, 128]).to(worker_device)
+    
+    print(f"[Worker {worker_id}] Loading RNN...", flush=True)
     rnn = RNN_MDN(latent_dim, 3, hidden_size, 5, 256, 1).to(worker_device)
+    
+    print(f"[Worker {worker_id}] Loading Controller...", flush=True)
     controller = Controller(input_features=latent_dim + hidden_size, actions_dims=3).to(worker_device)
     
+    print(f"[Worker {worker_id}] Loading weights...", flush=True)
     vae.load_state_dict(torch.load(vae_path, map_location=worker_device))
     rnn.load_state_dict(torch.load(rnn_path, map_location=worker_device))
     
@@ -45,7 +55,10 @@ def init_worker(vae_path, rnn_path, latent_dim, hidden_size, eval_episodes):
         'controller': controller,
         'device': worker_device,
         'eval_episodes': eval_episodes,
+        'worker_id': worker_id,
     }
+    
+    print(f"[Worker {worker_id}] Initialization complete!", flush=True)
 
 
 def make_env():
@@ -57,6 +70,9 @@ def evaluate_candidate_worker(args):
     """Evaluate a single candidate in worker process."""
     params, max_steps = args
     global _worker_models
+    
+    worker_id = _worker_models.get('worker_id', 'unknown')
+    print(f"[Worker {worker_id}] Starting candidate evaluation...", flush=True)
     
     vae = _worker_models['vae']
     rnn = _worker_models['rnn']
@@ -74,7 +90,8 @@ def evaluate_candidate_worker(args):
     
     # Evaluate episodes sequentially (more reliable in subprocesses)
     all_rewards = []
-    for _ in range(eval_episodes):
+    for ep in range(eval_episodes):
+        print(f"[Worker {worker_id}] Episode {ep+1}/{eval_episodes}...", flush=True)
         env = gym.make("CarRacing-v3")
         try:
             obs, _ = env.reset()
@@ -112,10 +129,13 @@ def evaluate_candidate_worker(args):
                     steps += 1
             
             all_rewards.append(total_reward)
+            print(f"[Worker {worker_id}] Episode {ep+1} done: reward={total_reward:.1f}, steps={steps}", flush=True)
         finally:
             env.close()
     
-    return float(np.mean(all_rewards))
+    avg_reward = float(np.mean(all_rewards))
+    print(f"[Worker {worker_id}] Candidate done: avg_reward={avg_reward:.1f}", flush=True)
+    return avg_reward
 
 
 def evaluate_candidate_worker_OLD(args):
@@ -347,12 +367,17 @@ def train_controller_cma_parallel(
     
     ctx = mp.get_context('spawn')
     
+    print("Creating process pool...", flush=True)
+    print(f"Initializer args: vae={vae_path}, rnn={rnn_path}", flush=True)
+    
     with ProcessPoolExecutor(
         max_workers=num_workers,
         mp_context=ctx,
         initializer=init_worker,
         initargs=(vae_path, rnn_path, latent_dim, hidden_size, eval_episodes)
     ) as executor:
+        
+        print("Process pool created, starting training loop...", flush=True)
         
         try:
             while not es.stop():

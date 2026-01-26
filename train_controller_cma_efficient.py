@@ -60,7 +60,7 @@ def make_env():
 
 
 def evaluate_candidate_worker(args):
-    """Evaluate a single candidate in worker process using vectorized envs."""
+    """Evaluate a single candidate in worker process using multiple envs stepped together."""
     params, max_steps = args
     global _worker_models
     
@@ -82,18 +82,21 @@ def evaluate_candidate_worker(args):
         p.data.copy_(params_tensor[idx:idx+size].view(p.shape))
         idx += size
     
-    print(f"[Worker {worker_id}] Creating {eval_episodes} vectorized envs...", flush=True)
+    print(f"[Worker {worker_id}] Creating {eval_episodes} individual envs...", flush=True)
     
-    # Create vectorized environment using factory function
-    def make_env_fn():
-        return gym.make("CarRacing-v3", render_mode=None)
+    # Create individual environments (no vectorization wrapper)
+    envs = [gym.make("CarRacing-v3", render_mode=None) for _ in range(eval_episodes)]
     
-    vec_env = gym.vector.SyncVectorEnv([make_env_fn for _ in range(eval_episodes)])
-    
-    print(f"[Worker {worker_id}] Vectorized env created, resetting...", flush=True)
+    print(f"[Worker {worker_id}] Envs created, resetting...", flush=True)
     
     try:
-        obs, _ = vec_env.reset()
+        # Reset all envs
+        observations = []
+        for env in envs:
+            obs, _ = env.reset()
+            observations.append(obs)
+        obs = np.stack(observations, axis=0)  # [num_envs, H, W, C]
+        
         print(f"[Worker {worker_id}] Reset done, obs shape: {obs.shape}", flush=True)
         
         h = rnn.get_initial_hidden(worker_device, batch_size=eval_episodes)
@@ -129,9 +132,21 @@ def evaluate_candidate_worker(args):
                 a[:, 2] = (a[:, 2] + 1) / 2
                 a = a.astype(np.float32)
                 
-                # Step all envs
-                obs, rewards, terminated, truncated, _ = vec_env.step(a)
-                done_now = terminated | truncated
+                # Step all envs individually
+                new_observations = []
+                rewards = np.zeros(eval_episodes)
+                done_now = np.zeros(eval_episodes, dtype=bool)
+                
+                for i, env in enumerate(envs):
+                    if not dones[i]:
+                        new_obs, reward, terminated, truncated, _ = env.step(a[i])
+                        new_observations.append(new_obs)
+                        rewards[i] = reward
+                        done_now[i] = terminated or truncated
+                    else:
+                        new_observations.append(obs[i])  # Keep old obs for done envs
+                
+                obs = np.stack(new_observations, axis=0)
                 
                 # Accumulate rewards for non-done envs
                 total_rewards += rewards * (~dones)
@@ -148,8 +163,8 @@ def evaluate_candidate_worker(args):
         return avg_reward
         
     finally:
-        vec_env.close()
-        del vec_env
+        for env in envs:
+            env.close()
         gc.collect()
 
 

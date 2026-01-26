@@ -221,6 +221,9 @@ def evaluate_controller_vectorized(vae, rnn, controller, num_envs, max_steps=100
             steps = 0
             
             while not np.all(dones) and steps < max_steps:
+                if steps % 100 == 0:
+                    print(f"  Step {steps}, {np.sum(~dones)} envs active...", flush=True)
+                
                 obs_tensor = torch.from_numpy(obs).float() / 255.0
                 obs_tensor = obs_tensor.permute(0, 3, 1, 2).to(device)
                 
@@ -312,8 +315,12 @@ def train_controller_cma(
     generation = 0
     
     # Create multiple controllers for parallel evaluation
-    controllers = [Controller(input_features=controller.fc[0].in_features, 
-                              actions_dims=controller.fc[-1].out_features).to(device) 
+    # Get input/output dimensions from the original controller
+    input_dim = controller.fc1.in_features
+    output_dim = controller.fc1.out_features  # Controller is just a single linear layer
+    
+    controllers = [Controller(input_features=input_dim, 
+                              actions_dims=output_dim).to(device) 
                    for _ in range(candidates_parallel)]
     
     try:

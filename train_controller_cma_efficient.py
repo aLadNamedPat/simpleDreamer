@@ -197,10 +197,14 @@ def evaluate_controller_vectorized(vae, rnn, controller, num_envs, max_steps=100
     Evaluate controller with a fresh vectorized environment.
     Creates and destroys env each call to manage memory.
     """
+    print(f"  Creating {num_envs} vectorized envs...", flush=True)
+    
     # Create env
     vec_env = gym.vector.SyncVectorEnv([
-        lambda: gym.make("CarRacing-v3") for _ in range(num_envs)
+        lambda: gym.make("CarRacing-v3", render_mode=None) for _ in range(num_envs)
     ])
+    
+    print(f"  Envs created, resetting...", flush=True)
     
     try:
         vae.eval()
@@ -209,6 +213,7 @@ def evaluate_controller_vectorized(vae, rnn, controller, num_envs, max_steps=100
         
         with torch.no_grad():
             obs, _ = vec_env.reset()
+            print(f"  Reset done, starting rollout...", flush=True)
             h = rnn.get_initial_hidden(device, batch_size=num_envs)
             
             total_rewards = np.zeros(num_envs)
@@ -275,9 +280,218 @@ def train_controller_cma(
     sigma_init=0.5,
     eval_episodes=8,
     max_steps=1000,
+    candidates_parallel=4,
+):
+    """
+    Train controller using CMA-ES with batched candidate evaluation.
+    Evaluates multiple candidates in parallel using a large vectorized environment.
+    """
+    vae.eval()
+    rnn.eval()
+    
+    x0 = get_controller_params(controller)
+    num_params = len(x0)
+    
+    total_envs = candidates_parallel * eval_episodes
+    print(f"Training controller with {num_params} parameters")
+    print(f"Population: {population_size}, Eval episodes: {eval_episodes}")
+    print(f"Candidates in parallel: {candidates_parallel}, Total envs: {total_envs}")
+    
+    opts = {
+        'popsize': population_size,
+        'maxiter': max_generations,
+        'CMA_diagonal': True,
+        'verb_disp': 0,
+        'verb_log': 0,
+    }
+    
+    es = cma.CMAEvolutionStrategy(x0, sigma_init, opts)
+    
+    best_reward = -float('inf')
+    best_params = x0.copy()
+    generation = 0
+    
+    # Create multiple controllers for parallel evaluation
+    controllers = [Controller(input_features=controller.fc[0].in_features, 
+                              actions_dims=controller.fc[-1].out_features).to(device) 
+                   for _ in range(candidates_parallel)]
+    
+    try:
+        while not es.stop():
+            candidates = es.ask()
+            rewards = []
+            
+            # Process candidates in batches
+            num_batches = (len(candidates) + candidates_parallel - 1) // candidates_parallel
+            
+            pbar = tqdm(total=len(candidates), desc=f"Gen {generation}", leave=False)
+            
+            for batch_idx in range(num_batches):
+                start_idx = batch_idx * candidates_parallel
+                end_idx = min(start_idx + candidates_parallel, len(candidates))
+                batch_candidates = candidates[start_idx:end_idx]
+                actual_batch_size = len(batch_candidates)
+                
+                # Set params for each controller in batch
+                for i, candidate in enumerate(batch_candidates):
+                    set_controller_params(controllers[i], candidate)
+                
+                # Evaluate batch
+                batch_rewards = evaluate_candidates_batched(
+                    vae, rnn, controllers[:actual_batch_size],
+                    eval_episodes=eval_episodes,
+                    max_steps=max_steps
+                )
+                
+                rewards.extend(batch_rewards)
+                pbar.update(actual_batch_size)
+                pbar.set_postfix({'last_reward': f'{batch_rewards[-1]:.1f}'})
+            
+            pbar.close()
+            
+            fitnesses = [-r for r in rewards]
+            es.tell(candidates, fitnesses)
+            
+            # Track best
+            gen_best_idx = np.argmin(fitnesses)
+            gen_best_reward = rewards[gen_best_idx]
+            
+            if gen_best_reward > best_reward:
+                best_reward = gen_best_reward
+                best_params = candidates[gen_best_idx].copy()
+                set_controller_params(controller, best_params)
+                torch.save(controller.state_dict(), "controller_cma_best.pth")
+            
+            print(f"Gen {generation+1:3d} | Mean: {np.mean(rewards):7.1f} | "
+                  f"Max: {np.max(rewards):7.1f} | Best ever: {best_reward:7.1f} | "
+                  f"Sigma: {es.sigma:.4f}")
+            
+            if (generation + 1) % 10 == 0:
+                set_controller_params(controller, best_params)
+                torch.save(controller.state_dict(), f"controller_cma_gen_{generation+1:03d}.pth")
+            
+            generation += 1
+            gc.collect()
+            
+    except KeyboardInterrupt:
+        print("\nTraining interrupted")
+    
+    set_controller_params(controller, best_params)
+    return best_reward
+
+
+def evaluate_candidates_batched(vae, rnn, controllers, eval_episodes, max_steps):
+    """
+    Evaluate multiple candidates simultaneously using batched environments.
+    
+    Args:
+        vae: VAE model
+        rnn: RNN model  
+        controllers: List of controllers (one per candidate)
+        eval_episodes: Episodes per candidate
+        max_steps: Max steps per episode
+    
+    Returns:
+        List of average rewards, one per candidate
+    """
+    num_candidates = len(controllers)
+    total_envs = num_candidates * eval_episodes
+    
+    # Create vectorized environment for all candidates
+    vec_env = gym.vector.SyncVectorEnv([
+        lambda: gym.make("CarRacing-v3", render_mode=None) for _ in range(total_envs)
+    ])
+    
+    try:
+        vae.eval()
+        rnn.eval()
+        for c in controllers:
+            c.eval()
+        
+        with torch.no_grad():
+            obs, _ = vec_env.reset()
+            
+            # Initialize hidden states for all envs
+            h = rnn.get_initial_hidden(device, batch_size=total_envs)
+            
+            total_rewards = np.zeros(total_envs)
+            dones = np.zeros(total_envs, dtype=bool)
+            steps = 0
+            
+            while not np.all(dones) and steps < max_steps:
+                # Process all observations through VAE
+                obs_tensor = torch.from_numpy(obs).float() / 255.0
+                obs_tensor = obs_tensor.permute(0, 3, 1, 2).to(device)
+                
+                mu, logvar = vae.encode(obs_tensor)
+                z = vae.reparamterize(mu, logvar)
+                
+                # Get hidden state for controller
+                h_for_controller = h[0][-1]  # [total_envs, hidden_size]
+                controller_input = torch.cat([z, h_for_controller], dim=1)
+                
+                # Apply each controller to its corresponding envs
+                actions_list = []
+                for i, ctrl in enumerate(controllers):
+                    start_env = i * eval_episodes
+                    end_env = start_env + eval_episodes
+                    
+                    ctrl_input = controller_input[start_env:end_env]
+                    action = ctrl(ctrl_input)
+                    action = torch.tanh(action)
+                    actions_list.append(action)
+                
+                actions = torch.cat(actions_list, dim=0)
+                
+                # Scale actions
+                a = actions.cpu().numpy()
+                a[:, 1] = (a[:, 1] + 1) / 2
+                a[:, 2] = (a[:, 2] + 1) / 2
+                a = a.astype(np.float32)
+                
+                # Step all envs
+                obs, rewards, terminated, truncated, _ = vec_env.step(a)
+                done_now = terminated | truncated
+                
+                # Accumulate rewards
+                total_rewards += rewards * (~dones)
+                dones = dones | done_now
+                
+                # Update RNN hidden state
+                a_tensor = torch.from_numpy(a).float().to(device)
+                (_, _, _), h = rnn.forward(z, h, a_tensor)
+                
+                steps += 1
+        
+        # Compute average reward per candidate
+        candidate_rewards = []
+        for i in range(num_candidates):
+            start_env = i * eval_episodes
+            end_env = start_env + eval_episodes
+            avg_reward = np.mean(total_rewards[start_env:end_env])
+            candidate_rewards.append(avg_reward)
+        
+        return candidate_rewards
+        
+    finally:
+        vec_env.close()
+        del vec_env
+        gc.collect()
+
+
+def train_controller_cma_OLD(
+    vae,
+    rnn,
+    controller,
+    max_generations=100,
+    population_size=32,
+    sigma_init=0.5,
+    eval_episodes=8,
+    max_steps=1000,
 ):
     """
     Train controller using CMA-ES with memory-efficient evaluation (no workers).
+    OLD VERSION - evaluates one candidate at a time.
     """
     vae.eval()
     rnn.eval()
@@ -467,6 +681,7 @@ def main():
     parser.add_argument("--eval-episodes", type=int, default=8, help="Episodes per evaluation")
     parser.add_argument("--max-steps", type=int, default=1000, help="Max steps per episode")
     parser.add_argument("--num-workers", type=int, default=0, help="Number of parallel workers (0 = no parallelism)")
+    parser.add_argument("--candidates-parallel", type=int, default=4, help="Number of candidates to evaluate in parallel (when num-workers=0)")
     args = parser.parse_args()
     
     print("=" * 60)
@@ -478,7 +693,11 @@ def main():
     print(f"Population: {args.population}")
     print(f"Eval episodes: {args.eval_episodes}")
     print(f"Max steps: {args.max_steps}")
-    print(f"Num workers: {args.num_workers if args.num_workers > 0 else 'None (using vectorized envs in main process)'}")
+    if args.num_workers > 0:
+        print(f"Num workers: {args.num_workers}")
+    else:
+        print(f"Candidates in parallel: {args.candidates_parallel}")
+        print(f"Total envs: {args.candidates_parallel * args.eval_episodes}")
     print(f"Device: {device}")
     print("=" * 60)
     
@@ -507,7 +726,7 @@ def main():
         torch.save(controller_final.state_dict(), "controller_cma_final.pth")
         
     else:
-        # Sequential training
+        # Batched training (multiple candidates in parallel)
         print("Loading models...")
         vae = VAE(3, 3, latent_dim, [64, 64, 128, 128]).to(device)
         rnn = RNN_MDN(latent_dim, 3, hidden_size, 5, 256, 1).to(device)
@@ -538,6 +757,7 @@ def main():
             sigma_init=args.sigma,
             eval_episodes=args.eval_episodes,
             max_steps=args.max_steps,
+            candidates_parallel=args.candidates_parallel,
         )
         
         # Final evaluation

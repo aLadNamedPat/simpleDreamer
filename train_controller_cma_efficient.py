@@ -91,10 +91,12 @@ def evaluate_candidate_worker(args):
     # Evaluate episodes sequentially (more reliable in subprocesses)
     all_rewards = []
     for ep in range(eval_episodes):
-        print(f"[Worker {worker_id}] Episode {ep+1}/{eval_episodes}...", flush=True)
-        env = gym.make("CarRacing-v3")
+        print(f"[Worker {worker_id}] Episode {ep+1}/{eval_episodes} creating env...", flush=True)
+        env = gym.make("CarRacing-v3", render_mode=None)  # No rendering
+        print(f"[Worker {worker_id}] Episode {ep+1}/{eval_episodes} env created, resetting...", flush=True)
         try:
             obs, _ = env.reset()
+            print(f"[Worker {worker_id}] Episode {ep+1}/{eval_episodes} reset done, starting rollout...", flush=True)
             h = rnn.get_initial_hidden(worker_device, batch_size=1)
             total_reward = 0
             done = False

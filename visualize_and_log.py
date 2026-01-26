@@ -196,8 +196,8 @@ def run_visualization(
     # Load models
     print("Loading models...")
     vae = VAE(3, 3, 32, [64, 64, 128, 128]).to(device)
-    rnn = RNN_MDN(32, 3, 35, 5, 256, 1).to(device)
-    
+    rnn = RNN_MDN(32, 3, 256, 5, 256, 1).to(device)
+
     vae.load_state_dict(torch.load(vae_path, map_location=device))
     rnn.load_state_dict(torch.load(rnn_path, map_location=device))
     

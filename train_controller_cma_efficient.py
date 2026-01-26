@@ -478,7 +478,7 @@ def main():
     print(f"Population: {args.population}")
     print(f"Eval episodes: {args.eval_episodes}")
     print(f"Max steps: {args.max_steps}")
-    print(f"Num workers: {args.num_workers if args.num_workers > 0 else 'Sequential (no parallelism)'}")
+    print(f"Num workers: {args.num_workers if args.num_workers > 0 else 'None (using vectorized envs in main process)'}")
     print(f"Device: {device}")
     print("=" * 60)
     

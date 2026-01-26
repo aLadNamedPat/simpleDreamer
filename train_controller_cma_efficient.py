@@ -104,6 +104,8 @@ def evaluate_candidate_worker(args):
             
             with torch.no_grad():
                 while not done and steps < max_steps:
+                    print(f"[Worker {worker_id}] Episode {ep+1} step {steps}...", flush=True)
+                    
                     obs_tensor = torch.from_numpy(obs).float() / 255.0
                     obs_tensor = obs_tensor.permute(2, 0, 1).unsqueeze(0).to(worker_device)
                     

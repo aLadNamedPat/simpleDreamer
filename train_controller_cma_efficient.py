@@ -315,12 +315,12 @@ def train_controller_cma(
     generation = 0
     
     # Create multiple controllers for parallel evaluation
-    # Get input/output dimensions from the original controller
-    input_dim = controller.fc1.in_features
-    output_dim = controller.fc1.out_features  # Controller is just a single linear layer
+    # Use same dimensions as the original controller: latent_dim + hidden_size -> 3 actions
+    latent_dim = 32
+    hidden_size = 256
     
-    controllers = [Controller(input_features=input_dim, 
-                              actions_dims=output_dim).to(device) 
+    controllers = [Controller(input_features=latent_dim + hidden_size, 
+                              actions_dims=3).to(device) 
                    for _ in range(candidates_parallel)]
     
     try:

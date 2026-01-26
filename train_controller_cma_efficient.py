@@ -48,6 +48,11 @@ def init_worker(vae_path, rnn_path, latent_dim, hidden_size, eval_episodes):
     }
 
 
+def make_env():
+    """Factory function for creating environments."""
+    return gym.make("CarRacing-v3")
+
+
 def evaluate_candidate_worker(args):
     """Evaluate a single candidate in worker process."""
     params, max_steps = args
@@ -67,56 +72,76 @@ def evaluate_candidate_worker(args):
         p.data.copy_(params_tensor[idx:idx+size].view(p.shape))
         idx += size
     
-    # Create vectorized env
-    vec_env = gym.vector.SyncVectorEnv([
-        lambda: gym.make("CarRacing-v3") for _ in range(eval_episodes)
-    ])
-    
-    try:
-        with torch.no_grad():
-            obs, _ = vec_env.reset()
-            h = rnn.get_initial_hidden(worker_device, batch_size=eval_episodes)
-            
-            total_rewards = np.zeros(eval_episodes)
-            dones = np.zeros(eval_episodes, dtype=bool)
+    # Evaluate episodes sequentially (more reliable in subprocesses)
+    all_rewards = []
+    for _ in range(eval_episodes):
+        env = gym.make("CarRacing-v3")
+        try:
+            obs, _ = env.reset()
+            h = rnn.get_initial_hidden(worker_device, batch_size=1)
+            total_reward = 0
+            done = False
             steps = 0
             
-            while not np.all(dones) and steps < max_steps:
-                obs_tensor = torch.from_numpy(obs).float() / 255.0
-                obs_tensor = obs_tensor.permute(0, 3, 1, 2).to(worker_device)
-                
-                mu, logvar = vae.encode(obs_tensor)
-                z = vae.reparamterize(mu, logvar)
-                
-                h_for_controller = h[0][-1]
-                controller_input = torch.cat([z, h_for_controller], dim=1)
-                
-                actions = controller(controller_input)
-                actions = torch.tanh(actions)
-                
-                a = actions.cpu().numpy()
-                a[:, 1] = (a[:, 1] + 1) / 2
-                a[:, 2] = (a[:, 2] + 1) / 2
-                a = a.astype(np.float32)
-                
-                obs, rewards, terminated, truncated, _ = vec_env.step(a)
-                done_now = terminated | truncated
-                
-                total_rewards += rewards * (~dones)
-                dones = dones | done_now
-                
-                a_tensor = torch.from_numpy(a).float().to(worker_device)
-                (_, _, _), h = rnn.forward(z, h, a_tensor)
-                
-                steps += 1
+            with torch.no_grad():
+                while not done and steps < max_steps:
+                    obs_tensor = torch.from_numpy(obs).float() / 255.0
+                    obs_tensor = obs_tensor.permute(2, 0, 1).unsqueeze(0).to(worker_device)
+                    
+                    mu, logvar = vae.encode(obs_tensor)
+                    z = vae.reparamterize(mu, logvar)
+                    
+                    h_for_controller = h[0][-1]
+                    controller_input = torch.cat([z, h_for_controller], dim=1)
+                    
+                    action = controller(controller_input)
+                    action = torch.tanh(action)
+                    
+                    a = action.squeeze(0).cpu().numpy()
+                    a[1] = (a[1] + 1) / 2
+                    a[2] = (a[2] + 1) / 2
+                    a = a.astype(np.float32)
+                    
+                    obs, reward, terminated, truncated, _ = env.step(a)
+                    done = terminated or truncated
+                    total_reward += reward
+                    
+                    a_tensor = torch.from_numpy(a).unsqueeze(0).to(worker_device)
+                    (_, _, _), h = rnn.forward(z, h, a_tensor)
+                    
+                    steps += 1
             
-            return float(np.mean(total_rewards))
-    finally:
-        vec_env.close()
-        del vec_env
-        gc.collect()
+            all_rewards.append(total_reward)
+        finally:
+            env.close()
+    
+    return float(np.mean(all_rewards))
 
 
+def evaluate_candidate_worker_OLD(args):
+    """Evaluate a single candidate in worker process - vectorized version (may deadlock)."""
+    params, max_steps = args
+    global _worker_models
+    
+    vae = _worker_models['vae']
+    rnn = _worker_models['rnn']
+    controller = _worker_models['controller']
+    worker_device = _worker_models['device']
+    eval_episodes = _worker_models['eval_episodes']
+    
+    # Set controller params
+    params_tensor = torch.from_numpy(params).float().to(worker_device)
+    idx = 0
+    for p in controller.parameters():
+        size = p.numel()
+        p.data.copy_(params_tensor[idx:idx+size].view(p.shape))
+        idx += size
+    
+    # Create vectorized env
+    vec_env = gym.vector.SyncVectorEnv([
+        make_env for _ in range(eval_episodes)
+    ])
+    
 def evaluate_controller_vectorized(vae, rnn, controller, num_envs, max_steps=1000):
     """
     Evaluate controller with a fresh vectorized environment.
